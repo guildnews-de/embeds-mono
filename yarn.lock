@@ -289,6 +289,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@discretize/gw2-ui-new@npm:^0.1.4":
+  version: 0.1.4
+  resolution: "@discretize/gw2-ui-new@npm:0.1.4"
+  dependencies:
+    "@discretize/typeface-menomonia": "npm:^0.1.3"
+    clsx: "npm:^1.1.1"
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
+  checksum: 10c0/a8e9022d28c463733e86e061bf489f3f631538f7e022cd4a6fb96d937b562a54d3f77d0279cb96fa3b5bd26d714f669071b0db8999bcfb27fb6487dac2625430
+  languageName: node
+  linkType: hard
+
+"@discretize/typeface-menomonia@npm:^0.1.3":
+  version: 0.1.3
+  resolution: "@discretize/typeface-menomonia@npm:0.1.3"
+  checksum: 10c0/3576594859688c0df1dd0a12f191765e0958789af94d022b6862a4cf99aa6740c2aa8477e265c5ce121f6428f02b018a0bee85a07396b5a87a291c163c75cfa2
+  languageName: node
+  linkType: hard
+
 "@eslint-community/eslint-utils@npm:^4.2.0, @eslint-community/eslint-utils@npm:^4.4.0":
   version: 4.4.0
   resolution: "@eslint-community/eslint-utils@npm:4.4.0"
@@ -583,6 +602,23 @@ __metadata:
     eslint-config-turbo: "npm:^1.11.3"
     eslint-plugin-only-warn: "npm:^1.1.0"
     typescript: "npm:^5.3.3"
+  languageName: unknown
+  linkType: soft
+
+"@repo/ingame-ui@workspace:packages/ingame-ui":
+  version: 0.0.0-use.local
+  resolution: "@repo/ingame-ui@workspace:packages/ingame-ui"
+  dependencies:
+    "@discretize/gw2-ui-new": "npm:^0.1.4"
+    "@repo/eslint-config": "npm:*"
+    "@repo/typescript-config": "npm:*"
+    "@turbo/gen": "npm:^1.11.3"
+    "@types/eslint": "npm:^8.56.1"
+    "@types/node": "npm:^20.10.6"
+    "@types/react": "npm:^18.2.46"
+    "@types/react-dom": "npm:^18.2.18"
+    eslint: "npm:^8.56.0"
+    react: "npm:^18.2.0"
   languageName: unknown
   linkType: soft
 
@@ -1622,6 +1658,13 @@ __metadata:
   version: 1.0.4
   resolution: "clone@npm:1.0.4"
   checksum: 10c0/2176952b3649293473999a95d7bebfc9dc96410f6cbd3d2595cf12fd401f63a4bf41a7adbfd3ab2ff09ed60cb9870c58c6acdd18b87767366fabfc163700f13b
+  languageName: node
+  linkType: hard
+
+"clsx@npm:^1.1.1":
+  version: 1.2.1
+  resolution: "clsx@npm:1.2.1"
+  checksum: 10c0/34dead8bee24f5e96f6e7937d711978380647e936a22e76380290e35486afd8634966ce300fc4b74a32f3762c7d4c0303f442c3e259f4ce02374eb0c82834f27
   languageName: node
   linkType: hard
 
