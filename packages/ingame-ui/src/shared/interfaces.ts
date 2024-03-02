@@ -1,5 +1,4 @@
-import { CSSProperties, ComponentProps } from 'react';
-import type { Icon } from '@discretize/gw2-ui-new';
+import { CSSProperties } from 'react';
 
 export interface IngameUiDataset {
   // Common
@@ -114,6 +113,7 @@ export class IngameUiData {
 
     this.ids = gw2Id;
     this.text = gw2Text;
+    this.style = gw2Style;
     this.size = Number(gw2Size);
     this.count = Number(gw2Count);
     this.goldValue = Number(gw2Value);
@@ -121,13 +121,14 @@ export class IngameUiData {
     this.itemStats = gw2Stats;
     this.itemUpgrades = gw2Upgrades;
     this.traits = gw2Traits;
-    this.style = gw2Style;
+    this.traitsInactive = gw2Inactive === 'false' ? false : true;
+    this.traitsEdit = gw2Edit === 'false' ? false : true;
     this.inline = gw2Inline === 'false' ? false : true;
     this.disableTooltip = gw2Notooltip === 'false' ? false : true;
     this.disableText = gw2Notext === 'false' ? false : true;
     this.disableLink = gw2Nolink === 'false' ? false : true;
     this.disableIcon = gw2Noicon === 'false' ? false : true;
-    this.traitsInactive = gw2Inactive === 'false' ? false : true;
-    this.traitsEdit = gw2Edit === 'false' ? false : true;
   }
 }
+
+export type IngameUiProps = IngameUiData & { hash: string };

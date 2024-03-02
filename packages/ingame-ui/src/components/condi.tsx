@@ -1,13 +1,11 @@
 import { Condition } from '@discretize/gw2-ui-new';
-import React, { ComponentProps } from 'react';
-import { EmbedProps } from '../shared/interfaces';
+import { ComponentProps } from 'react';
+import { IngameUiProps } from '../shared/interfaces';
 
-export default function condiReactor(props: EmbedProps) {
+export default function condiReactor(props: IngameUiProps) {
   const { embedName, hash } = props;
 
   type ConditionTypes = ComponentProps<typeof Condition>['name'];
 
-  return (
-    <Condition name={embedName as ConditionTypes} key={hash} {...props} />
-  );
+  return <Condition name={embedName as ConditionTypes} key={hash} {...props} />;
 }

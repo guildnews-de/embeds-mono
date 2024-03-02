@@ -1,6 +1,3 @@
-import { isIngameUiType } from './shared/interfaces';
-import * as Pack from '@gw2embeds/config-eslint';
-
 // Components
 export { default as Aura } from './components/aura';
 export { default as Boon } from './components/boon';

@@ -1,10 +1,9 @@
 import { Item } from '@discretize/gw2-ui-new';
-import React, { ComponentProps } from 'react';
-import { EmbedProps } from '../shared/interfaces';
-import idParser from '../shared/idParser';
-import upgradeParser from '../shared/helper';
+import { ComponentProps } from 'react';
+import { IngameUiProps } from '../shared/interfaces';
+import { idParser, upgradeParser } from '../shared/helper';
 
-export default function itemReactor(props: EmbedProps) {
+export default function itemReactor(props: IngameUiProps) {
   const { ids, itemStats, itemUpgrades, hash } = props;
 
   const idsArray = ids ? idParser(ids) : [0];

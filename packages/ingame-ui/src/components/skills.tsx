@@ -1,9 +1,8 @@
 import { Skill } from '@discretize/gw2-ui-new';
-import React from 'react';
-import { EmbedProps } from '../shared/interfaces';
-import idParser from '../shared/idParser';
+import { IngameUiProps } from '../shared/interfaces';
+import { idParser } from '../shared/helper';
 
-export default function skillReactor(props: EmbedProps) {
+export default function skillReactor(props: IngameUiProps) {
   const { ids, hash } = props;
 
   const idsArray = ids ? idParser(ids) : [0];

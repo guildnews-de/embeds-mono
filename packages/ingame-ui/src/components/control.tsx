@@ -1,8 +1,8 @@
 import { ControlEffect } from '@discretize/gw2-ui-new';
-import React, { ComponentProps } from 'react';
-import { EmbedProps } from '../shared/interfaces';
+import { ComponentProps } from 'react';
+import { IngameUiProps } from '../shared/interfaces';
 
-export default function controlReactor(props: EmbedProps) {
+export default function controlReactor(props: IngameUiProps) {
   const { embedName, hash } = props;
 
   type ControlEffectTypes = ComponentProps<typeof ControlEffect>['name'];

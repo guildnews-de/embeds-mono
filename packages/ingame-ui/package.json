@@ -8,7 +8,8 @@
     "generate:component": "turbo gen react-component"
   },
   "dependencies": {
-    "@discretize/gw2-ui-new": "^0.1.4"
+    "@discretize/gw2-ui-new": "^0.1.4",
+    "@repo/core": "workspace:^"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",

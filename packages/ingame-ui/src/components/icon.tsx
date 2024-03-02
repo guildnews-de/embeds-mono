@@ -1,14 +1,15 @@
 import { IconWithText } from '@discretize/gw2-ui-new';
-import React from 'react';
-import { EmbedProps } from '../shared/interfaces';
-import assets from '../assets';
+import { IngameUiProps } from '../shared/interfaces';
+// import assets from '../assets';
+import { various } from '@repo/core';
 
-export default function iconReactor(props: EmbedProps) {
+export default function iconReactor(props: IngameUiProps) {
   const { embedName, count, text, hash } = props;
 
-  type AssetTypes = keyof typeof assets;
+  // FIXME: Proper check for valid embedName
+  type AssetTypes = keyof typeof various;
 
-  const { src, color, text: defaultText } = assets[embedName as AssetTypes];
+  const { src, color, text: defaultText } = various[embedName as AssetTypes];
   let descr = text ? text : defaultText;
   if (count > 1) {
     descr = `${count} ${descr}`;

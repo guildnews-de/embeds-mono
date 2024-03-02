@@ -1,15 +1,12 @@
 import { TraitLine } from '@discretize/gw2-ui-new';
-import React from 'react';
-import { EmbedProps } from '../shared/interfaces';
-import idParser from '../shared/idParser';
+import { IngameUiProps } from '../shared/interfaces';
+import { idParser } from '../shared/helper';
 
-export default function traitlineReactor(props: EmbedProps) {
+export default function traitlineReactor(props: IngameUiProps) {
   const { ids, traits, traitsEdit, hash } = props;
 
   const id = Number(ids);
-  const selection = traits
-    ? (idParser(traits as string) as number[])
-    : undefined;
+  const selection = traits ? (idParser(traits) as number[]) : undefined;
 
   return (
     <TraitLine

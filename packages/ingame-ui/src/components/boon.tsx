@@ -1,8 +1,8 @@
 import { Boon } from '@discretize/gw2-ui-new';
-import React, { ComponentProps } from 'react';
-import { EmbedProps } from '../shared/interfaces';
+import { ComponentProps } from 'react';
+import { IngameUiProps } from '../shared/interfaces';
 
-export default function boonReactor(props: EmbedProps) {
+export default function boonReactor(props: IngameUiProps) {
   const { embedName, hash } = props;
 
   type BoonTypes = ComponentProps<typeof Boon>['name'];

@@ -1,8 +1,8 @@
 import { Profession } from '@discretize/gw2-ui-new';
-import React, { ComponentProps, ReactElement } from 'react';
-import { EmbedProps } from '../shared/interfaces';
+import { ComponentProps } from 'react';
+import { IngameUiProps } from '../shared/interfaces';
 
-export default function boonReactor(props: EmbedProps): ReactElement {
+export default function boonReactor(props: IngameUiProps) {
   const { embedName: embedName, hash } = props;
 
   type ProfessionTypes = ComponentProps<typeof Profession>['name'];

@@ -1,8 +1,7 @@
 import { Coin } from '@discretize/gw2-ui-new';
-import React from 'react';
-import { EmbedProps } from '../shared/interfaces';
+import { IngameUiProps } from '../shared/interfaces';
 
-export default function coinReactor(props: EmbedProps) {
+export default function coinReactor(props: IngameUiProps) {
   const { goldValue, hash } = props;
 
   return (
