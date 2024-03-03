@@ -1,7 +1,7 @@
 import { useMapEvents } from 'react-leaflet';
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
-import { setCurrent } from '../../redux/slice/markerSlice';
+import { setClicked } from '../../slice/markerSlice';
 
 import type { LatLngExpression, LatLng } from 'leaflet';
 
@@ -10,7 +10,7 @@ export function LocationMarker() {
   const map = useMapEvents({
     click(e) {
       if (e.latlng) {
-        dispatch(setCurrent(JSON.stringify(e.latlng)));
+        dispatch(setClicked(JSON.stringify(e.latlng)));
       }
     },
   });

@@ -7,7 +7,7 @@ import { GW2Point, GW2PointGroup } from '../common/classes';
 
 import type { MarkerEmbedData } from '../common/interfaces';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
-import { setDragged } from '../redux/slice/mapSlice';
+import { setDragged } from '../redux/mapSlice';
 
 interface MarkerButtonProps extends ButtonProps {
   hash: string;

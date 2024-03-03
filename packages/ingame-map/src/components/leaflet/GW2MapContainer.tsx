@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { MapContainer, Pane, LayerGroup, LayersControl } from 'react-leaflet';
 import { CRS, LatLng } from 'leaflet';
+import { MapContainer, Pane, LayerGroup, LayersControl } from 'react-leaflet';
 
 import { useAppSelector } from '../../redux/hooks';
 import { GW2Tiles } from '../GW2Tiles';
@@ -13,7 +13,9 @@ import type { GW2ApiPoi, GW2ApiSector } from '../../common/interfaces';
 
 import './MapContainer.scss';
 
-export function GW2MapContainer() {
+interface IngameMapProps {}
+
+export function IngameMap(props: IngameMapProps) {
   // Grab redux state info
   const { bounds, activeMaps } = useAppSelector((state) => state.map);
   const { active, groups } = useAppSelector((state) => state.marker);

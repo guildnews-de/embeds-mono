@@ -8,7 +8,6 @@ export interface mapState {
   dragView: [PointTuple, PointTuple];
   dragged: boolean;
   recenter: boolean;
-  // wait: boolean;
   activeMaps: number[];
   tileDate: number;
 }
@@ -18,20 +17,24 @@ export interface tileApiData {
   date: number;
 }
 
+const mapSize: PointTuple = [81920, 114688];
+
 const initState: mapState = {
-  bounds: [81920, 114688],
+  bounds: [mapSize[0], mapSize[1]],
   markView: [
-    [0, 0],
-    [40960, 57344],
+    // Area of activer marker group
+    [(mapSize[0] / 2) * 0.75, (mapSize[1] / 2) * 0.75],
+    [(mapSize[0] / 2) * 1.25, (mapSize[1] / 2) * 1.25],
   ],
   dragView: [
+    // Area of last drag action
     [1, 1],
     [1, 1],
   ],
   dragged: false,
   recenter: true,
   // wait: false,
-  activeMaps: [0],
+  activeMaps: [],
   tileDate: 0,
 };
 
@@ -69,12 +72,6 @@ export const mapSlice = createSlice({
         recenter: action.payload,
       };
     },
-    // setWait(state, action: PayloadAction<boolean>) {
-    //   return {
-    //     ...state,
-    //     wait: action.payload,
-    //   };
-    // },
     setTileDate(state, action: PayloadAction<tileApiData>) {
       const { date } = action.payload;
       return {
