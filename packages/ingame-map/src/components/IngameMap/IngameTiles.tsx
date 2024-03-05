@@ -3,22 +3,24 @@ import { useMap } from 'react-leaflet';
 import { LatLngBounds, type PointExpression, type PointTuple } from 'leaflet';
 import { getStorageInfo, removeTile } from 'leaflet.offline';
 
-import { CachedTileLayer } from './leaflet/CachedTileLayer';
-import { useAppSelector } from '../redux/hooks';
-import { tilesURL } from '../common/constants';
+import { CachedTileLayer } from './CachedTileLayer';
+import { tilesURL } from '../../common/constants';
+import { IngameMapHooks } from '../IngameMap';
 
-interface GW2TilesProps {
+export function IngameTiles({
+  hooks,
+  bounds,
+}: {
+  hooks: IngameMapHooks;
   bounds: PointTuple;
-}
-
-export function GW2Tiles(props: GW2TilesProps) {
+}) {
+  const { useAppSelector } = hooks;
   const map = useMap();
   const unproject = (point: PointExpression) => {
     return map.unproject(point, map.getMaxZoom() - 1);
   };
 
   // Get max bound of whole leaflet map
-  const { bounds } = props;
   const [Lat, Lng] = bounds;
   const maxBounds = new LatLngBounds(unproject([0, 0]), unproject([Lat, Lng]));
   map.setMaxBounds(maxBounds);

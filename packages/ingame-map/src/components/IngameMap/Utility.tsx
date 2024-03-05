@@ -1,24 +1,86 @@
 import { useCallback, useEffect, useMemo } from 'react';
+import { useMap, useMapEvents } from 'react-leaflet';
+
 import { Bounds, LatLngBounds, Point, PointTuple } from 'leaflet';
-import { useMap } from 'react-leaflet';
+import type { LatLngExpression, LatLng } from 'leaflet';
 
-import type { GW2Point } from '../../common/classes';
-import { useAppSelector, useAppDispatch } from '../../redux/hooks';
-import {
-  setDragged,
-  setDragView,
-  setMarkView,
-  setRecenter,
-} from '../../redux/slice/mapSlice';
+import type { GW2Point } from '@repo/redux';
+import type { IngameMapHooks, IngameMapActions } from '../IngameMap';
 
-export function MapCenter() {
-  // const { marker } = props;
+export function ClickedCoords({
+  hooks,
+  actions,
+}: {
+  hooks: IngameMapHooks;
+  actions: { setClicked: IngameMapActions['setClicked'] };
+}) {
+  const { useAppDispatch, useAppSelector } = hooks;
+  const { setClicked } = actions;
+  const dispatch = useAppDispatch();
+  const map = useMapEvents({
+    click(e) {
+      if (e.latlng) {
+        dispatch(setClicked(JSON.stringify(e.latlng)));
+      }
+    },
+  });
+
+  const project = (LatLng: LatLngExpression) => {
+    return map.project(LatLng, map.getMaxZoom() - 1);
+  };
+
+  const posCopy = async (text: string) => {
+    await navigator.clipboard.writeText(text);
+  };
+
+  const clicked = useAppSelector((state) => state.marker.clicked);
+  const pos = clicked ? (JSON.parse(clicked) as LatLng) : undefined;
+  const posProject = pos ? project(pos) : undefined;
+  const posString = posProject
+    ? `[${Math.round(posProject.x)},${Math.round(posProject.y)}]`
+    : '';
+
+  if (clicked) {
+    posCopy(posString).catch((err) => {
+      console.error(err);
+    });
+  }
+
+  return pos === null ? null : (
+    // <Tooltip direction='top' offset={[12, 0]} permanent>{project(pos).toString()}</Tooltip>
+    <div className="leaflet-bottom leaflet-left">
+      <div className="leaflet-control-attribution leaflet-control">
+        {posString && (
+          <>
+            <div>Position copied:</div>
+            <div>${posString}</div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export function MapCenter({
+  hooks,
+  actions,
+}: {
+  hooks: IngameMapHooks;
+  actions: {
+    setDragged: IngameMapActions['setDragged'];
+    setDragView: IngameMapActions['setDragView'];
+    setRecenter: IngameMapActions['setRecenter'];
+  };
+}) {
+  const { useAppDispatch, useAppSelector } = hooks;
   const dispatch = useAppDispatch();
   const { open } = useAppSelector((state) => state.app.canvas);
   const { dragView, markView, dragged, recenter } = useAppSelector(
     (state) => state.map,
   );
   const { debug } = useAppSelector((state) => state.app);
+
+  const { setDragged, setDragView, setRecenter } = actions;
   const map = useMap();
 
   const view = useMemo(() => {
@@ -77,13 +139,24 @@ export function MapCenter() {
   return <>{/* <MarkerBounds marker={marker} /> */}</>;
 }
 
-export function MarkerBounds({ marker }: { marker: GW2Point[] }) {
+export function MarkerBounds({
+  hooks,
+  actions,
+  marker,
+}: {
+  hooks: IngameMapHooks;
+  actions: { setMarkView: IngameMapActions['setMarkView'] };
+  marker: GW2Point[];
+}) {
+  const { useAppDispatch, useAppSelector } = hooks;
   const dispatch = useAppDispatch();
   const { debug } = useAppSelector((state) => state.app);
 
+  const { setMarkView } = actions;
+
   useMemo(() => {
     if (marker.length === 1) {
-      const { x, y } = marker[0];
+      const { x, y } = marker[0]!;
       const view: [PointTuple, PointTuple] = [
         [Math.round(x * 0.999), Math.round(y * 0.999)],
         [Math.round(x * 1.001), Math.round(y * 1.001)],

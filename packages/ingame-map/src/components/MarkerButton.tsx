@@ -1,24 +1,35 @@
 import { useEffect } from 'react';
-import { Button, ButtonProps } from 'react-bootstrap';
+import { Button } from '@mui/material';
 
-import { openCanvas } from '../redux/slice/appSlice';
-import { pushMarker, setMarker } from '../redux/slice/markerSlice';
-import { GW2Point, GW2PointGroup } from '../common/classes';
+import { GW2Point, GW2PointGroup, type MarkerEmbedData } from '@repo/redux';
 
-import type { MarkerEmbedData } from '../common/interfaces';
-import { useAppSelector, useAppDispatch } from '../redux/hooks';
-import { setDragged } from '../redux/mapSlice';
+import { IngameMapHooks } from './IngameMap';
+import type {
+  AppActionsType,
+  MarkerActionsType,
+  MapActionsType,
+} from '@repo/redux';
 
-interface MarkerButtonProps extends ButtonProps {
-  hash: string;
-  elementData: MarkerEmbedData;
-  className: string;
+interface MarkerButtonActions {
+  openCanvas: AppActionsType['openCanvas'];
+  setDragged: MapActionsType['setDragged'];
+  pushMarker: MarkerActionsType['pushMarker'];
+  setMarker: MarkerActionsType['setMarker'];
 }
 
-export function MarkerButton(props: MarkerButtonProps) {
+interface MarkerButtonProps {
+  hooks: IngameMapHooks;
+  actions: MarkerButtonActions;
+  elementData: MarkerEmbedData;
+  className: string;
+  hash: string;
+}
+
+export function MarkerButton({ hooks, actions, ...props }: MarkerButtonProps) {
+  const { useAppSelector, useAppDispatch } = hooks;
   const dispatch = useAppDispatch();
   const { active, groupNames } = useAppSelector((state) => state.marker);
-  const { hash, elementData, className } = props;
+  const { hash, elementData } = props;
 
   useEffect(() => {
     if (!groupNames || groupNames?.indexOf(hash) === -1) {
@@ -43,7 +54,7 @@ export function MarkerButton(props: MarkerButtonProps) {
         points: points,
         mode: mode,
       });
-      dispatch(pushMarker([hash, group]));
+      dispatch(actions.pushMarker([hash, group]));
     }
   }, [dispatch, groupNames, elementData, hash]);
 
@@ -52,15 +63,13 @@ export function MarkerButton(props: MarkerButtonProps) {
 
   return (
     <Button
-      variant="primary"
-      size="sm"
-      active={!(hash === active)}
+      variant="contained"
+      disabled={!(hash === active)}
       onClick={() => {
-        dispatch(setMarker(hash));
-        dispatch(openCanvas());
-        dispatch(setDragged(false));
+        dispatch(actions.setMarker(hash));
+        dispatch(actions.openCanvas());
+        dispatch(actions.setDragged(false));
       }}
-      className={className}
     >
       {!(active === hash) ? onText : offText}
     </Button>

@@ -8,6 +8,9 @@
     "generate:component": "turbo gen react-component"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.15.12",
     "@reduxjs/toolkit": "^2.2.1",
     "@repo/core": "workspace:^",
     "leaflet": "^1.9.4",
@@ -16,10 +19,11 @@
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
+    "@repo/redux": "workspace:^",
     "@repo/typescript-config": "*",
     "@turbo/gen": "^1.11.3",
-    "@types/eslint": "^8.56.1",
-    "@types/leaflet": "^1",
+    "@types/eslint": "^8.56.5",
+    "@types/leaflet": "^1.9.8",
     "@types/node": "^20.10.6",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",

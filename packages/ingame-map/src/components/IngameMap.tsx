@@ -2,20 +2,40 @@ import { useMemo } from 'react';
 import { CRS, LatLng } from 'leaflet';
 import { MapContainer, Pane, LayerGroup, LayersControl } from 'react-leaflet';
 
-import { useAppSelector } from '../../redux/hooks';
-import { GW2Tiles } from '../GW2Tiles';
-import { GW2Sectors } from '../gw2/Sectors';
-import { GuideMarker, PoiMarker } from '../gw2/Marker';
-import { LocationMarker } from './LocationMarker';
-import { MapCenter, MarkerBounds } from './MapCenter';
+import type {
+  UseAppSelectorHook,
+  UseAppDispatchFunc,
+  MarkerActionsType,
+  MapActionsType,
+  GW2ApiPoi,
+  GW2ApiSector,
+} from '@repo/redux';
 
-import type { GW2ApiPoi, GW2ApiSector } from '../../common/interfaces';
+import { IngameTiles } from './IngameMap/IngameTiles';
+import { GW2Sectors } from './IngameMap/Sectors';
+import { GuideMarker, PoiMarker } from './IngameMap/Marker';
+import { ClickedCoords, MapCenter, MarkerBounds } from './IngameMap/Utility';
 
-import './MapContainer.scss';
+export interface IngameMapHooks {
+  useAppSelector: UseAppSelectorHook;
+  useAppDispatch: UseAppDispatchFunc;
+}
 
-interface IngameMapProps {}
+export interface IngameMapActions {
+  setDragged: MapActionsType['setDragged'];
+  setDragView: MapActionsType['setDragView'];
+  setRecenter: MapActionsType['setRecenter'];
+  setMarkView: MapActionsType['setMarkView'];
+  setClicked: MarkerActionsType['setClicked'];
+}
 
-export function IngameMap(props: IngameMapProps) {
+interface IngameMapProps {
+  hooks: IngameMapHooks;
+  actions: IngameMapActions;
+}
+
+export function IngameMap({ hooks, actions }: IngameMapProps) {
+  const { useAppSelector } = hooks;
   // Grab redux state info
   const { bounds, activeMaps } = useAppSelector((state) => state.map);
   const { active, groups } = useAppSelector((state) => state.marker);
@@ -31,8 +51,9 @@ export function IngameMap(props: IngameMapProps) {
       sectors: {} as Record<number, GW2ApiSector>,
     };
     activeMaps.forEach((id) => {
-      if (apiData[id] != undefined) {
-        const { poi, sectors } = apiData[id];
+      const idData = apiData[id];
+      if (idData) {
+        const { poi, sectors } = idData;
         stack.poi = {
           ...stack.poi,
           ...poi,
@@ -56,7 +77,7 @@ export function IngameMap(props: IngameMapProps) {
       maxZoom={8}
       doubleClickZoom={false}
     >
-      <GW2Tiles bounds={bounds} />
+      <IngameTiles hooks={hooks} bounds={bounds} />
       <LayersControl>
         <Pane
           name="guide-marker"
@@ -80,9 +101,27 @@ export function IngameMap(props: IngameMapProps) {
           </LayersControl.Overlay>
         )}
       </LayersControl>
-      <LocationMarker />
-      {marker && <MarkerBounds marker={marker.points} />}
-      {<MapCenter />}
+      <ClickedCoords
+        hooks={hooks}
+        actions={{ setClicked: actions.setClicked }}
+      />
+      {marker && (
+        <MarkerBounds
+          hooks={hooks}
+          actions={{ setMarkView: actions.setMarkView }}
+          marker={marker.points}
+        />
+      )}
+      {
+        <MapCenter
+          hooks={hooks}
+          actions={{
+            setDragged: actions.setDragged,
+            setDragView: actions.setDragView,
+            setRecenter: actions.setRecenter,
+          }}
+        />
+      }
     </MapContainer>
   );
 }

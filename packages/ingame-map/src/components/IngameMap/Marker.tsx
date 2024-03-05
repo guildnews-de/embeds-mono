@@ -2,7 +2,7 @@ import { Marker, Polyline, Tooltip, useMap } from 'react-leaflet';
 import { icon, type LatLngExpression, type PathOptions } from 'leaflet';
 
 import { map } from '@repo/core';
-import { GW2Point, GW2PointGroup } from '../../common/classes';
+import { GW2Point, GW2PointGroup } from '../../common/guildwars2Api';
 import type { GW2ApiPoi } from '../../common/interfaces';
 
 import defaultIcon from 'leaflet/dist/images/marker-icon.png';
@@ -67,7 +67,7 @@ export function GuideMarker(props: { markers: GW2PointGroup; perm?: boolean }) {
     <>
       {mode === 'line' && (
         <Polyline
-          pathOptions={pathPropsMod(points[0].type)}
+          pathOptions={pathPropsMod(points[0] && points[0].type)}
           positions={LatLngPoints}
           className="gw2Path"
         />
