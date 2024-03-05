@@ -102,13 +102,5 @@ export const mapSlice = createSlice({
   },
 });
 
-export const {
-  setBounds,
-  setMarkView,
-  setDragView,
-  setDragged,
-  setRecenter,
-  setTileDate,
-  addActiveMap,
-} = mapSlice.actions;
+export const mapActions = mapSlice.actions;
 export default mapSlice.reducer;

@@ -1,5 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { apiReducer, appReducer, mapReducer, markerReducer } from './slice';
+import { default as apiReducer } from './slice/apiSlice';
+import { default as appReducer } from './slice/appSlice';
+import { default as mapReducer } from './slice/mapSlice';
+import { default as markerReducer } from './slice/markerSlice';
+
 import apiMiddleware from './apiMiddleware';
 
 const rootReducer = combineReducers({

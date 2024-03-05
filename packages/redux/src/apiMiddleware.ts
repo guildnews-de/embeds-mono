@@ -16,7 +16,7 @@ import {
   GW2ApiMapsResponse,
   type GW2ApiRegionsResponse,
   type GW2ApiError,
-} from './common/interfaces';
+} from './common/guildwars2Api';
 
 interface CachedGW2Data extends GW2ApiMapsResponse, GW2ApiRegionsResponse {
   timestamp: number;

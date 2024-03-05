@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { GW2PointGroup } from '../common/classes';
+import type { GW2PointGroup } from '../common/guildwars2Api';
 
 export interface MarkerState {
   active?: string;
@@ -68,6 +68,5 @@ export const markerSlice = createSlice({
   },
 });
 
-export const { pushMarker, popMarker, setMarker, setClicked } =
-  markerSlice.actions;
+export const markerActions = markerSlice.actions;
 export default markerSlice.reducer;
