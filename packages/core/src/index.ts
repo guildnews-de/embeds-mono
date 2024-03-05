@@ -17,11 +17,11 @@ const {
   sotoIcon,
 } = variousIcons;
 
-export type Gw2Icon = {
+export interface Gw2Icon {
   src: string;
   color: string;
   text: string;
-};
+}
 
 export const ap: Gw2Icon = {
   src: apIcon,
