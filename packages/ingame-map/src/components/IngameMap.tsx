@@ -34,7 +34,7 @@ interface IngameMapProps {
   actions: IngameMapActions;
 }
 
-export function IngameMap({ hooks, actions }: IngameMapProps) {
+export default function IngameMap({ hooks, actions }: IngameMapProps) {
   const { useAppSelector } = hooks;
   // Grab redux state info
   const { bounds, activeMaps } = useAppSelector((state) => state.map);

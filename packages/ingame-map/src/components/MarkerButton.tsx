@@ -25,7 +25,11 @@ interface MarkerButtonProps {
   hash: string;
 }
 
-export function MarkerButton({ hooks, actions, ...props }: MarkerButtonProps) {
+export default function MarkerButton({
+  hooks,
+  actions,
+  ...props
+}: MarkerButtonProps) {
   const { useAppSelector, useAppDispatch } = hooks;
   const dispatch = useAppDispatch();
   const { active, groupNames } = useAppSelector((state) => state.marker);
