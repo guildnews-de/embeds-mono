@@ -30,6 +30,7 @@ export function MarkerButton({ hooks, actions, ...props }: MarkerButtonProps) {
   const dispatch = useAppDispatch();
   const { active, groupNames } = useAppSelector((state) => state.marker);
   const { hash, elementData } = props;
+  const { pushMarker, setMarker, openCanvas, setDragged } = actions;
 
   useEffect(() => {
     if (!groupNames || groupNames?.indexOf(hash) === -1) {
@@ -54,9 +55,9 @@ export function MarkerButton({ hooks, actions, ...props }: MarkerButtonProps) {
         points: points,
         mode: mode,
       });
-      dispatch(actions.pushMarker([hash, group]));
+      dispatch(pushMarker([hash, group]));
     }
-  }, [dispatch, groupNames, elementData, hash]);
+  }, [dispatch, pushMarker, groupNames, elementData, hash]);
 
   const onText = 'Karte zeigen';
   const offText = 'jetzt sichtbar';
@@ -66,9 +67,9 @@ export function MarkerButton({ hooks, actions, ...props }: MarkerButtonProps) {
       variant="contained"
       disabled={!(hash === active)}
       onClick={() => {
-        dispatch(actions.setMarker(hash));
-        dispatch(actions.openCanvas());
-        dispatch(actions.setDragged(false));
+        dispatch(setMarker(hash));
+        dispatch(openCanvas());
+        dispatch(setDragged(false));
       }}
     >
       {!(active === hash) ? onText : offText}

@@ -4,8 +4,10 @@ import { LatLngBounds, type PointExpression, type PointTuple } from 'leaflet';
 import { getStorageInfo, removeTile } from 'leaflet.offline';
 
 import { CachedTileLayer } from './CachedTileLayer';
-import { tilesURL } from '../../common/constants';
+
 import { IngameMapHooks } from '../IngameMap';
+
+const tilesURL = 'https://assets.guildnews.de/tiles/1/1/{z}/{x}/{y}';
 
 export function IngameTiles({
   hooks,

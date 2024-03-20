@@ -109,7 +109,7 @@ export function MapCenter({
     if (dragged === false) {
       dispatch(setDragged(true));
     }
-  }, [dispatch, map, dragged, debug]);
+  }, [dispatch, map, dragged, setDragged, setDragView, debug]);
 
   useEffect(() => {
     map.on('dragend', setView);
@@ -134,7 +134,7 @@ export function MapCenter({
       }
       dispatch(setRecenter(false));
     }
-  }, [map, view, recenter, dispatch, open, debug]);
+  }, [map, view, recenter, dispatch, setRecenter, open, debug]);
 
   return <>{/* <MarkerBounds marker={marker} /> */}</>;
 }
@@ -174,6 +174,6 @@ export function MarkerBounds({
       dispatch(setMarkView(view));
       debug && console.debug('View set (n): ' + JSON.stringify(view));
     }
-  }, [dispatch, marker, debug]);
+  }, [dispatch, setMarkView, marker, debug]);
   return <></>;
 }
