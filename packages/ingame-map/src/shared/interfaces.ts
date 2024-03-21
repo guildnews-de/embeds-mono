@@ -7,10 +7,10 @@ export interface IngameMapDataset {
   gw2mapMode?: string;
 }
 
-export type IngameMapType = 'mapRoot' | 'mapMarker' | 'error';
+export type IngameMapType = 'IngameMap' | 'MarkerButton' | 'error';
 
 export function isIngameMapType(value: string): value is IngameMapType {
-  return value === 'mapRoot' || value === 'mapMarker' || value === 'error';
+  return value === 'IngameMap' || value === 'MarkerButton' || value === 'error';
 }
 
 export interface IngameMapElement extends Omit<HTMLElement, 'dataset'> {
