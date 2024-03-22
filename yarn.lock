@@ -969,6 +969,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@repo/app-redux@workspace:^, @repo/app-redux@workspace:packages/app-redux":
+  version: 0.0.0-use.local
+  resolution: "@repo/app-redux@workspace:packages/app-redux"
+  dependencies:
+    "@reduxjs/toolkit": "npm:^2.2.1"
+    "@repo/core": "workspace:^"
+    "@repo/eslint-config": "npm:*"
+    "@repo/typescript-config": "npm:*"
+    "@turbo/gen": "npm:^1.11.3"
+    "@types/eslint": "npm:^8.56.5"
+    "@types/leaflet": "npm:^1.9.8"
+    "@types/node": "npm:^20.10.6"
+    "@types/react": "npm:^18.2.46"
+    "@types/react-dom": "npm:^18.2.18"
+    axios: "npm:^1.6.7"
+    date-fns: "npm:^3.3.1"
+    eslint: "npm:^8.56.0"
+    leaflet: "npm:^1.9.4"
+    leaflet.offline: "npm:^3.0.1"
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
+    react-leaflet: "npm:^4.2.1"
+    react-redux: "npm:^9.1.0"
+  languageName: unknown
+  linkType: soft
+
 "@repo/core@workspace:^, @repo/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@repo/core@workspace:packages/core"
@@ -1013,9 +1039,9 @@ __metadata:
     "@emotion/styled": "npm:^11.11.0"
     "@mui/material": "npm:^5.15.12"
     "@reduxjs/toolkit": "npm:^2.2.1"
+    "@repo/app-redux": "workspace:^"
     "@repo/core": "workspace:^"
     "@repo/eslint-config": "npm:*"
-    "@repo/app-redux": "workspace:^"
     "@repo/typescript-config": "npm:*"
     "@turbo/gen": "npm:^1.11.3"
     "@types/eslint": "npm:^8.56.5"
@@ -1048,32 +1074,6 @@ __metadata:
     "@types/react-dom": "npm:^18.2.18"
     eslint: "npm:^8.56.0"
     react: "npm:^18.2.0"
-  languageName: unknown
-  linkType: soft
-
-"@repo/app-redux@workspace:^, @repo/app-redux@workspace:packages/redux":
-  version: 0.0.0-use.local
-  resolution: "@repo/app-redux@workspace:packages/redux"
-  dependencies:
-    "@reduxjs/toolkit": "npm:^2.2.1"
-    "@repo/core": "workspace:^"
-    "@repo/eslint-config": "npm:*"
-    "@repo/typescript-config": "npm:*"
-    "@turbo/gen": "npm:^1.11.3"
-    "@types/eslint": "npm:^8.56.5"
-    "@types/leaflet": "npm:^1.9.8"
-    "@types/node": "npm:^20.10.6"
-    "@types/react": "npm:^18.2.46"
-    "@types/react-dom": "npm:^18.2.18"
-    axios: "npm:^1.6.7"
-    date-fns: "npm:^3.3.1"
-    eslint: "npm:^8.56.0"
-    leaflet: "npm:^1.9.4"
-    leaflet.offline: "npm:^3.0.1"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    react-leaflet: "npm:^4.2.1"
-    react-redux: "npm:^9.1.0"
   languageName: unknown
   linkType: soft
 

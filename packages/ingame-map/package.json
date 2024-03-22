@@ -18,8 +18,8 @@
     "react-leaflet": "^4.2.1"
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
     "@repo/app-redux": "workspace:^",
+    "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "@turbo/gen": "^1.11.3",
     "@types/eslint": "^8.56.5",
