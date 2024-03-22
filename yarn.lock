@@ -969,6 +969,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@repo/app-panel@workspace:packages/app-panel":
+  version: 0.0.0-use.local
+  resolution: "@repo/app-panel@workspace:packages/app-panel"
+  dependencies:
+    "@repo/eslint-config": "npm:*"
+    "@repo/typescript-config": "npm:*"
+    "@turbo/gen": "npm:^1.11.3"
+    "@types/eslint": "npm:^8.56.5"
+    "@types/node": "npm:^20.10.6"
+    "@types/react": "npm:^18.2.46"
+    "@types/react-dom": "npm:^18.2.18"
+    eslint: "npm:^8.56.0"
+    react: "npm:^18.2.0"
+  languageName: unknown
+  linkType: soft
+
 "@repo/app-redux@workspace:^, @repo/app-redux@workspace:packages/app-redux":
   version: 0.0.0-use.local
   resolution: "@repo/app-redux@workspace:packages/app-redux"
@@ -1082,22 +1098,6 @@ __metadata:
   resolution: "@repo/typescript-config@workspace:config/typescript-config"
   dependencies:
     typescript: "npm:^5.3.3"
-  languageName: unknown
-  linkType: soft
-
-"@repo/ui@workspace:packages/ui":
-  version: 0.0.0-use.local
-  resolution: "@repo/ui@workspace:packages/ui"
-  dependencies:
-    "@repo/eslint-config": "npm:*"
-    "@repo/typescript-config": "npm:*"
-    "@turbo/gen": "npm:^1.11.3"
-    "@types/eslint": "npm:^8.56.5"
-    "@types/node": "npm:^20.10.6"
-    "@types/react": "npm:^18.2.46"
-    "@types/react-dom": "npm:^18.2.18"
-    eslint: "npm:^8.56.0"
-    react: "npm:^18.2.0"
   languageName: unknown
   linkType: soft
 
