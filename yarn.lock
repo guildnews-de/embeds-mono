@@ -1015,7 +1015,7 @@ __metadata:
     "@reduxjs/toolkit": "npm:^2.2.1"
     "@repo/core": "workspace:^"
     "@repo/eslint-config": "npm:*"
-    "@repo/redux": "workspace:^"
+    "@repo/app-redux": "workspace:^"
     "@repo/typescript-config": "npm:*"
     "@turbo/gen": "npm:^1.11.3"
     "@types/eslint": "npm:^8.56.5"
@@ -1051,9 +1051,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@repo/redux@workspace:^, @repo/redux@workspace:packages/redux":
+"@repo/app-redux@workspace:^, @repo/app-redux@workspace:packages/redux":
   version: 0.0.0-use.local
-  resolution: "@repo/redux@workspace:packages/redux"
+  resolution: "@repo/app-redux@workspace:packages/redux"
   dependencies:
     "@reduxjs/toolkit": "npm:^2.2.1"
     "@repo/core": "workspace:^"

@@ -9,7 +9,7 @@ import type {
   MapActionsType,
   GW2ApiPoi,
   GW2ApiSector,
-} from '@repo/redux';
+} from '@repo/app-redux';
 
 import { IngameTiles } from './IngameMap/IngameTiles';
 import { GW2Sectors } from './IngameMap/Sectors';

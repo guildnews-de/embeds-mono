@@ -2,8 +2,8 @@ import { Marker, Polyline, Tooltip, useMap } from 'react-leaflet';
 import { icon, type LatLngExpression, type PathOptions } from 'leaflet';
 
 import { map } from '@repo/core';
-import { GW2Point, GW2PointGroup } from '@repo/redux';
-import type { GW2ApiPoi } from '@repo/redux';
+import { GW2Point, GW2PointGroup } from '@repo/app-redux';
+import type { GW2ApiPoi } from '@repo/app-redux';
 
 import defaultIcon from 'leaflet/dist/images/marker-icon.png';
 import './tooltip.scss';

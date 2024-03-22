@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { Button } from '@mui/material';
 
-import { GW2Point, GW2PointGroup, type MarkerEmbedData } from '@repo/redux';
+import { GW2Point, GW2PointGroup, type MarkerEmbedData } from '@repo/app-redux';
 
 import { IngameMapHooks } from './IngameMap';
 import type {
   AppActionsType,
   MarkerActionsType,
   MapActionsType,
-} from '@repo/redux';
+} from '@repo/app-redux';
 
 interface MarkerButtonActions {
   openCanvas: AppActionsType['openCanvas'];

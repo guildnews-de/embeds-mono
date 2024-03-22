@@ -4,7 +4,7 @@ import { useMap, useMapEvents } from 'react-leaflet';
 import { Bounds, LatLngBounds, Point, PointTuple } from 'leaflet';
 import type { LatLngExpression, LatLng } from 'leaflet';
 
-import type { GW2Point } from '@repo/redux';
+import type { GW2Point } from '@repo/app-redux';
 import type { IngameMapHooks, IngameMapActions } from '../IngameMap';
 
 export function ClickedCoords({

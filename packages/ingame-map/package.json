@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
-    "@repo/redux": "workspace:^",
+    "@repo/app-redux": "workspace:^",
     "@repo/typescript-config": "*",
     "@turbo/gen": "^1.11.3",
     "@types/eslint": "^8.56.5",
