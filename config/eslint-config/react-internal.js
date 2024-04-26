@@ -33,6 +33,9 @@ module.exports = {
     browser: true,
   },
   settings: {
+    react: {
+      version: 'detect',
+    },
     'import/resolver': {
       typescript: {
         project,
