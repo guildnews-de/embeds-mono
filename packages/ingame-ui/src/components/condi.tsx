@@ -3,9 +3,13 @@ import { ComponentProps } from 'react';
 import { IngameUiProps } from '../shared/interfaces';
 
 export default function condiReactor(props: IngameUiProps) {
-  const { embedName, hash } = props;
+  const { data, hash } = props;
 
   type ConditionTypes = ComponentProps<typeof Condition>['name'];
 
-  return <Condition name={embedName as ConditionTypes} key={hash} {...props} />;
+  return (
+    <Condition name={data.embedName as ConditionTypes} key={hash} {...props} />
+  );
 }
+
+export type UiCondi = typeof condiReactor;

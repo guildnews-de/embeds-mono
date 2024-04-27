@@ -12,6 +12,8 @@ export { default as Spec } from './components/spec';
 export { default as Traitline } from './components/traitline';
 export { default as Traits } from './components/traits';
 
+export { default as IngameUiLoader } from './components/_loader';
+
 // Types, Interfaces, Classes
 export type {
   IngameUiDataset,

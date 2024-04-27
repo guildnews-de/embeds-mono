@@ -4,7 +4,8 @@ import { IngameUiProps } from '../shared/interfaces';
 import { various } from '@repo/core';
 
 export default function iconReactor(props: IngameUiProps) {
-  const { embedName, count, text, hash } = props;
+  const { data, hash } = props;
+  const { embedName, count, text } = data;
 
   // FIXME: Proper check for valid embedName
   type AssetTypes = keyof typeof various;
@@ -29,3 +30,5 @@ export default function iconReactor(props: IngameUiProps) {
     />
   );
 }
+
+export type UiIcon = typeof iconReactor;

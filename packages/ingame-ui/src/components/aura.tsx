@@ -3,16 +3,18 @@ import { ComponentProps } from 'react';
 import { IngameUiProps } from '../shared/interfaces';
 
 export default function auraReactor(props: IngameUiProps) {
-  const { embedName, hash } = props;
+  const { data, hash } = props;
 
   type AuraType = ComponentProps<typeof Aura>['name'];
 
   return (
     <Aura
-      name={embedName as AuraType}
+      name={data.embedName as AuraType}
       //style={style}
       key={hash}
       {...props}
     />
   );
 }
+
+export type UiAura = typeof auraReactor;

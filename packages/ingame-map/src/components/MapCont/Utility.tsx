@@ -5,14 +5,14 @@ import { Bounds, LatLngBounds, Point, PointTuple } from 'leaflet';
 import type { LatLngExpression, LatLng } from 'leaflet';
 
 import type { GW2Point } from '@repo/app-redux';
-import type { IngameMapHooks, IngameMapActions } from '../IngameMap';
+import type { MapContHooks, MapContActions } from '../MapCont';
 
 export function ClickedCoords({
   hooks,
   actions,
 }: {
-  hooks: IngameMapHooks;
-  actions: { setClicked: IngameMapActions['setClicked'] };
+  hooks: MapContHooks;
+  actions: { setClicked: MapContActions['setClicked'] };
 }) {
   const { useAppDispatch, useAppSelector } = hooks;
   const { setClicked } = actions;
@@ -65,11 +65,11 @@ export function MapCenter({
   hooks,
   actions,
 }: {
-  hooks: IngameMapHooks;
+  hooks: MapContHooks;
   actions: {
-    setDragged: IngameMapActions['setDragged'];
-    setDragView: IngameMapActions['setDragView'];
-    setRecenter: IngameMapActions['setRecenter'];
+    setDragged: MapContActions['setDragged'];
+    setDragView: MapContActions['setDragView'];
+    setRecenter: MapContActions['setRecenter'];
   };
 }) {
   const { useAppDispatch, useAppSelector } = hooks;
@@ -144,8 +144,8 @@ export function MarkerBounds({
   actions,
   marker,
 }: {
-  hooks: IngameMapHooks;
-  actions: { setMarkView: IngameMapActions['setMarkView'] };
+  hooks: MapContHooks;
+  actions: { setMarkView: MapContActions['setMarkView'] };
   marker: GW2Point[];
 }) {
   const { useAppDispatch, useAppSelector } = hooks;

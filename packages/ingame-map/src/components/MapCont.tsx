@@ -11,17 +11,18 @@ import type {
   GW2ApiSector,
 } from '@repo/app-redux';
 
-import { IngameTiles } from './IngameMap/IngameTiles';
-import { GW2Sectors } from './IngameMap/Sectors';
-import { GuideMarker, PoiMarker } from './IngameMap/Marker';
-import { ClickedCoords, MapCenter, MarkerBounds } from './IngameMap/Utility';
+import { IngameTiles } from './MapCont/IngameTiles';
+import { GW2Sectors } from './MapCont/Sectors';
+import { GuideMarker, PoiMarker } from './MapCont/Marker';
+import { ClickedCoords, MapCenter, MarkerBounds } from './MapCont/Utility';
+import { IngameMapData, IngameMapProps } from '../shared/interfaces';
 
-export interface IngameMapHooks {
+export interface MapContHooks {
   useAppSelector: UseAppSelectorHook;
   useAppDispatch: UseAppDispatchFunc;
 }
 
-export interface IngameMapActions {
+export interface MapContActions {
   setDragged: MapActionsType['setDragged'];
   setDragView: MapActionsType['setDragView'];
   setRecenter: MapActionsType['setRecenter'];
@@ -29,12 +30,13 @@ export interface IngameMapActions {
   setClicked: MarkerActionsType['setClicked'];
 }
 
-interface IngameMapProps {
-  hooks: IngameMapHooks;
-  actions: IngameMapActions;
-}
+export type MapContProps = {
+  hooks: MapContHooks;
+  actions: MapContActions;
+} & IngameMapData;
 
-export default function IngameMap({ hooks, actions }: IngameMapProps) {
+export default function MapCont(props: IngameMapProps) {
+  const { hooks, actions } = props;
   const { useAppSelector } = hooks;
   // Grab redux state info
   const { bounds, activeMaps } = useAppSelector((state) => state.map);
@@ -125,3 +127,5 @@ export default function IngameMap({ hooks, actions }: IngameMapProps) {
     </MapContainer>
   );
 }
+
+export type MapContComp = typeof MapCont;

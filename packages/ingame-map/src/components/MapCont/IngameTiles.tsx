@@ -5,7 +5,7 @@ import { getStorageInfo, removeTile } from 'leaflet.offline';
 
 import { CachedTileLayer } from './CachedTileLayer';
 
-import { IngameMapHooks } from '../IngameMap';
+import { MapContHooks } from '../MapCont';
 
 const tilesURL = 'https://assets.guildnews.de/tiles/1/1/{z}/{x}/{y}';
 
@@ -13,7 +13,7 @@ export function IngameTiles({
   hooks,
   bounds,
 }: {
-  hooks: IngameMapHooks;
+  hooks: MapContHooks;
   bounds: PointTuple;
 }) {
   const { useAppSelector } = hooks;

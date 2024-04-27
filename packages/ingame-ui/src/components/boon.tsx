@@ -3,16 +3,18 @@ import { ComponentProps } from 'react';
 import { IngameUiProps } from '../shared/interfaces';
 
 export default function boonReactor(props: IngameUiProps) {
-  const { embedName, hash } = props;
+  const { data, hash } = props;
 
   type BoonTypes = ComponentProps<typeof Boon>['name'];
 
   return (
     <Boon
-      name={embedName as BoonTypes}
+      name={data.embedName as BoonTypes}
       //style={gw2Style}
       key={hash}
       {...props}
     />
   );
 }
+
+export type UiBoon = typeof boonReactor;

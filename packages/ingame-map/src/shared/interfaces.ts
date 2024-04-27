@@ -1,3 +1,6 @@
+import { MapContActions, MapContHooks } from '../components/MapCont';
+import { MarkerButtonActions } from '../components/MarkerButton';
+
 export interface IngameMapDataset {
   // Common
   gw2Embed?: string;
@@ -7,10 +10,10 @@ export interface IngameMapDataset {
   gw2mapMode?: string;
 }
 
-export type IngameMapType = 'IngameMap' | 'MarkerButton' | 'error';
+export type IngameMapType = 'MapCont' | 'MarkerButton';
 
-export function isIngameMapType(value: string): value is IngameMapType {
-  return value === 'IngameMap' || value === 'MarkerButton' || value === 'error';
+export function isIngameMapType(value?: string): value is IngameMapType {
+  return value === 'MapCont' || value === 'MarkerButton';
 }
 
 export interface IngameMapElement extends Omit<HTMLElement, 'dataset'> {
@@ -20,7 +23,7 @@ export interface IngameMapElement extends Omit<HTMLElement, 'dataset'> {
 export class IngameMapData {
   type: IngameMapType;
   ids?: string;
-  marker?: string;
+  marker?: string[];
   color: string;
   mode: string;
   constructor(props: IngameMapElement['dataset']) {
@@ -35,14 +38,19 @@ export class IngameMapData {
     if (gw2Embed && isIngameMapType(gw2Embed)) {
       this.type = gw2Embed;
     } else {
-      this.type = 'error';
+      throw Error(`Invalid embed type ${gw2Embed}`);
     }
 
     this.ids = gw2mapIds;
-    this.marker = gw2mapMarker;
+    this.marker = gw2mapMarker?.split(';');
     this.color = gw2mapColor;
     this.mode = gw2mapMode;
   }
 }
 
-export type IngameMapProps = IngameMapData & { hash: string };
+export interface IngameMapProps {
+  data: IngameMapData;
+  actions: MapContActions & MarkerButtonActions;
+  hooks: MapContHooks;
+  hash: string;
+}

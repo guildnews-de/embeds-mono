@@ -3,7 +3,8 @@ import { IngameUiProps } from '../shared/interfaces';
 import { idParser } from '../shared/helper';
 
 export default function traitReactor(props: IngameUiProps) {
-  const { ids, hash } = props;
+  const { data, hash } = props;
+  const { ids } = data;
 
   const idsArray = ids ? idParser(ids) : [0];
 
@@ -15,3 +16,5 @@ export default function traitReactor(props: IngameUiProps) {
     ));
   return embed();
 }
+
+export type UiTraits = typeof traitReactor;

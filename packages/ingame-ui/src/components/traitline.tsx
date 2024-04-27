@@ -3,7 +3,8 @@ import { IngameUiProps } from '../shared/interfaces';
 import { idParser } from '../shared/helper';
 
 export default function traitlineReactor(props: IngameUiProps) {
-  const { ids, traits, traitsEdit, hash } = props;
+  const { data, hash } = props;
+  const { ids, traits, traitsEdit } = data;
 
   const id = Number(ids);
   const selection = traits ? (idParser(traits) as number[]) : undefined;
@@ -19,3 +20,5 @@ export default function traitlineReactor(props: IngameUiProps) {
     />
   );
 }
+
+export type UiTraitline = typeof traitlineReactor;

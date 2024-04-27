@@ -39,10 +39,9 @@ export type IngameUiType =
   | 'skills'
   | 'spec'
   | 'traitline'
-  | 'traits'
-  | 'error';
+  | 'traits';
 
-export function isIngameUiType(value: string): value is IngameUiType {
+export function isIngameUiType(value?: string): value is IngameUiType {
   return (
     value === 'aura' ||
     value === 'boon' ||
@@ -55,8 +54,7 @@ export function isIngameUiType(value: string): value is IngameUiType {
     value === 'skills' ||
     value === 'spec' ||
     value === 'traitline' ||
-    value === 'traits' ||
-    value === 'error'
+    value === 'traits'
   );
 }
 
@@ -108,7 +106,7 @@ export class IngameUiData {
     if (gw2Embed && isIngameUiType(gw2Embed)) {
       this.type = gw2Embed;
     } else {
-      this.type = 'error';
+      throw Error(`Invalid embed type ${gw2Embed}`);
     }
 
     this.ids = gw2Id;
@@ -131,4 +129,7 @@ export class IngameUiData {
   }
 }
 
-export type IngameUiProps = IngameUiData & { hash: string };
+export interface IngameUiProps {
+  data: IngameUiData;
+  hash: string;
+}

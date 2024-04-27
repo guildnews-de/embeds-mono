@@ -3,16 +3,18 @@ import { ComponentProps } from 'react';
 import { IngameUiProps } from '../shared/interfaces';
 
 export default function controlReactor(props: IngameUiProps) {
-  const { embedName, hash } = props;
+  const { data, hash } = props;
 
   type ControlEffectTypes = ComponentProps<typeof ControlEffect>['name'];
 
   return (
     <ControlEffect
-      name={embedName as ControlEffectTypes}
+      name={data.embedName as ControlEffectTypes}
       //style={gw2Style}
       key={hash}
       {...props}
     />
   );
 }
+
+export type UiControl = typeof controlReactor;

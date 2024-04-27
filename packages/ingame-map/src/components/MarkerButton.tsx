@@ -1,47 +1,34 @@
 import { useEffect } from 'react';
 import { Button } from '@mui/material';
 
-import { GW2Point, GW2PointGroup, type MarkerEmbedData } from '@repo/app-redux';
-
-import { IngameMapHooks } from './IngameMap';
+import { GW2Point, GW2PointGroup } from '@repo/app-redux';
 import type {
   AppActionsType,
   MarkerActionsType,
   MapActionsType,
 } from '@repo/app-redux';
+import { IngameMapProps } from '../shared/interfaces';
 
-interface MarkerButtonActions {
+export interface MarkerButtonActions {
   openCanvas: AppActionsType['openCanvas'];
   setDragged: MapActionsType['setDragged'];
   pushMarker: MarkerActionsType['pushMarker'];
   setMarker: MarkerActionsType['setMarker'];
 }
 
-interface MarkerButtonProps {
-  hooks: IngameMapHooks;
-  actions: MarkerButtonActions;
-  elementData: MarkerEmbedData;
-  className: string;
-  hash: string;
-}
-
-export default function MarkerButton({
-  hooks,
-  actions,
-  ...props
-}: MarkerButtonProps) {
+export default function MarkerButton(props: IngameMapProps) {
+  const { hooks, actions, data, hash } = props;
   const { useAppSelector, useAppDispatch } = hooks;
   const dispatch = useAppDispatch();
   const { active, groupNames } = useAppSelector((state) => state.marker);
-  const { hash, elementData } = props;
   const { pushMarker, setMarker, openCanvas, setDragged } = actions;
 
   useEffect(() => {
     if (!groupNames || groupNames?.indexOf(hash) === -1) {
-      const { marker, color, mode } = elementData;
+      const { marker, color, mode } = data;
 
       const points: GW2Point[] = [];
-      marker.forEach((string) => {
+      marker?.forEach((string) => {
         const childArray = string.split(',');
         if (childArray.length >= 3) {
           const [name = '', x = '2', y = '2'] = childArray;
@@ -61,7 +48,7 @@ export default function MarkerButton({
       });
       dispatch(pushMarker([hash, group]));
     }
-  }, [dispatch, pushMarker, groupNames, elementData, hash]);
+  }, [dispatch, pushMarker, groupNames, data, hash]);
 
   const onText = 'Karte zeigen';
   const offText = 'jetzt sichtbar';
@@ -80,3 +67,5 @@ export default function MarkerButton({
     </Button>
   );
 }
+
+export type MarkerButtonComp = typeof MarkerButton;

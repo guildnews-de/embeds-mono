@@ -4,7 +4,8 @@ import { IngameUiProps } from '../shared/interfaces';
 import { idParser, upgradeParser } from '../shared/helper';
 
 export default function itemReactor(props: IngameUiProps) {
-  const { ids, itemStats, itemUpgrades, hash } = props;
+  const { data, hash } = props;
+  const { ids, itemStats, itemUpgrades } = data;
 
   const idsArray = ids ? idParser(ids) : [0];
   const upgrades = itemUpgrades ? upgradeParser(itemUpgrades) : undefined;
@@ -24,3 +25,5 @@ export default function itemReactor(props: IngameUiProps) {
     ));
   return embed();
 }
+
+export type UiItems = typeof itemReactor;

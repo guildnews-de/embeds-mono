@@ -3,8 +3,10 @@ import { IngameUiProps } from '../shared/interfaces';
 import { idParser } from '../shared/helper';
 
 export default function specializationReactor(props: IngameUiProps) {
-  const { ids, hash } = props;
+  const { data, hash } = props;
+  const { ids } = data;
 
+  // FixMe: Rethink id Parsing
   const idsArray = ids ? idParser(ids) : [0];
 
   const embed = () =>
@@ -15,3 +17,5 @@ export default function specializationReactor(props: IngameUiProps) {
     ));
   return embed();
 }
+
+export type UiSpec = typeof specializationReactor;

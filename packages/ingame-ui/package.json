@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@discretize/gw2-ui-new": "^0.1.4",
+    "@loadable/component": "^5.16.4",
     "@repo/core": "workspace:^"
   },
   "devDependencies": {
@@ -16,6 +17,7 @@
     "@repo/typescript-config": "*",
     "@turbo/gen": "^1.11.3",
     "@types/eslint": "^8.56.5",
+    "@types/loadable__component": "^5",
     "@types/node": "^20.10.6",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",
