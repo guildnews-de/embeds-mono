@@ -48,9 +48,12 @@ export class IngameMapData {
   }
 }
 
+export type IngameMapActions = MapContActions & MarkerButtonActions;
+export type IngameMapHooks = MapContHooks;
+
 export interface IngameMapProps {
   data: IngameMapData;
-  actions: MapContActions & MarkerButtonActions;
-  hooks: MapContHooks;
+  actions: IngameMapActions;
+  hooks: IngameMapHooks;
   hash: string;
 }

@@ -8,6 +8,8 @@ export type {
   IngameMapDataset,
   IngameMapType,
   IngameMapElement,
+  IngameMapActions,
+  IngameMapHooks,
 } from './shared/interfaces';
 
 // Helper
