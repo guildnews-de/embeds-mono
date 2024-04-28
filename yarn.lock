@@ -231,6 +231,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.12.18":
+  version: 7.24.4
+  resolution: "@babel/runtime@npm:7.24.4"
+  dependencies:
+    regenerator-runtime: "npm:^0.14.0"
+  checksum: 10c0/785aff96a3aa8ff97f90958e1e8a7b1d47f793b204b47c6455eaadc3f694f48c97cd5c0a921fe3596d818e71f18106610a164fb0f1c71fd68c622a58269d537c
+  languageName: node
+  linkType: hard
+
 "@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.23.9, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
   version: 7.24.0
   resolution: "@babel/runtime@npm:7.24.0"
@@ -622,6 +631,19 @@ __metadata:
     "@jridgewell/resolve-uri": "npm:^3.1.0"
     "@jridgewell/sourcemap-codec": "npm:^1.4.14"
   checksum: 10c0/5d6656c439f67cee8bc196a72ceebc446c23924dba6c67806fd3dfefb3ef4c8b2168ea44a0293d8c33c71b88e60862e0397576ef8707e4321e64898fec7a0189
+  languageName: node
+  linkType: hard
+
+"@loadable/component@npm:^5.16.4":
+  version: 5.16.4
+  resolution: "@loadable/component@npm:5.16.4"
+  dependencies:
+    "@babel/runtime": "npm:^7.12.18"
+    hoist-non-react-statics: "npm:^3.3.1"
+    react-is: "npm:^16.12.0"
+  peerDependencies:
+    react: ^16.3.0 || ^17.0.0 || ^18.0.0
+  checksum: 10c0/5d12056178232773e5fdd9ef218858991b97ff6cfece5902a0fa7243580f964545c9c013053c61bcdb8aaab0b54ac0075e55a900d976671679d76872c559f4a4
   languageName: node
   linkType: hard
 
@@ -1143,7 +1165,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@repo/app-panel@workspace:packages/app-panel":
+"@repo/app-panel@workspace:^, @repo/app-panel@workspace:packages/app-panel":
   version: 0.0.0-use.local
   resolution: "@repo/app-panel@workspace:packages/app-panel"
   dependencies:
@@ -1223,12 +1245,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@repo/ingame-map@workspace:packages/ingame-map":
+"@repo/ingame-map@workspace:^, @repo/ingame-map@workspace:packages/ingame-map":
   version: 0.0.0-use.local
   resolution: "@repo/ingame-map@workspace:packages/ingame-map"
   dependencies:
     "@emotion/react": "npm:^11.11.4"
     "@emotion/styled": "npm:^11.11.0"
+    "@loadable/component": "npm:^5.16.4"
     "@mui/material": "npm:^5.15.12"
     "@reduxjs/toolkit": "npm:^2.2.1"
     "@repo/app-redux": "workspace:^"
@@ -1238,6 +1261,7 @@ __metadata:
     "@turbo/gen": "npm:^1.11.3"
     "@types/eslint": "npm:^8.56.5"
     "@types/leaflet": "npm:^1.9.8"
+    "@types/loadable__component": "npm:^5"
     "@types/node": "npm:^20.10.6"
     "@types/react": "npm:^18.2.46"
     "@types/react-dom": "npm:^18.2.18"
@@ -1251,16 +1275,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@repo/ingame-ui@workspace:packages/ingame-ui":
+"@repo/ingame-ui@workspace:^, @repo/ingame-ui@workspace:packages/ingame-ui":
   version: 0.0.0-use.local
   resolution: "@repo/ingame-ui@workspace:packages/ingame-ui"
   dependencies:
     "@discretize/gw2-ui-new": "npm:^0.1.4"
+    "@loadable/component": "npm:^5.16.4"
     "@repo/core": "workspace:^"
     "@repo/eslint-config": "npm:*"
     "@repo/typescript-config": "npm:*"
     "@turbo/gen": "npm:^1.11.3"
     "@types/eslint": "npm:^8.56.5"
+    "@types/loadable__component": "npm:^5"
     "@types/node": "npm:^20.10.6"
     "@types/react": "npm:^18.2.46"
     "@types/react-dom": "npm:^18.2.18"
@@ -1438,6 +1464,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/loadable__component@npm:^5":
+  version: 5.13.9
+  resolution: "@types/loadable__component@npm:5.13.9"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 10c0/22d40c1a207b355cd00dae06621ad2f92dabe583830a08ed17004c50ecae69401fa6a6367a29a6611004bcb49c29a731365b62090254ada835f61dbad81669d0
+  languageName: node
+  linkType: hard
+
 "@types/minimatch@npm:*":
   version: 5.1.2
   resolution: "@types/minimatch@npm:5.1.2"
@@ -1458,6 +1493,13 @@ __metadata:
   version: 2.4.4
   resolution: "@types/normalize-package-data@npm:2.4.4"
   checksum: 10c0/aef7bb9b015883d6f4119c423dd28c4bdc17b0e8a0ccf112c78b4fe0e91fbc4af7c6204b04bba0e199a57d2f3fbbd5b4a14bf8739bf9d2a39b2a0aad545e0f86
+  languageName: node
+  linkType: hard
+
+"@types/object-hash@npm:^3":
+  version: 3.0.6
+  resolution: "@types/object-hash@npm:3.0.6"
+  checksum: 10c0/a5450cafdbc33c840be2c36fb1ace96cce7aa580177cf68dbdbda80f18938207692d74c76403321c99f43460ac31981c4af7fe8b49eca1570f8e9a4c01eaf33d
   languageName: node
   linkType: hard
 
@@ -2884,15 +2926,25 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "embeds@workspace:apps/embeds"
   dependencies:
+    "@loadable/component": "npm:^5.16.4"
+    "@repo/app-panel": "workspace:^"
+    "@repo/app-redux": "workspace:^"
+    "@repo/core": "workspace:^"
     "@repo/eslint-config": "npm:*"
+    "@repo/ingame-map": "workspace:^"
+    "@repo/ingame-ui": "workspace:^"
     "@repo/typescript-config": "npm:*"
     "@types/eslint": "npm:^8.56.5"
+    "@types/loadable__component": "npm:^5"
     "@types/node": "npm:^20.10.6"
+    "@types/object-hash": "npm:^3"
     "@types/react": "npm:^18.2.46"
     "@types/react-dom": "npm:^18.2.18"
     eslint: "npm:^8.56.0"
+    object-hash: "npm:^3.0.0"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
+    react-redux: "npm:^9.1.1"
   languageName: unknown
   linkType: soft
 
@@ -5201,6 +5253,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"object-hash@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "object-hash@npm:3.0.0"
+  checksum: 10c0/a06844537107b960c1c8b96cd2ac8592a265186bfa0f6ccafe0d34eabdb526f6fa81da1f37c43df7ed13b12a4ae3457a16071603bcd39d8beddb5f08c37b0f47
+  languageName: node
+  linkType: hard
+
 "object-inspect@npm:^1.13.1":
   version: 1.13.1
   resolution: "object-inspect@npm:1.13.1"
@@ -5671,7 +5730,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.13.1, react-is@npm:^16.7.0":
+"react-is@npm:^16.12.0, react-is@npm:^16.13.1, react-is@npm:^16.7.0":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 10c0/33977da7a5f1a287936a0c85639fec6ca74f4f15ef1e59a6bc20338fc73dc69555381e211f7a3529b8150a1f71e4225525b41b60b52965bda53ce7d47377ada1
@@ -5717,6 +5776,28 @@ __metadata:
     redux:
       optional: true
   checksum: 10c0/53161b5dc4d109020fbc42d26906ace92fed9ba1d7ab6274af60e9c0684583d20d1c8ec6d58601ac7b833c6468a652bbf3d4a102149d1793cb8a28b05b042f73
+  languageName: node
+  linkType: hard
+
+"react-redux@npm:^9.1.1":
+  version: 9.1.1
+  resolution: "react-redux@npm:9.1.1"
+  dependencies:
+    "@types/use-sync-external-store": "npm:^0.0.3"
+    use-sync-external-store: "npm:^1.0.0"
+  peerDependencies:
+    "@types/react": ^18.2.25
+    react: ^18.0
+    react-native: ">=0.69"
+    redux: ^5.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    react-native:
+      optional: true
+    redux:
+      optional: true
+  checksum: 10c0/40ccdc8d48aefeed02c025f46e4a2e6641a2996fe985feb70d25feaaf8f101f6ef937cd1420909cad4c8869a8c79323ee071f5b090b011b950e5ae09100f5767
   languageName: node
   linkType: hard
 

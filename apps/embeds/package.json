@@ -6,14 +6,24 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
+    "@loadable/component": "^5.16.4",
+    "@repo/app-panel": "workspace:^",
+    "@repo/app-redux": "workspace:^",
+    "@repo/core": "workspace:^",
+    "@repo/ingame-map": "workspace:^",
+    "@repo/ingame-ui": "workspace:^",
+    "object-hash": "^3.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-redux": "^9.1.1"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "@types/eslint": "^8.56.5",
+    "@types/loadable__component": "^5",
     "@types/node": "^20.10.6",
+    "@types/object-hash": "^3",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",
     "eslint": "^8.56.0"
