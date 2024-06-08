@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "lint": "eslint . --max-warnings 0"
+    "lint": "eslint . --max-warnings 0",
+    "build": "webpack --config webpack.config.js --mode development"
   },
   "dependencies": {
     "@loadable/component": "^5.16.4",
@@ -20,6 +21,7 @@
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
+    "@repo/webpack-config": "workspace:^",
     "@types/eslint": "^8.56.5",
     "@types/loadable__component": "^5",
     "@types/node": "^20.10.6",
@@ -27,5 +29,17 @@
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",
     "eslint": "^8.56.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

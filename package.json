@@ -10,8 +10,11 @@
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
+    "@repo/webpack-config": "workspace:^",
     "prettier": "^3.2.5",
-    "turbo": "latest"
+    "turbo": "latest",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
   },
   "engines": {
     "node": ">=18"

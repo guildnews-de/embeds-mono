@@ -47,6 +47,7 @@ module.exports = {
   },
   ignorePatterns: [
     // Ignore dotfiles
+    'webpack.config.js',
     '.*.js',
     'node_modules/',
     'dist/',
@@ -54,5 +55,19 @@ module.exports = {
   overrides: [
     // Force ESLint to detect .tsx files
     { files: ['*.js?(x)', '*.ts?(x)'] },
+    {
+      files: ['webpack/*.js', '*.js'],
+      excludedFiles: ['src/**/*'],
+      parser: 'espree',
+      extends: ['plugin:@typescript-eslint/disable-type-checked'],
+      rules: {
+        '@typescript-eslint/consistent-type-assertions': 'off',
+        '@typescript-eslint/dot-notation': 'off',
+        '@typescript-eslint/no-var-requires': 'off',
+      },
+      env: {
+        node: true,
+      },
+    },
   ],
 };
