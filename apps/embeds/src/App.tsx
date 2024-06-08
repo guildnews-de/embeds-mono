@@ -1,6 +1,7 @@
-import { StrictMode as ReactStrictMode } from 'react';
+import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { ErrorBoundary } from 'react-error-boundary';
 
 import {
   appActions,
@@ -74,16 +75,20 @@ export default function App() {
       const hash = MD5({ ...dataset, idx });
 
       root.render(
-        <ReactStrictMode>
+        <React.StrictMode>
           <Provider store={store}>
-            <ElementLoader
-              data={dataset}
-              hooks={ElementHooks!}
-              actions={ElementActions!}
-              hash={hash}
-            />
+            <ErrorBoundary
+              fallback={<div>{`Element Error in Type '${embedType}'`}</div>}
+            >
+              <ElementLoader
+                data={dataset}
+                hooks={ElementHooks!}
+                actions={ElementActions!}
+                hash={hash}
+              />
+            </ErrorBoundary>
           </Provider>
-        </ReactStrictMode>,
+        </React.StrictMode>,
       );
     }
   });

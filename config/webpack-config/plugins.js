@@ -19,7 +19,7 @@ const MiniCssExtract = new MiniCssExtractPlugin({
 
 const BundleAnalyzer = new BundleAnalyzerPlugin({
   analyzerMode: 'static',
-  openAnalyzer: true,
+  openAnalyzer: false,
   generateStatsFile: true,
 });
 
