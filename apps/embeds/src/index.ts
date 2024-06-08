@@ -1,6 +1,16 @@
+import { version as packVersion } from '../package.json';
+
+declare global {
+  interface Window {
+    gw2embScript?: { version: string };
+  }
+}
+
 const init = () => {
-  const scripts = document.querySelector('script#gw2embeds');
-  if (scripts == null) {
+  const { gw2embScript } = window;
+  // const scripts = document.querySelector('script#gw2embeds');
+  if (!gw2embScript) {
+    window.gw2embScript = { version: packVersion };
     import('./App')
       .then(({ default: App }) => App())
       .catch((err) => {
