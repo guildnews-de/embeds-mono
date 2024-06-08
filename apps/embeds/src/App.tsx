@@ -34,11 +34,11 @@ export default function App() {
   console.log('App not ready yet ^_^');
 
   const targets: EmbedElement[] = Array.from(
-    document.querySelectorAll('.gw2new'),
+    document.querySelectorAll('.gw2MultiEmb'),
   );
 
   targets.forEach((element, idx) => {
-    element.classList.remove('gw2new');
+    element.classList.remove('gw2MultiEmb');
     const { dataset } = element;
     const { gw2Embed: embedType } = dataset;
 
