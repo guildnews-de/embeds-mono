@@ -3,7 +3,6 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "build:types": "turbo build:types",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
@@ -12,6 +11,8 @@
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "@repo/webpack-config": "*",
+    "@types/eslint": "^8.56.10",
+    "eslint": "^8.57.0",
     "prettier": "^3.3.1",
     "turbo": "^2.0.3",
     "webpack": "^5.91.0",
