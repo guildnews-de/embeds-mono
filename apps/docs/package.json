@@ -8,19 +8,17 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.0.4",
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
-    "@repo/webpack-config": "workspace:^",
-    "@types/eslint": "^8.56.5",
-    "@types/node": "^20.10.6",
-    "@types/react": "^18.2.46",
-    "@types/react-dom": "^18.2.18",
-    "eslint": "^8.56.0"
+    "@repo/webpack-config": "*",
+    "@types/node": "^20.14.2",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0"
   },
   "browserslist": {
     "production": [
