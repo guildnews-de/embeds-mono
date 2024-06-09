@@ -18,6 +18,8 @@ import type { UiSpec } from '../components/spec';
 import type { UiTraitline } from '../components/traitline';
 import type { UiTraits } from '../components/traits';
 
+import '../package.scss';
+
 type IngameUiComponent =
   | UiAura
   | UiBoon

@@ -53,7 +53,7 @@ export function ClickedCoords({
         {posString && (
           <>
             <div>Position copied:</div>
-            <div>${posString}</div>
+            <div>{posString}</div>
           </>
         )}
       </div>

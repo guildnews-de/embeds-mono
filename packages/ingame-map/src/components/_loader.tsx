@@ -8,6 +8,8 @@ import {
 import type { MapContComp } from './MapCont';
 import type { MarkerButtonComp } from './MarkerButton';
 
+import '../package.scss';
+
 type IngameMapComponent = MapContComp | MarkerButtonComp;
 
 export interface IngameMapLoaderProps extends Omit<IngameMapProps, 'data'> {
