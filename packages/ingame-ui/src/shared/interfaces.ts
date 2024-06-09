@@ -62,9 +62,11 @@ export interface IngameUiElement extends Omit<HTMLElement, 'dataset'> {
   dataset: IngameUiDataset;
 }
 
+type SelectionId = number | [number, number];
+
 export class IngameUiData {
   type: IngameUiType;
-  ids?: string;
+  ids?: number[];
   text?: string;
   style?: CSSProperties;
   count: number;
@@ -72,11 +74,11 @@ export class IngameUiData {
   embedName?: string;
   goldValue: number;
   itemStats?: string;
-  itemUpgrades?: string;
+  itemUpgrades?: SelectionId[][];
   inline: boolean;
   traitsInactive: boolean;
   traitsEdit: boolean;
-  traits?: string;
+  traits?: SelectionId[][];
   disableTooltip: boolean;
   disableText: boolean;
   disableLink: boolean;
@@ -109,7 +111,7 @@ export class IngameUiData {
       throw Error(`Invalid embed type ${gw2Embed}`);
     }
 
-    this.ids = gw2Id;
+    this.ids = this.splitIds(gw2Id);
     this.text = gw2Text;
     this.style = gw2Style;
     this.size = Number(gw2Size);
@@ -117,8 +119,10 @@ export class IngameUiData {
     this.goldValue = Number(gw2Value);
     this.embedName = gw2Name;
     this.itemStats = gw2Stats;
-    this.itemUpgrades = gw2Upgrades;
-    this.traits = gw2Traits;
+    this.itemUpgrades = gw2Upgrades
+      ? this.splitSelection(gw2Upgrades)
+      : undefined;
+    this.traits = gw2Traits ? this.splitSelection(gw2Traits) : undefined;
     this.traitsInactive = gw2Inactive === 'false' ? false : true;
     this.traitsEdit = gw2Edit === 'false' ? false : true;
     this.inline = gw2Inline === 'false' ? false : true;
@@ -126,6 +130,51 @@ export class IngameUiData {
     this.disableText = gw2Notext === 'false' ? false : true;
     this.disableLink = gw2Nolink === 'false' ? false : true;
     this.disableIcon = gw2Noicon === 'false' ? false : true;
+  }
+
+  splitIds(rawIds: string) {
+    const separator = rawIds.includes(';') ? ';' : ',';
+    const rawArray = rawIds.split(separator);
+
+    const parseArray: number[] = [];
+    rawArray.forEach((idStr) => {
+      const idNum = Number(idStr);
+      if (!isNaN(idNum)) {
+        parseArray.push(idNum);
+      }
+    });
+
+    return parseArray;
+  }
+
+  splitSelection(rawUpgrs: string) {
+    const rawArray = rawUpgrs.split(';');
+    const parseArray: SelectionId[][] = [];
+
+    rawArray.forEach((upgrStr) => {
+      const upgrIds = this.getSelectionId(upgrStr);
+      parseArray.push(upgrIds);
+    });
+
+    return parseArray;
+  }
+
+  getSelectionId(rawUpgr: string) {
+    const rawArray = rawUpgr.split(',');
+    const parseArray: SelectionId[] = [];
+
+    rawArray.forEach((upgrStr) => {
+      if (upgrStr.includes('+')) {
+        const idStrings = upgrStr.split('+');
+        const id: SelectionId = [Number(idStrings[0]), Number(idStrings[1])];
+        parseArray.push(id);
+      } else {
+        const id: SelectionId = Number(upgrStr);
+        parseArray.push(id);
+      }
+    });
+
+    return parseArray;
   }
 }
 

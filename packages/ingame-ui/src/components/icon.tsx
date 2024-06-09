@@ -1,6 +1,5 @@
 import { IconWithText } from '@discretize/gw2-ui-new';
 import { IngameUiProps } from '../shared/interfaces';
-// import assets from '../assets';
 import { various } from '@repo/core';
 
 export default function iconReactor(props: IngameUiProps) {
