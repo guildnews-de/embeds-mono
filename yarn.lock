@@ -2516,6 +2516,47 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@guildnews/docs@workspace:apps/docs":
+  version: 0.0.0-use.local
+  resolution: "@guildnews/docs@workspace:apps/docs"
+  dependencies:
+    "@repo/eslint-config": "npm:*"
+    "@repo/typescript-config": "npm:*"
+    "@repo/webpack-config": "npm:*"
+    "@types/node": "npm:^20.14.2"
+    "@types/react": "npm:^18.3.3"
+    "@types/react-dom": "npm:^18.3.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
+  languageName: unknown
+  linkType: soft
+
+"@guildnews/embeds@workspace:apps/embeds":
+  version: 0.0.0-use.local
+  resolution: "@guildnews/embeds@workspace:apps/embeds"
+  dependencies:
+    "@loadable/component": "npm:^5.16.4"
+    "@repo/app-panel": "npm:*"
+    "@repo/app-redux": "npm:*"
+    "@repo/core": "npm:*"
+    "@repo/eslint-config": "npm:*"
+    "@repo/ingame-map": "npm:*"
+    "@repo/ingame-ui": "npm:*"
+    "@repo/typescript-config": "npm:*"
+    "@repo/webpack-config": "npm:*"
+    "@types/loadable__component": "npm:^5.13.9"
+    "@types/node": "npm:^20.14.2"
+    "@types/object-hash": "npm:^3.0.6"
+    "@types/react": "npm:^18.3.3"
+    "@types/react-dom": "npm:^18.3.0"
+    object-hash: "npm:^3.0.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
+    react-error-boundary: "npm:^4.0.13"
+    react-redux: "npm:^9.1.2"
+  languageName: unknown
+  linkType: soft
+
 "@humanwhocodes/config-array@npm:^0.11.14":
   version: 0.11.14
   resolution: "@humanwhocodes/config-array@npm:0.11.14"
@@ -5414,21 +5455,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docs@workspace:apps/docs":
-  version: 0.0.0-use.local
-  resolution: "docs@workspace:apps/docs"
-  dependencies:
-    "@repo/eslint-config": "npm:*"
-    "@repo/typescript-config": "npm:*"
-    "@repo/webpack-config": "npm:*"
-    "@types/node": "npm:^20.14.2"
-    "@types/react": "npm:^18.3.3"
-    "@types/react-dom": "npm:^18.3.0"
-    react: "npm:^18.3.1"
-    react-dom: "npm:^18.3.1"
-  languageName: unknown
-  linkType: soft
-
 "doctrine@npm:^2.1.0":
   version: 2.1.0
   resolution: "doctrine@npm:2.1.0"
@@ -5493,32 +5519,6 @@ __metadata:
   checksum: 10c0/fba87387968bac5ac55161dc176e55d92a54146ae1e5fb16c3fdd5bf4f250ce6f271713659c0cdfa7fc0fd9a9ea1a79803f266fa2b936535b208c0759a4d3983
   languageName: node
   linkType: hard
-
-"embeds@workspace:apps/embeds":
-  version: 0.0.0-use.local
-  resolution: "embeds@workspace:apps/embeds"
-  dependencies:
-    "@loadable/component": "npm:^5.16.4"
-    "@repo/app-panel": "npm:*"
-    "@repo/app-redux": "npm:*"
-    "@repo/core": "npm:*"
-    "@repo/eslint-config": "npm:*"
-    "@repo/ingame-map": "npm:*"
-    "@repo/ingame-ui": "npm:*"
-    "@repo/typescript-config": "npm:*"
-    "@repo/webpack-config": "npm:*"
-    "@types/loadable__component": "npm:^5.13.9"
-    "@types/node": "npm:^20.14.2"
-    "@types/object-hash": "npm:^3.0.6"
-    "@types/react": "npm:^18.3.3"
-    "@types/react-dom": "npm:^18.3.0"
-    object-hash: "npm:^3.0.0"
-    react: "npm:^18.3.1"
-    react-dom: "npm:^18.3.1"
-    react-error-boundary: "npm:^4.0.13"
-    react-redux: "npm:^9.1.2"
-  languageName: unknown
-  linkType: soft
 
 "emoji-regex@npm:^8.0.0":
   version: 8.0.0
