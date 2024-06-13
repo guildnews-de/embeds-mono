@@ -12,6 +12,7 @@ import { IngameMapProps } from '../shared/interfaces';
 export interface MarkerButtonActions {
   openCanvas: AppActionsType['openCanvas'];
   setDragged: MapActionsType['setDragged'];
+  setRecenter: MapActionsType['setRecenter'];
   pushMarker: MarkerActionsType['pushMarker'];
   setMarker: MarkerActionsType['setMarker'];
 }
@@ -21,7 +22,8 @@ export default function MarkerButton(props: IngameMapProps) {
   const { useAppSelector, useAppDispatch } = hooks;
   const dispatch = useAppDispatch();
   const { active, groupNames } = useAppSelector((state) => state.marker);
-  const { pushMarker, setMarker, openCanvas, setDragged } = actions;
+  const { pushMarker, setMarker, openCanvas, setDragged, setRecenter } =
+    actions;
 
   useEffect(() => {
     if (!groupNames || groupNames?.indexOf(hash) === -1) {
@@ -56,11 +58,12 @@ export default function MarkerButton(props: IngameMapProps) {
   return (
     <Button
       variant="contained"
-      disabled={!(hash === active)}
+      disabled={hash === active}
       onClick={() => {
         dispatch(setMarker(hash));
         dispatch(openCanvas());
         dispatch(setDragged(false));
+        dispatch(setRecenter(true));
       }}
     >
       {!(active === hash) ? onText : offText}
