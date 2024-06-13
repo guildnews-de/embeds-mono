@@ -4,11 +4,11 @@
   "globalEnv": ["NODE_ENV"],
   "tasks": {
     "build": {
-      "dependsOn": ["^build", "^postbuild"],
+      "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
     "postbuild": {
-      "dependsOn": ["^postbuild"]
+      "dependsOn": ["^build"]
     },
     "lint": {
       "dependsOn": ["^lint"]

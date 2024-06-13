@@ -2,6 +2,7 @@ const { resolve } = require('path');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const CopyPlugin = require('copy-webpack-plugin');
 // const { WebpackConfigDumpPlugin } = require('webpack-config-dump-plugin');
 
 // const WebpackConfigDump = new WebpackConfigDumpPlugin();
@@ -23,8 +24,14 @@ const BundleAnalyzer = new BundleAnalyzerPlugin({
   generateStatsFile: true,
 });
 
+const Copy = new CopyPlugin({
+  patterns: [{ from: 'public', to: '' }],
+});
+
 module.exports = [
   ESLint,
   MiniCssExtract,
-  BundleAnalyzer /* , WebpackConfigDump */,
+  BundleAnalyzer,
+  // WebpackConfigDump,
+  Copy,
 ];
