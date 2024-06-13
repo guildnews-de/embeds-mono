@@ -1,4 +1,4 @@
-import { version as packVersion } from '../package.json';
+// import { version as packVersion } from '../package.json';
 
 declare global {
   interface Window {
@@ -10,7 +10,7 @@ const init = () => {
   const { gw2MultiEmb } = window;
   // const scripts = document.querySelector('script#gw2embeds');
   if (!gw2MultiEmb) {
-    window.gw2MultiEmb = { version: packVersion };
+    window.gw2MultiEmb = { version: process.env.VERSION! };
     import('./App')
       .then(({ default: App }) => App())
       .catch((err) => {
