@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import { ErrorBoundary } from 'react-error-boundary';
 import { MD5 } from 'object-hash';
 
+import { AppDrawer } from '@repo/app-panel';
+
 import {
   appActions,
   mapActions,
@@ -41,6 +43,7 @@ export default function App() {
     root.render(
       <React.StrictMode>
         <Provider store={store}>
+          <AppDrawer />
           <ErrorBoundary
             fallback={<div>{`Element Error in Root Node O_o`}</div>}
           >

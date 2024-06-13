@@ -2601,7 +2601,7 @@ __metadata:
   resolution: "@guildnews/embeds@workspace:apps/embeds"
   dependencies:
     "@loadable/component": "npm:^5.16.4"
-    "@repo/app-panel": "npm:*"
+    "@repo/app-panel": "workspace:^"
     "@repo/app-redux": "npm:*"
     "@repo/core": "npm:*"
     "@repo/eslint-config": "npm:*"
@@ -3390,7 +3390,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@repo/app-panel@npm:*, @repo/app-panel@workspace:packages/app-panel":
+"@repo/app-panel@workspace:^, @repo/app-panel@workspace:packages/app-panel":
   version: 0.0.0-use.local
   resolution: "@repo/app-panel@workspace:packages/app-panel"
   dependencies:
