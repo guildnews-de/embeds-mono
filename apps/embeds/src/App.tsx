@@ -1,7 +1,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { createPortal } from 'react-dom';
 import { Provider } from 'react-redux';
 import { ErrorBoundary } from 'react-error-boundary';
+import { MD5 } from 'object-hash';
 
 import {
   appActions,
@@ -19,12 +21,12 @@ import {
   type IngameMapActions,
   type IngameMapHooks,
 } from '@repo/ingame-map';
+
 import {
   isIngameUiType,
   IngameUiLoader,
   type IngameUiElement,
 } from '@repo/ingame-ui';
-import { MD5 } from 'object-hash';
 
 type EmbedElement = IngameMapElement | IngameUiElement;
 type EmbedLoader = typeof IngameMapLoader | typeof IngameUiLoader | undefined;
@@ -32,64 +34,89 @@ type EmbedActions = IngameMapActions | undefined;
 type EmbedHooks = IngameMapHooks | undefined;
 
 export default function App() {
-  console.log('App not ready yet ^_^');
+  const rootElement = document.getElementById('root');
+  if (rootElement) {
+    const root = createRoot(rootElement);
 
+    root.render(
+      <React.StrictMode>
+        <Provider store={store}>
+          <ErrorBoundary
+            fallback={<div>{`Element Error in Root Node O_o`}</div>}
+          >
+            <ElementLoader />
+          </ErrorBoundary>
+        </Provider>
+      </React.StrictMode>,
+    );
+  }
+}
+
+function ElementLoader() {
   const targets: EmbedElement[] = Array.from(
     document.querySelectorAll('.gw2MultiEmb'),
   );
 
-  targets.forEach((element, idx) => {
-    element.classList.remove('gw2MultiEmb');
-    const { dataset } = element;
-    const { gw2Embed: embedType } = dataset;
+  const Portals = () =>
+    targets.map((element, idx) => (
+      <ElementPortal
+        element={element}
+        key={MD5(`GW2_Emebds_${idx}`)}
+        idx={idx}
+      />
+    ));
+  return Portals();
+}
 
-    let ElementLoader: EmbedLoader;
-    let ElementHooks: EmbedHooks;
-    let ElementActions: EmbedActions;
+function ElementPortal(props: { element: EmbedElement; idx: number }) {
+  const { element, idx } = props;
+  element.classList.remove('gw2MultiEmb');
+  const { dataset } = element;
+  const { gw2Embed: embedType } = dataset;
 
-    if (isIngameMapType(embedType)) {
-      const { setDragged, setDragView, setRecenter, setMarkView } = mapActions;
-      const { setClicked, pushMarker, setMarker } = markerActions;
-      const { openCanvas } = appActions;
-      ElementLoader = IngameMapLoader;
-      ElementHooks = {
-        useAppDispatch,
-        useAppSelector,
-      };
-      ElementActions = {
-        setDragged,
-        setDragView,
-        setRecenter,
-        setMarkView,
-        setClicked,
-        pushMarker,
-        setMarker,
-        openCanvas,
-      };
-    } else if (isIngameUiType(embedType)) {
-      ElementLoader = IngameUiLoader;
-    }
+  let ElementLoader: EmbedLoader;
+  let ElementHooks: EmbedHooks;
+  let ElementActions: EmbedActions;
 
-    if (ElementLoader) {
-      const root = createRoot(element);
-      const hash = MD5({ ...dataset, idx });
+  if (isIngameMapType(embedType)) {
+    const { setDragged, setDragView, setRecenter, setMarkView } = mapActions;
+    const { setClicked, pushMarker, setMarker } = markerActions;
+    const { openCanvas } = appActions;
+    ElementLoader = IngameMapLoader;
+    ElementHooks = {
+      useAppDispatch,
+      useAppSelector,
+    };
+    ElementActions = {
+      setDragged,
+      setDragView,
+      setRecenter,
+      setMarkView,
+      setClicked,
+      pushMarker,
+      setMarker,
+      openCanvas,
+    };
+  } else if (isIngameUiType(embedType)) {
+    ElementLoader = IngameUiLoader;
+  }
 
-      root.render(
-        <React.StrictMode>
-          <Provider store={store}>
-            <ErrorBoundary
-              fallback={<div>{`Element Error in Type '${embedType}'`}</div>}
-            >
-              <ElementLoader
-                data={dataset}
-                hooks={ElementHooks!}
-                actions={ElementActions!}
-                hash={hash}
-              />
-            </ErrorBoundary>
-          </Provider>
-        </React.StrictMode>,
-      );
-    }
-  });
+  if (ElementLoader) {
+    const hash = MD5({ ...dataset, idx });
+
+    return createPortal(
+      <ErrorBoundary
+        fallback={<div>{`Element Error in Type '${embedType}'`}</div>}
+      >
+        <ElementLoader
+          data={dataset}
+          hooks={ElementHooks!}
+          actions={ElementActions!}
+          hash={hash}
+        />
+      </ErrorBoundary>,
+      element,
+      hash,
+    );
+  }
 }
