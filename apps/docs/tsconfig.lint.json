@@ -3,6 +3,6 @@
   "compilerOptions": {
     "outDir": "public"
   },
-  "include": ["app", "turbo"],
+  "include": ["src", "turbo"],
   "exclude": ["node_modules", "public"]
 }
