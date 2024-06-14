@@ -22,7 +22,7 @@ export interface IngameMapElement extends Omit<HTMLElement, 'dataset'> {
 
 export class IngameMapData {
   type: IngameMapType;
-  ids?: string;
+  ids?: number[];
   marker?: string[];
   color: string;
   mode: string;
@@ -41,10 +41,25 @@ export class IngameMapData {
       throw Error(`Invalid embed type ${gw2Embed}`);
     }
 
-    this.ids = gw2mapIds;
+    this.ids = gw2mapIds ? this.splitIds(gw2mapIds) : undefined;
     this.marker = gw2mapMarker?.split(';');
     this.color = gw2mapColor;
     this.mode = gw2mapMode;
+  }
+
+  splitIds(rawIds: string) {
+    const separator = rawIds.includes(';') ? ';' : ',';
+    const rawArray = rawIds.split(separator);
+
+    const parseArray: number[] = [];
+    rawArray.forEach((idStr) => {
+      const idNum = Number(idStr);
+      if (!isNaN(idNum)) {
+        parseArray.push(idNum);
+      }
+    });
+
+    return parseArray;
   }
 }
 
