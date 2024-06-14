@@ -24,12 +24,14 @@ import {
 const drawerWidth = 480;
 
 const openedMixin = (theme: Theme): CSSObject => ({
-  width: drawerWidth,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
   }),
+  display: 'flex',
+  flexDirection: 'column-reverse',
   overflowX: 'hidden',
+  width: drawerWidth,
 });
 
 const closedMixin = (theme: Theme): CSSObject => ({
@@ -37,10 +39,12 @@ const closedMixin = (theme: Theme): CSSObject => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+  display: 'flex',
+  flexDirection: 'column-reverse',
   overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width: `calc(${theme.spacing(4)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
+    width: `calc(${theme.spacing(6)} + 1px)`,
   },
 });
 
@@ -48,9 +52,10 @@ const StyledDiv = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-start',
-  padding: theme.spacing(1, 1),
+  padding: theme.spacing(0, 0),
+  // minHeight: theme.spacing(4),
   // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
+  // ...theme.mixins.toolbar,
 }));
 
 // interface AppBarProps extends MuiAppBarProps {
@@ -92,6 +97,11 @@ const StyledDrawer = styled(Drawer, {
   }),
 }));
 
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  padding: theme.spacing(0.5),
+  margin: theme.spacing(0.25),
+}));
+
 export default function AppDrawer({ children }: { children?: ReactNode }) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -105,46 +115,37 @@ export default function AppDrawer({ children }: { children?: ReactNode }) {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box className="Box">
       <CssBaseline />
-      {/* <StyledAppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            onClick={handleDrawerOpen}
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
-              }}
-              >
-            <Menu />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
-          </Typography>
-        </Toolbar>
-      </StyledAppBar> */}
-      <StyledDrawer anchor="right" variant="permanent" open={open}>
-        <StyledDiv>
+      <StyledDrawer
+        className="Drawer"
+        anchor="right"
+        variant="permanent"
+        open={open}
+      >
+        <Divider className="Divider" />
+        {children}
+        <StyledDiv className="styledDiv">
           {open ? (
-            <IconButton
+            <StyledIconButton
+              className="toggle"
               color="inherit"
               aria-label="toggle drawer"
               onClick={handleDrawerClose}
             >
               <ChevronRight />
-            </IconButton>
+            </StyledIconButton>
           ) : (
-            <IconButton
+            <StyledIconButton
+              className="toggle"
               color="inherit"
               aria-label="toggle drawer"
               onClick={handleDrawerOpen}
             >
               <ChevronLeft />
-            </IconButton>
+            </StyledIconButton>
           )}
         </StyledDiv>
-        <Divider />
-        {children}
       </StyledDrawer>
     </Box>
   );
