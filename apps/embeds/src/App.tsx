@@ -8,6 +8,7 @@ import { MD5 } from 'object-hash';
 import { AppDrawer } from '@repo/app-panel';
 
 import {
+  apiActions,
   appActions,
   mapActions,
   markerActions,
@@ -82,9 +83,12 @@ function ElementPortal(props: { element: EmbedElement; idx: number }) {
   let ElementActions: EmbedActions;
 
   if (isIngameMapType(embedType)) {
-    const { setDragged, setDragView, setRecenter, setMarkView } = mapActions;
+    const { setDragged, setDragView, setRecenter, setMarkView, addActiveMap } =
+      mapActions;
     const { setClicked, pushMarker, setMarker } = markerActions;
-    const { openCanvas } = appActions;
+    const { openCanvas, setMapsLoaded, activateLL } = appActions;
+    const { fetchMap } = apiActions;
+
     ElementLoader = IngameMapLoader;
     ElementHooks = {
       useAppDispatch,
@@ -99,6 +103,10 @@ function ElementPortal(props: { element: EmbedElement; idx: number }) {
       pushMarker,
       setMarker,
       openCanvas,
+      addActiveMap,
+      fetchMap,
+      setMapsLoaded,
+      activateLL,
     };
   } else if (isIngameUiType(embedType)) {
     ElementLoader = IngameUiLoader;
