@@ -18,7 +18,7 @@ import {
   Theme,
   // Toolbar,
   // Typography,
-  useTheme,
+  // useTheme,
 } from '@mui/material';
 
 const drawerWidth = 480;
@@ -103,7 +103,7 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 }));
 
 export default function AppDrawer({ children }: { children?: ReactNode }) {
-  const theme = useTheme();
+  // const theme = useTheme();
   const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {

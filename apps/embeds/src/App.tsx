@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { ErrorBoundary } from 'react-error-boundary';
 import { MD5 } from 'object-hash';
 
-import { AppDrawer } from '@repo/app-panel';
+import { AppDrawer } from '@repo/core';
 
 import {
   apiActions,

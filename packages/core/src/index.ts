@@ -1,3 +1,4 @@
+export { default as AppDrawer } from './components/appPanel';
 import * as mapIcons from './assets/map';
 import * as variousIcons from './assets/various';
 
