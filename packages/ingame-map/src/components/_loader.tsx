@@ -20,7 +20,7 @@ export interface IngameMapLoaderProps extends Omit<IngameMapProps, 'data'> {
 
 export default function IngameMapLoader(props: IngameMapLoaderProps) {
   const { data, actions, hooks, hash } = props;
-  const { addActiveMap, setMapsLoaded, fetchMap } = actions;
+  const { addActiveMap, /* setMapsLoaded, */ fetchMap } = actions;
   const { useAppDispatch /* , useAppSelector */ } = hooks;
   const dispatch = useAppDispatch();
   // const { mapsLoaded } = useAppSelector((state) => state.app);
@@ -37,13 +37,13 @@ export default function IngameMapLoader(props: IngameMapLoaderProps) {
         dispatch(fetchMap({ id: id, lang: 'de' }));
         dispatch(addActiveMap(id));
       });
-      dispatch(setMapsLoaded());
+      // dispatch(setMapsLoaded());
     }
   }, [
     dispatch,
     fetchMap,
     addActiveMap,
-    setMapsLoaded,
+    // setMapsLoaded,
     // mapsLoaded,
     elementData,
   ]);

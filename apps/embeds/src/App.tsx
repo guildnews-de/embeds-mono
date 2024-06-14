@@ -86,7 +86,7 @@ function ElementPortal(props: { element: EmbedElement; idx: number }) {
     const { setDragged, setDragView, setRecenter, setMarkView, addActiveMap } =
       mapActions;
     const { setClicked, pushMarker, setMarker } = markerActions;
-    const { openCanvas, setMapsLoaded, activateLL } = appActions;
+    const { openCanvas /* , setMapsLoaded, activateLL */ } = appActions;
     const { fetchMap } = apiActions;
 
     ElementLoader = IngameMapLoader;
@@ -105,8 +105,8 @@ function ElementPortal(props: { element: EmbedElement; idx: number }) {
       openCanvas,
       addActiveMap,
       fetchMap,
-      setMapsLoaded,
-      activateLL,
+      // setMapsLoaded,
+      // activateLL,
     };
   } else if (isIngameUiType(embedType)) {
     ElementLoader = IngameUiLoader;

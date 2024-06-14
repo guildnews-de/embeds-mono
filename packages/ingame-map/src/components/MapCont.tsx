@@ -10,7 +10,7 @@ import type {
   GW2ApiPoi,
   GW2ApiSector,
   ApiActionsType,
-  AppActionsType,
+  // AppActionsType,
   // ApiActionsType,
 } from '@repo/app-redux';
 
@@ -33,8 +33,8 @@ export interface MapContActions {
   setClicked: MarkerActionsType['setClicked'];
   addActiveMap: MapActionsType['addActiveMap'];
   fetchMap: ApiActionsType['fetchMap'];
-  setMapsLoaded: AppActionsType['setMapsLoaded'];
-  activateLL: AppActionsType['activateLL'];
+  // setMapsLoaded: AppActionsType['setMapsLoaded'];
+  // activateLL: AppActionsType['activateLL'];
 }
 
 export type MapContProps = {
