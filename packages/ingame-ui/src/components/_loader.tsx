@@ -19,6 +19,7 @@ import type { UiTraitline } from '../components/traitline';
 import type { UiTraits } from '../components/traits';
 
 import '../package.scss';
+import { useMemo } from 'react';
 
 type IngameUiComponent =
   | UiAura
@@ -40,7 +41,10 @@ export interface IngameUiLoaderProps {
 }
 
 export default function IngameUiLoader(props: IngameUiLoaderProps) {
-  const elementData = new IngameUiData(props.data);
+  const { data } = props;
+  const elementData = useMemo(() => {
+    return new IngameUiData(data);
+  }, [data]);
 
   const AsyncModule = loadable<IngameUiProps>(
     ({ data }) => import(`./${data.type}`) as Promise<IngameUiComponent>,
