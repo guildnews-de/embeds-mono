@@ -9,6 +9,9 @@ import type {
   MapActionsType,
   GW2ApiPoi,
   GW2ApiSector,
+  ApiActionsType,
+  AppActionsType,
+  // ApiActionsType,
 } from '@repo/app-redux';
 
 import { IngameTiles } from './MapCont/IngameTiles';
@@ -28,6 +31,10 @@ export interface MapContActions {
   setRecenter: MapActionsType['setRecenter'];
   setMarkView: MapActionsType['setMarkView'];
   setClicked: MarkerActionsType['setClicked'];
+  addActiveMap: MapActionsType['addActiveMap'];
+  fetchMap: ApiActionsType['fetchMap'];
+  setMapsLoaded: AppActionsType['setMapsLoaded'];
+  activateLL: AppActionsType['activateLL'];
 }
 
 export type MapContProps = {
