@@ -3,13 +3,7 @@ import { differenceInDays } from 'date-fns';
 import { openDB } from 'idb';
 import axios from 'axios';
 
-import {
-  setLoading,
-  setError,
-  setData,
-  setDone,
-  fetchMap,
-} from './slice/apiSlice';
+import { apiActions } from './slice/apiSlice';
 import type { RootState } from './store';
 
 import {
@@ -26,6 +20,7 @@ const apiMiddleware: Middleware<Record<string, never>, RootState> =
   ({ dispatch }) =>
   (next) =>
   (action) => {
+    const { setLoading, setError, setData, setDone, fetchMap } = apiActions;
     next(action);
     const isApiAction = isAnyOf(fetchMap);
     if (!isApiAction(action)) return;

@@ -122,6 +122,5 @@ export const apiSlice = createSlice({
   },
 });
 
-export const { setLoading, setError, fetchMap, setData, setDone } =
-  apiSlice.actions;
+export const apiActions = apiSlice.actions;
 export default apiSlice.reducer;
