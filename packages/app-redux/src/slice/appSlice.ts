@@ -4,10 +4,10 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 export interface appState {
   mapsLoaded: boolean;
   modal: boolean;
+  loadLL: boolean;
   canvas: {
     open: boolean;
     wide: boolean;
-    loadLL: boolean;
     delayed: boolean;
   };
   debug: boolean;
@@ -16,10 +16,10 @@ export interface appState {
 const initState: appState = {
   mapsLoaded: false,
   modal: false,
+  loadLL: false,
   canvas: {
     open: false,
     wide: false,
-    loadLL: false,
     delayed: false,
   },
   debug: false,
@@ -88,10 +88,7 @@ export const appSlice = createSlice({
     activateLL(state) {
       return {
         ...state,
-        canvas: {
-          ...state.canvas,
-          loadLL: true,
-        },
+        loadLL: true,
       };
     },
     toggleModal(state) {
