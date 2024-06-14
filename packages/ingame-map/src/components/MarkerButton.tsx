@@ -63,7 +63,7 @@ export default function MarkerButton(props: IngameMapProps) {
         dispatch(setMarker(hash));
         dispatch(openCanvas());
         dispatch(setDragged(false));
-        // dispatch(setRecenter(true));
+        dispatch(setRecenter(true));
       }}
     >
       {!(active === hash) ? onText : offText}
