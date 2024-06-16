@@ -5,13 +5,14 @@ import { Bounds, LatLngBounds, Point, PointTuple } from 'leaflet';
 import type { LatLngExpression, LatLng } from 'leaflet';
 
 import type { GW2Point } from '@repo/app-redux';
-import type { MapContHooks, MapContActions } from '../MapCont';
+import type { MapContActions } from '../MapCont';
+import type { IngameMapHooks } from '../../shared/interfaces';
 
 export function ClickedCoords({
   hooks,
   actions,
 }: {
-  hooks: MapContHooks;
+  hooks: IngameMapHooks;
   actions: { setClicked: MapContActions['setClicked'] };
 }) {
   const { useAppDispatch, useAppSelector } = hooks;
@@ -65,7 +66,7 @@ export function MapCenter({
   hooks,
   actions,
 }: {
-  hooks: MapContHooks;
+  hooks: IngameMapHooks;
   actions: {
     setDragged: MapContActions['setDragged'];
     setDragView: MapContActions['setDragView'];
@@ -144,7 +145,7 @@ export function MarkerBounds({
   actions,
   marker,
 }: {
-  hooks: MapContHooks;
+  hooks: IngameMapHooks;
   actions: { setMarkView: MapContActions['setMarkView'] };
   marker: GW2Point[];
 }) {

@@ -2,28 +2,19 @@ import { useMemo } from 'react';
 import { CRS, LatLng } from 'leaflet';
 import { MapContainer, Pane, LayerGroup, LayersControl } from 'react-leaflet';
 
+import type { IngameMapDefaultProps } from '../shared/interfaces';
+
 import type {
-  UseAppSelectorHook,
-  UseAppDispatchFunc,
   MarkerActionsType,
   MapActionsType,
   GW2ApiPoi,
   GW2ApiSector,
-  ApiActionsType,
-  // AppActionsType,
-  // ApiActionsType,
 } from '@repo/app-redux';
 
 import { IngameTiles } from './MapCont/IngameTiles';
 import { GW2Sectors } from './MapCont/Sectors';
 import { GuideMarker, PoiMarker } from './MapCont/Marker';
 import { ClickedCoords, MapCenter, MarkerBounds } from './MapCont/Utility';
-import { IngameMapData, IngameMapProps } from '../shared/interfaces';
-
-export interface MapContHooks {
-  useAppSelector: UseAppSelectorHook;
-  useAppDispatch: UseAppDispatchFunc;
-}
 
 export interface MapContActions {
   setDragged: MapActionsType['setDragged'];
@@ -31,18 +22,13 @@ export interface MapContActions {
   setRecenter: MapActionsType['setRecenter'];
   setMarkView: MapActionsType['setMarkView'];
   setClicked: MarkerActionsType['setClicked'];
-  addActiveMap: MapActionsType['addActiveMap'];
-  fetchMap: ApiActionsType['fetchMap'];
-  // setMapsLoaded: AppActionsType['setMapsLoaded'];
-  // activateLL: AppActionsType['activateLL'];
 }
 
 export type MapContProps = {
-  hooks: MapContHooks;
   actions: MapContActions;
-} & IngameMapData;
+} & IngameMapDefaultProps;
 
-export default function MapCont(props: IngameMapProps) {
+export default function MapCont(props: MapContProps) {
   const { hooks, actions } = props;
   const { useAppSelector } = hooks;
   // Grab redux state info
@@ -85,6 +71,7 @@ export default function MapCont(props: IngameMapProps) {
       minZoom={1}
       maxZoom={8}
       doubleClickZoom={false}
+      style={{ width: '100%', height: '100%' }}
     >
       <IngameTiles hooks={hooks} bounds={bounds} />
       <LayersControl>

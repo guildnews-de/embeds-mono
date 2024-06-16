@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createPortal } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -24,6 +24,7 @@ import {
   type IngameMapElement,
   type IngameMapActions,
   type IngameMapHooks,
+  MapCont,
 } from '@repo/ingame-map';
 
 import {
@@ -45,17 +46,49 @@ export default function App() {
     root.render(
       <React.StrictMode>
         <Provider store={store}>
-          <CssBaseline />
-          <AppDrawer />
-          <ErrorBoundary
-            fallback={<div>{`Element Error in Root Node O_o`}</div>}
-          >
+          <AppBaseUI />
+          <ErrorBoundary fallback={<div>{`Error in Root Node O_o`}</div>}>
             <ElementLoader />
           </ErrorBoundary>
         </Provider>
       </React.StrictMode>,
     );
   }
+}
+
+function AppBaseUI() {
+  // const dispatch = useAppDispatch();
+  const { mapsLoaded } = useAppSelector((state) => state.app);
+  const { setDragged, setDragView, setRecenter, setMarkView } = mapActions;
+  const { setClicked } = markerActions;
+
+  const mapPropActions = {
+    setDragged,
+    setDragView,
+    setRecenter,
+    setMarkView,
+    setClicked,
+  };
+
+  const mapPropHooks = {
+    useAppSelector,
+    useAppDispatch,
+  };
+
+  return (
+    <>
+      <CssBaseline />
+      <AppDrawer>
+        {mapsLoaded && (
+          <MapCont
+            actions={mapPropActions}
+            hooks={mapPropHooks}
+            hash={'hash'}
+          />
+        )}
+      </AppDrawer>
+    </>
+  );
 }
 
 function ElementLoader() {
@@ -75,10 +108,14 @@ function ElementLoader() {
 }
 
 function ElementPortal(props: { element: EmbedElement; idx: number }) {
+  const dispatch = useAppDispatch();
+  const { mapsLoaded } = useAppSelector((state) => state.app);
   const { element, idx } = props;
   element.classList.remove('gw2MultiEmb');
   const { dataset } = element;
   const { gw2Embed: embedType } = dataset;
+
+  const { setMapsLoaded } = appActions;
 
   let ElementLoader: EmbedLoader;
   let ElementHooks: EmbedHooks;
@@ -88,7 +125,7 @@ function ElementPortal(props: { element: EmbedElement; idx: number }) {
     const { setDragged, setDragView, setRecenter, setMarkView, addActiveMap } =
       mapActions;
     const { setClicked, pushMarker, setMarker } = markerActions;
-    const { openCanvas /* , setMapsLoaded, activateLL */ } = appActions;
+    const { openCanvas } = appActions;
     const { fetchMap } = apiActions;
 
     ElementLoader = IngameMapLoader;
@@ -107,12 +144,16 @@ function ElementPortal(props: { element: EmbedElement; idx: number }) {
       openCanvas,
       addActiveMap,
       fetchMap,
-      // setMapsLoaded,
-      // activateLL,
     };
   } else if (isIngameUiType(embedType)) {
     ElementLoader = IngameUiLoader;
   }
+
+  useMemo(() => {
+    if (!mapsLoaded && isIngameMapType(embedType)) {
+      dispatch(setMapsLoaded());
+    }
+  }, [embedType, dispatch, setMapsLoaded, mapsLoaded]);
 
   if (ElementLoader) {
     const hash = MD5({ ...dataset, idx });

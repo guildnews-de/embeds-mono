@@ -23,15 +23,20 @@ import {
 
 const drawerWidth = 480;
 
+const drawerBaseCss: CSSObject = {
+  display: 'flex',
+  flexDirection: 'row',
+  overflowX: 'hidden',
+  alignItems: 'center',
+};
+
 const openedMixin = (theme: Theme): CSSObject => ({
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
   }),
-  display: 'flex',
-  flexDirection: 'column-reverse',
-  overflowX: 'hidden',
   width: drawerWidth,
+  ...drawerBaseCss,
 });
 
 const closedMixin = (theme: Theme): CSSObject => ({
@@ -39,46 +44,30 @@ const closedMixin = (theme: Theme): CSSObject => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  display: 'flex',
-  flexDirection: 'column-reverse',
-  overflowX: 'hidden',
   width: `calc(${theme.spacing(4)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(6)} + 1px)`,
   },
+  ...drawerBaseCss,
 });
 
-const StyledDiv = styled('div')(({ theme }) => ({
+const MenuDiv = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-start',
   padding: theme.spacing(0, 0),
-  // minHeight: theme.spacing(4),
-  // necessary for content to be below app bar
-  // ...theme.mixins.toolbar,
 }));
 
-// interface AppBarProps extends MuiAppBarProps {
-//   open?: boolean;
-// }
-
-// const StyledAppBar = styled(AppBar, {
-//   shouldForwardProp: (prop) => prop !== 'open',
-// })<AppBarProps>(({ theme, open }) => ({
-//   zIndex: theme.zIndex.drawer + 1,
-//   transition: theme.transitions.create(['width', 'margin'], {
-//     easing: theme.transitions.easing.sharp,
-//     duration: theme.transitions.duration.leavingScreen,
-//   }),
-//   ...(open && {
-//     marginLeft: drawerWidth,
-//     width: `calc(100% - ${drawerWidth}px)`,
-//     transition: theme.transitions.create(['width', 'margin'], {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.enteringScreen,
-//     }),
-//   }),
-// }));
+const ContentDiv = styled(Box)(({ theme }) => ({
+  // display: 'flex',
+  // alignItems: 'center',
+  // justifyContent: 'flex-start',
+  height: '96%',
+  flexGrow: 1,
+  overflow: 'hidden',
+  borderRadius: theme.spacing(0),
+  padding: theme.spacing(0, 0),
+}));
 
 const StyledDrawer = styled(Drawer, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -102,7 +91,12 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
   margin: theme.spacing(0.25),
 }));
 
-export default function AppDrawer({ children }: { children?: ReactNode }) {
+export default function AppDrawer({
+  children,
+  ...props
+}: {
+  children?: ReactNode;
+}) {
   // const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -123,9 +117,7 @@ export default function AppDrawer({ children }: { children?: ReactNode }) {
         variant="permanent"
         open={open}
       >
-        <Divider className="Divider" />
-        {children}
-        <StyledDiv className="styledDiv">
+        <MenuDiv className="styledDiv" style={{ backgroundColor: '#c3c3c3' }}>
           {open ? (
             <StyledIconButton
               className="toggle"
@@ -145,7 +137,11 @@ export default function AppDrawer({ children }: { children?: ReactNode }) {
               <ChevronLeft />
             </StyledIconButton>
           )}
-        </StyledDiv>
+          <Divider className="Divider" />
+        </MenuDiv>
+        <ContentDiv style={{ backgroundColor: '#h5h5h5' }}>
+          {children}
+        </ContentDiv>
       </StyledDrawer>
     </Box>
   );

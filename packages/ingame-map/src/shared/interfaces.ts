@@ -1,5 +1,10 @@
-import { MapContActions, MapContHooks } from '../components/MapCont';
-import { MarkerButtonActions } from '../components/MarkerButton';
+import type { MapContActions, MapContProps } from '../components/MapCont';
+import type { MapLoaderActions, MapLoaderProps } from '../components/MapLoader';
+import type {
+  MarkerButtonActions,
+  MarkerButtonProps,
+} from '../components/MarkerButton';
+import type { UseAppSelectorHook, UseAppDispatchFunc } from '@repo/app-redux';
 
 export interface IngameMapDataset {
   // Common
@@ -10,10 +15,12 @@ export interface IngameMapDataset {
   gw2mapMode?: string;
 }
 
-export type IngameMapType = 'MapCont' | 'MarkerButton';
+export type IngameMapType = 'MapCont' | 'MapLoader' | 'MarkerButton';
 
 export function isIngameMapType(value?: string): value is IngameMapType {
-  return value === 'MapCont' || value === 'MarkerButton';
+  return (
+    value === 'MapCont' || value === 'MapLoader' || value === 'MarkerButton'
+  );
 }
 
 export interface IngameMapElement extends Omit<HTMLElement, 'dataset'> {
@@ -63,12 +70,29 @@ export class IngameMapData {
   }
 }
 
-export type IngameMapActions = MapContActions & MarkerButtonActions;
-export type IngameMapHooks = MapContHooks;
+export type IngameMapActions = MapContActions &
+  MapLoaderActions &
+  MarkerButtonActions;
 
-export interface IngameMapProps {
-  data: IngameMapData;
-  actions: IngameMapActions;
-  hooks: IngameMapHooks;
-  hash: string;
+export interface IngameMapHooks {
+  useAppSelector: UseAppSelectorHook;
+  useAppDispatch: UseAppDispatchFunc;
 }
+
+// export interface IngameMapProps {
+//   data: IngameMapData;
+//   actions: IngameMapActions;
+//   hooks: IngameMapHooks;
+//   hash: string;
+// }
+
+export interface IngameMapDefaultProps {
+  hash: string;
+  data?: IngameMapData;
+  hooks: IngameMapHooks;
+}
+
+export type IngameMapProps = IngameMapDefaultProps &
+  MapContProps &
+  MapLoaderProps &
+  MarkerButtonProps;

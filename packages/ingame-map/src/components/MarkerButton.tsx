@@ -7,7 +7,8 @@ import type {
   MarkerActionsType,
   MapActionsType,
 } from '@repo/app-redux';
-import { IngameMapProps } from '../shared/interfaces';
+
+import type { IngameMapDefaultProps } from '../shared/interfaces';
 
 export interface MarkerButtonActions {
   openCanvas: AppActionsType['openCanvas'];
@@ -17,7 +18,11 @@ export interface MarkerButtonActions {
   setMarker: MarkerActionsType['setMarker'];
 }
 
-export default function MarkerButton(props: IngameMapProps) {
+export type MarkerButtonProps = {
+  actions: MarkerButtonActions;
+} & IngameMapDefaultProps;
+
+export default function MarkerButton(props: MarkerButtonProps) {
   const { hooks, actions, data, hash } = props;
   const { useAppSelector, useAppDispatch } = hooks;
   const dispatch = useAppDispatch();
@@ -27,7 +32,7 @@ export default function MarkerButton(props: IngameMapProps) {
 
   useEffect(() => {
     if (!groupNames || groupNames?.indexOf(hash) === -1) {
-      const { marker, color, mode } = data;
+      const { marker, color, mode } = data!;
 
       const points: GW2Point[] = [];
       marker?.forEach((string) => {

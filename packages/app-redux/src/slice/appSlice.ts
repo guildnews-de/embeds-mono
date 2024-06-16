@@ -85,12 +85,6 @@ export const appSlice = createSlice({
         mapsLoaded: true,
       };
     },
-    activateLL(state) {
-      return {
-        ...state,
-        loadLL: true,
-      };
-    },
     toggleModal(state) {
       const { modal } = state;
       return {
