@@ -12,7 +12,7 @@ export function BaseUI() {
   // const dispatch = useAppDispatch();
   const { mapsLoaded } = useAppSelector((state) => state.app);
   const { setDragged, setDragView, setRecenter, setMarkView } = mapActions;
-  const { openCanvas, closeCanvas } = appActions;
+  const { openCanvas, closeCanvas, toggleWide } = appActions;
   const { setClicked } = markerActions;
 
   const baseHooks = {
@@ -23,6 +23,7 @@ export function BaseUI() {
   const drawerActions = {
     openCanvas,
     closeCanvas,
+    toggleWide,
   };
 
   const mapContActions = {

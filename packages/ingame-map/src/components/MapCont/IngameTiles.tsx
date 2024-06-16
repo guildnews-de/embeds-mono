@@ -64,11 +64,13 @@ export function IngameTiles({
   }, [tileDate, map, cleanTileCache]);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      map.invalidateSize();
-    }, 300);
+    if (open) {
+      /* const timeout = */ setTimeout(() => {
+        map.invalidateSize();
+      }, 300);
+    }
 
-    return () => clearTimeout(timeout);
+    // return () => clearTimeout(timeout);
   }, [map, open, wide]);
 
   return (

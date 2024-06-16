@@ -30,6 +30,8 @@ export default function MarkerButton(props: MarkerButtonProps) {
   const { pushMarker, setMarker, openCanvas, setDragged, setRecenter } =
     actions;
 
+  const isActive = hash === active;
+
   useEffect(() => {
     if (!groupNames || groupNames?.indexOf(hash) === -1) {
       const { marker, color, mode } = data!;
@@ -57,21 +59,42 @@ export default function MarkerButton(props: MarkerButtonProps) {
     }
   }, [dispatch, pushMarker, groupNames, data, hash]);
 
-  const onText = 'Karte zeigen';
-  const offText = 'jetzt sichtbar';
+  const offText = 'Karte zeigen';
+  const onText = 'jetzt sichtbar';
+
+  const handleClick = () => {
+    dispatch(openCanvas());
+    dispatch(setMarker(hash));
+    dispatch(setDragged(false));
+    setTimeout(() => {
+      // map.invalidateSize();
+      dispatch(setRecenter(true));
+    }, 600);
+  };
+
+  const handleActiveClick = () => {
+    dispatch(openCanvas());
+    // dispatch(setMarker(hash));
+    dispatch(setDragged(false));
+    // setTimeout(() => {
+    // map.invalidateSize();
+    dispatch(setRecenter(true));
+    // }, 600);
+  };
 
   return (
     <Button
-      variant="contained"
-      disabled={hash === active}
-      onClick={() => {
-        dispatch(setMarker(hash));
-        dispatch(openCanvas());
-        dispatch(setDragged(false));
-        dispatch(setRecenter(true));
-      }}
+      variant={isActive ? 'outlined' : 'contained'}
+      // disabled={isActive}
+      // onClick={() => {
+      //   dispatch(openCanvas());
+      //   dispatch(setMarker(hash));
+      //   dispatch(setDragged(false));
+      //   dispatch(setRecenter(true));
+      // }}
+      onClick={isActive ? handleActiveClick : handleClick}
     >
-      {!(active === hash) ? onText : offText}
+      {isActive ? onText : offText}
     </Button>
   );
 }

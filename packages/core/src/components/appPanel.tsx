@@ -1,5 +1,10 @@
 import { type ReactNode } from 'react';
-import { ChevronLeft, ChevronRight /* , Menu */ } from '@mui/icons-material';
+import {
+  ChevronLeft,
+  ChevronRight,
+  ZoomOutMap,
+  ZoomInMap,
+} from '@mui/icons-material';
 import {
   // AppBar,
   // type AppBarProps as MuiAppBarProps,
@@ -8,6 +13,7 @@ import {
   CSSObject,
   Divider,
   Drawer,
+  DrawerProps,
   // List,
   // ListItem,
   // ListItemButton,
@@ -48,6 +54,15 @@ const openedMixin = (theme: Theme): CSSObject => ({
   ...drawerBaseCss,
 });
 
+const openedMixinWide = (theme: Theme): CSSObject => ({
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  width: '100vw',
+  ...drawerBaseCss,
+});
+
 const closedMixin = (theme: Theme): CSSObject => ({
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
@@ -62,6 +77,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
 
 const MenuDiv = styled(Box)(({ theme }) => ({
   display: 'flex',
+  flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'flex-start',
   padding: theme.spacing(0, 0),
@@ -78,19 +94,32 @@ const ContentDiv = styled(Box)(({ theme }) => ({
   padding: theme.spacing(0, 0),
 }));
 
-const StyledDrawer = styled(Drawer, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  width: drawerWidth,
+interface WideDrawerProps extends DrawerProps {
+  wide: boolean;
+}
+
+const WideDrawer = (props: WideDrawerProps) => {
+  return <Drawer {...props} />;
+};
+
+const StyledDrawer = styled(WideDrawer, {
+  shouldForwardProp: (prop) => prop !== 'open' && prop !== 'wide',
+})(({ theme, open, wide }) => ({
   flexShrink: 0,
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',
   overflow: 'hidden',
   borderRadius: theme.spacing(1),
-  ...(open && {
-    ...openedMixin(theme),
-    '& .MuiDrawer-paper': openedMixin(theme),
-  }),
+  ...(open &&
+    !wide && {
+      ...openedMixin(theme),
+      '& .MuiDrawer-paper': openedMixin(theme),
+    }),
+  ...(open &&
+    wide && {
+      ...openedMixinWide(theme),
+      '& .MuiDrawer-paper': openedMixinWide(theme),
+    }),
   ...(!open && {
     ...closedMixin(theme),
     '& .MuiDrawer-paper': closedMixin(theme),
@@ -105,6 +134,7 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 interface AppDrawerActions {
   openCanvas: AppActionsType['openCanvas'];
   closeCanvas: AppActionsType['closeCanvas'];
+  toggleWide: AppActionsType['toggleWide'];
 }
 
 interface AppDrawerHooks {
@@ -113,32 +143,30 @@ interface AppDrawerHooks {
 }
 
 interface AppDrawerProps {
-  children: ReactNode;
   actions: AppDrawerActions;
   hooks: AppDrawerHooks;
+}
+
+interface AppDrawerPropsWithChildren extends AppDrawerProps {
+  children: ReactNode;
 }
 
 export default function AppDrawer({
   children,
   actions,
   hooks,
-}: AppDrawerProps) {
-  // const theme = useTheme();
+}: AppDrawerPropsWithChildren) {
   const { useAppSelector, useAppDispatch } = hooks;
   const dispatch = useAppDispatch();
-  const { open } = useAppSelector((state) => state.app.canvas);
-  const { openCanvas, closeCanvas } = actions;
-  // const [open, setOpen] = useState(false);
 
-  const handleDrawerOpen = () => {
-    // setOpen(true);
-    dispatch(openCanvas());
-  };
+  const { open, wide } = useAppSelector((state) => state.app.canvas);
+  const { openCanvas, closeCanvas, toggleWide } = actions;
 
-  const handleDrawerClose = () => {
-    // setOpen(false);
-    dispatch(closeCanvas());
-  };
+  const wideClickAction = toggleWide();
+  const WideIndicator = wide ? ZoomInMap : ZoomOutMap;
+
+  const openClickAction = open ? closeCanvas() : openCanvas();
+  const OpenIndicator = open ? ChevronRight : ChevronLeft;
 
   return (
     <Box className="Box">
@@ -148,28 +176,28 @@ export default function AppDrawer({
         anchor="right"
         variant="permanent"
         open={open}
+        wide={wide}
       >
         <MenuDiv>
-          {open ? (
-            <StyledIconButton
-              className="toggle"
-              color="inherit"
-              aria-label="toggle drawer"
-              onClick={handleDrawerClose}
-            >
-              <ChevronRight />
-            </StyledIconButton>
-          ) : (
-            <StyledIconButton
-              className="toggle"
-              color="inherit"
-              aria-label="toggle drawer"
-              onClick={handleDrawerOpen}
-            >
-              <ChevronLeft />
-            </StyledIconButton>
-          )}
-          <Divider className="Divider" />
+          <StyledIconButton
+            color="inherit"
+            aria-label="toggle wide"
+            onClick={() => {
+              dispatch(wideClickAction);
+            }}
+          >
+            <WideIndicator />
+          </StyledIconButton>
+          <Divider />
+          <StyledIconButton
+            color="inherit"
+            aria-label="toggle drawer"
+            onClick={() => {
+              dispatch(openClickAction);
+            }}
+          >
+            <OpenIndicator />
+          </StyledIconButton>
         </MenuDiv>
         {open && <ContentDiv>{children}</ContentDiv>}
       </StyledDrawer>
