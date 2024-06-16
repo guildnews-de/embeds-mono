@@ -4,7 +4,7 @@ import {
   // AppBar,
   // type AppBarProps as MuiAppBarProps,
   Box,
-  CssBaseline,
+  // CssBaseline,
   CSSObject,
   Divider,
   Drawer,
@@ -116,7 +116,7 @@ export default function AppDrawer({ children }: { children?: ReactNode }) {
 
   return (
     <Box className="Box">
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       <StyledDrawer
         className="Drawer"
         anchor="right"

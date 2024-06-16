@@ -11,7 +11,6 @@
   "types": "dist/index.d.ts",
   "dependencies": {
     "@loadable/component": "^5.16.4",
-    "@repo/app-panel": "*",
     "@repo/app-redux": "*",
     "@repo/core": "*",
     "@repo/ingame-map": "*",

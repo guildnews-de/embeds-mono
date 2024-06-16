@@ -2240,7 +2240,6 @@ __metadata:
   resolution: "@guildnews/embeds@workspace:apps/embeds"
   dependencies:
     "@loadable/component": "npm:^5.16.4"
-    "@repo/app-panel": "npm:*"
     "@repo/app-redux": "npm:*"
     "@repo/core": "npm:*"
     "@repo/eslint-config": "npm:*"
@@ -2446,7 +2445,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/icons-material@npm:^5.15.19":
+"@mui/icons-material@npm:^5.15.20":
   version: 5.15.20
   resolution: "@mui/icons-material@npm:5.15.20"
   dependencies:
@@ -2462,7 +2461,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/material@npm:^5.15.19":
+"@mui/material@npm:^5.15.19, @mui/material@npm:^5.15.20":
   version: 5.15.20
   resolution: "@mui/material@npm:5.15.20"
   dependencies:
@@ -2715,22 +2714,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@repo/app-panel@npm:*, @repo/app-panel@workspace:packages/app-panel":
-  version: 0.0.0-use.local
-  resolution: "@repo/app-panel@workspace:packages/app-panel"
-  dependencies:
-    "@mui/icons-material": "npm:^5.15.19"
-    "@mui/material": "npm:^5.15.19"
-    "@repo/eslint-config": "npm:*"
-    "@repo/typescript-config": "npm:*"
-    "@turbo/gen": "npm:^2.0.3"
-    "@types/node": "npm:^20.14.2"
-    "@types/react": "npm:^18.3.3"
-    "@types/react-dom": "npm:^18.3.0"
-    react: "npm:^18.3.1"
-  languageName: unknown
-  linkType: soft
-
 "@repo/app-redux@npm:*, @repo/app-redux@workspace:packages/app-redux":
   version: 0.0.0-use.local
   resolution: "@repo/app-redux@workspace:packages/app-redux"
@@ -2759,6 +2742,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@repo/core@workspace:packages/core"
   dependencies:
+    "@mui/icons-material": "npm:^5.15.20"
+    "@mui/material": "npm:^5.15.20"
     "@repo/eslint-config": "npm:*"
     "@repo/typescript-config": "npm:*"
     "@turbo/gen": "npm:^2.0.3"

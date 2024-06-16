@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { Provider } from 'react-redux';
 import { ErrorBoundary } from 'react-error-boundary';
 import { MD5 } from 'object-hash';
+import { CssBaseline } from '@repo/core';
 
 import { AppDrawer } from '@repo/core';
 
@@ -44,6 +45,7 @@ export default function App() {
     root.render(
       <React.StrictMode>
         <Provider store={store}>
+          <CssBaseline />
           <AppDrawer />
           <ErrorBoundary
             fallback={<div>{`Element Error in Root Node O_o`}</div>}

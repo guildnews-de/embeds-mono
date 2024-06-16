@@ -1,4 +1,5 @@
 export { default as AppDrawer } from './components/appPanel';
+export { CssBaseline } from '@mui/material';
 import * as mapIcons from './assets/map';
 import * as variousIcons from './assets/various';
 
