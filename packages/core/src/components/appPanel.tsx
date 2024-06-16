@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { type ReactNode } from 'react';
 import { ChevronLeft, ChevronRight /* , Menu */ } from '@mui/icons-material';
 import {
   // AppBar,
@@ -20,6 +20,15 @@ import {
   // Typography,
   // useTheme,
 } from '@mui/material';
+
+import type {
+  // MarkerActionsType,
+  // MapActionsType,
+  AppActionsType,
+  // GW2ApiPoi,
+  // GW2ApiSector,
+} from '@repo/app-redux';
+import type { UseAppSelectorHook, UseAppDispatchFunc } from '@repo/app-redux';
 
 const drawerWidth = 480;
 
@@ -65,7 +74,7 @@ const ContentDiv = styled(Box)(({ theme }) => ({
   height: '96%',
   flexGrow: 1,
   overflow: 'hidden',
-  borderRadius: theme.spacing(0),
+  borderRadius: theme.spacing(0.5),
   padding: theme.spacing(0, 0),
 }));
 
@@ -76,6 +85,8 @@ const StyledDrawer = styled(Drawer, {
   flexShrink: 0,
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',
+  overflow: 'hidden',
+  borderRadius: theme.spacing(1),
   ...(open && {
     ...openedMixin(theme),
     '& .MuiDrawer-paper': openedMixin(theme),
@@ -91,21 +102,42 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
   margin: theme.spacing(0.25),
 }));
 
+interface AppDrawerActions {
+  openCanvas: AppActionsType['openCanvas'];
+  closeCanvas: AppActionsType['closeCanvas'];
+}
+
+interface AppDrawerHooks {
+  useAppSelector: UseAppSelectorHook;
+  useAppDispatch: UseAppDispatchFunc;
+}
+
+interface AppDrawerProps {
+  children: ReactNode;
+  actions: AppDrawerActions;
+  hooks: AppDrawerHooks;
+}
+
 export default function AppDrawer({
   children,
-  ...props
-}: {
-  children?: ReactNode;
-}) {
+  actions,
+  hooks,
+}: AppDrawerProps) {
   // const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  const { useAppSelector, useAppDispatch } = hooks;
+  const dispatch = useAppDispatch();
+  const { open } = useAppSelector((state) => state.app.canvas);
+  const { openCanvas, closeCanvas } = actions;
+  // const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
-    setOpen(true);
+    // setOpen(true);
+    dispatch(openCanvas());
   };
 
   const handleDrawerClose = () => {
-    setOpen(false);
+    // setOpen(false);
+    dispatch(closeCanvas());
   };
 
   return (
@@ -117,7 +149,7 @@ export default function AppDrawer({
         variant="permanent"
         open={open}
       >
-        <MenuDiv className="styledDiv" style={{ backgroundColor: '#c3c3c3' }}>
+        <MenuDiv>
           {open ? (
             <StyledIconButton
               className="toggle"
@@ -139,9 +171,7 @@ export default function AppDrawer({
           )}
           <Divider className="Divider" />
         </MenuDiv>
-        <ContentDiv style={{ backgroundColor: '#h5h5h5' }}>
-          {children}
-        </ContentDiv>
+        {open && <ContentDiv>{children}</ContentDiv>}
       </StyledDrawer>
     </Box>
   );

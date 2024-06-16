@@ -1,4 +1,5 @@
 import {
+  appActions,
   mapActions,
   markerActions,
   useAppDispatch,
@@ -11,9 +12,20 @@ export function BaseUI() {
   // const dispatch = useAppDispatch();
   const { mapsLoaded } = useAppSelector((state) => state.app);
   const { setDragged, setDragView, setRecenter, setMarkView } = mapActions;
+  const { openCanvas, closeCanvas } = appActions;
   const { setClicked } = markerActions;
 
-  const mapPropActions = {
+  const baseHooks = {
+    useAppSelector,
+    useAppDispatch,
+  };
+
+  const drawerActions = {
+    openCanvas,
+    closeCanvas,
+  };
+
+  const mapContActions = {
     setDragged,
     setDragView,
     setRecenter,
@@ -21,21 +33,12 @@ export function BaseUI() {
     setClicked,
   };
 
-  const mapPropHooks = {
-    useAppSelector,
-    useAppDispatch,
-  };
-
   return (
     <>
       <CssBaseline />
-      <AppDrawer>
+      <AppDrawer actions={drawerActions} hooks={baseHooks}>
         {mapsLoaded && (
-          <MapCont
-            actions={mapPropActions}
-            hooks={mapPropHooks}
-            hash={'hash'}
-          />
+          <MapCont actions={mapContActions} hooks={baseHooks} hash={'hash'} />
         )}
       </AppDrawer>
     </>

@@ -29,7 +29,7 @@ export function IngameTiles({
 
   const { debug } = useAppSelector((state) => state.app);
   const { tileDate } = useAppSelector((state) => state.map);
-  const { wide } = useAppSelector((state) => state.app.canvas);
+  const { open, wide } = useAppSelector((state) => state.app.canvas);
 
   const cleanTileCache = useCallback(
     async (tileDate: number) => {
@@ -61,12 +61,15 @@ export function IngameTiles({
     cleanTileCache(tileDate).catch((err) => {
       console.error(err);
     });
-    map.invalidateSize();
-  }, [tileDate, map, wide, cleanTileCache]);
+  }, [tileDate, map, cleanTileCache]);
 
   useEffect(() => {
-    map.invalidateSize();
-  }, [map, wide]);
+    const timeout = setTimeout(() => {
+      map.invalidateSize();
+    }, 300);
+
+    return () => clearTimeout(timeout);
+  }, [map, open, wide]);
 
   return (
     <CachedTileLayer
