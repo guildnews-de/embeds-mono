@@ -38,12 +38,14 @@ import type { UseAppSelectorHook, UseAppDispatchFunc } from '@repo/app-redux';
 
 const drawerWidth = 480;
 
-const drawerBaseCss: CSSObject = {
+const drawerBaseCss = (theme: Theme): CSSObject => ({
   display: 'flex',
   flexDirection: 'row',
   overflowX: 'hidden',
   alignItems: 'center',
-};
+  backgroundColor: theme.palette.grey[500],
+  borderRadius: theme.spacing(1, 0, 0, 1),
+});
 
 const openedMixin = (theme: Theme): CSSObject => ({
   transition: theme.transitions.create('width', {
@@ -51,7 +53,7 @@ const openedMixin = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.enteringScreen,
   }),
   width: drawerWidth,
-  ...drawerBaseCss,
+  ...drawerBaseCss(theme),
 });
 
 const openedMixinWide = (theme: Theme): CSSObject => ({
@@ -60,7 +62,7 @@ const openedMixinWide = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.enteringScreen,
   }),
   width: '100vw',
-  ...drawerBaseCss,
+  ...drawerBaseCss(theme),
 });
 
 const closedMixin = (theme: Theme): CSSObject => ({
@@ -68,11 +70,11 @@ const closedMixin = (theme: Theme): CSSObject => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  width: `calc(${theme.spacing(4)} + 1px)`,
+  width: `calc(${theme.spacing(2)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(6)} + 1px)`,
+    width: `calc(${theme.spacing(4)} + 1px)`,
   },
-  ...drawerBaseCss,
+  ...drawerBaseCss(theme),
 });
 
 const MenuDiv = styled(Box)(({ theme }) => ({
@@ -87,10 +89,10 @@ const ContentDiv = styled(Box)(({ theme }) => ({
   // display: 'flex',
   // alignItems: 'center',
   // justifyContent: 'flex-start',
-  height: '96%',
+  height: '97%',
   flexGrow: 1,
   overflow: 'hidden',
-  borderRadius: theme.spacing(0.5),
+  borderRadius: theme.spacing(0.5, 0, 0, 0.5),
   padding: theme.spacing(0, 0),
 }));
 
@@ -109,7 +111,6 @@ const StyledDrawer = styled(WideDrawer, {
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',
   overflow: 'hidden',
-  borderRadius: theme.spacing(1),
   ...(open &&
     !wide && {
       ...openedMixin(theme),
@@ -127,8 +128,9 @@ const StyledDrawer = styled(WideDrawer, {
 }));
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
-  padding: theme.spacing(0.5),
+  padding: theme.spacing(0.25),
   margin: theme.spacing(0.25),
+  color: theme.palette.grey[800],
 }));
 
 interface AppDrawerActions {
