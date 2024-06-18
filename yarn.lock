@@ -1984,6 +1984,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@discretize/gw2-ui-new@file:./../../../guildnews-de_discretize-ui/gw2-ui/::locator=%40repo%2Ftimer%40workspace%3Apackages%2Ftimer":
+  version: 0.1.5
+  resolution: "@discretize/gw2-ui-new@file:./../../../guildnews-de_discretize-ui/gw2-ui/#./../../../guildnews-de_discretize-ui/gw2-ui/::hash=081bd9&locator=%40repo%2Ftimer%40workspace%3Apackages%2Ftimer"
+  dependencies:
+    "@discretize/typeface-menomonia": "npm:*"
+    clsx: "npm:^1.1.1"
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
+  checksum: 10c0/fb7c75d81455ea8e013cfcdafdc9497bc2ac982e3a01cae3e477d61371392eaa8dcd6579be49726015bb968516039c7a09d2dcb240f0ae7e4a48dd9b745eaf1f
+  languageName: node
+  linkType: hard
+
 "@discretize/typeface-menomonia@npm:*, @discretize/typeface-menomonia@npm:^0.1.3":
   version: 0.1.3
   resolution: "@discretize/typeface-menomonia@npm:0.1.3"
@@ -2814,6 +2826,27 @@ __metadata:
     "@types/node": "npm:^20.14.2"
     "@types/react": "npm:^18.3.3"
     "@types/react-dom": "npm:^18.3.0"
+    react: "npm:^18.3.1"
+  languageName: unknown
+  linkType: soft
+
+"@repo/timer@workspace:packages/timer":
+  version: 0.0.0-use.local
+  resolution: "@repo/timer@workspace:packages/timer"
+  dependencies:
+    "@discretize/gw2-ui-new": "file:./../../../guildnews-de_discretize-ui/gw2-ui/"
+    "@discretize/typeface-menomonia": "npm:^0.1.3"
+    "@loadable/component": "npm:^5.16.4"
+    "@mui/material": "npm:^5.15.20"
+    "@repo/core": "npm:*"
+    "@repo/eslint-config": "npm:*"
+    "@repo/typescript-config": "npm:*"
+    "@turbo/gen": "npm:^2.0.3"
+    "@types/loadable__component": "npm:^5.13.9"
+    "@types/node": "npm:^20.14.2"
+    "@types/react": "npm:^18.3.3"
+    "@types/react-dom": "npm:^18.3.0"
+    clsx: "npm:^2.1.1"
     react: "npm:^18.3.1"
   languageName: unknown
   linkType: soft
@@ -4581,7 +4614,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^2.1.0":
+"clsx@npm:^2.1.0, clsx@npm:^2.1.1":
   version: 2.1.1
   resolution: "clsx@npm:2.1.1"
   checksum: 10c0/c4c8eb865f8c82baab07e71bfa8897c73454881c4f99d6bc81585aecd7c441746c1399d08363dc096c550cceaf97bd4ce1e8854e1771e9998d9f94c4fe075839
