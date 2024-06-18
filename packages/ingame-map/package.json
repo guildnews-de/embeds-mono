@@ -13,13 +13,13 @@
     "@loadable/component": "^5.16.4",
     "@mui/material": "^5.15.19",
     "@reduxjs/toolkit": "^2.2.5",
+    "@repo/app-redux": "*",
     "@repo/core": "*",
     "leaflet": "^1.9.4",
     "leaflet.offline": "^3.0.1",
     "react-leaflet": "^4.2.1"
   },
   "devDependencies": {
-    "@repo/app-redux": "*",
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "@turbo/gen": "^2.0.3",
