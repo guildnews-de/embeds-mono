@@ -5,7 +5,7 @@ import {
   GW2ApiError,
   GW2ApiRegionsResponse,
   type GW2ApiPoi,
-} from '../shared/guildwars2Api';
+} from '../shared/gw2Api';
 
 export interface GW2ApiRequest {
   loading: boolean | undefined;

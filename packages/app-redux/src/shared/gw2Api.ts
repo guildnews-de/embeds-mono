@@ -1,4 +1,4 @@
-import { Point } from 'leaflet';
+import { Point, PointTuple } from 'leaflet';
 
 // Classes
 
@@ -43,7 +43,7 @@ export class GW2PointGroup {
 // Interfaces
 
 export interface GW2PointProps {
-  tupel: [number, number];
+  tupel: PointTuple;
   name: string;
   type: string;
   icon?: string;
@@ -56,7 +56,7 @@ export interface GW2PointGroupProps {
 
 export interface GW2ApiPoi {
   name: string;
-  coord: [number, number];
+  coord: PointTuple;
   type: string;
   floor?: 1;
   chat_link?: string;
@@ -65,8 +65,8 @@ export interface GW2ApiPoi {
 
 export interface GW2ApiSector {
   name: string;
-  coord: [number, number];
-  bounds: [number, number][];
+  coord: PointTuple;
+  bounds: PointTuple[];
   chat_link: string;
 }
 
@@ -82,8 +82,8 @@ export interface GW2ApiMapsResponse {
   region_name?: string;
   continent_id?: number;
   continent_name?: string;
-  map_rect?: [[number, number], [number, number]];
-  continent_rect?: [[number, number], [number, number]];
+  map_rect?: [PointTuple, PointTuple];
+  continent_rect?: [PointTuple, PointTuple];
 }
 
 export interface GW2ApiRegionsResponse {
@@ -91,9 +91,9 @@ export interface GW2ApiRegionsResponse {
   min_level?: number;
   max_level?: number;
   default_floor?: number;
-  label_coord?: [number, number];
-  map_rect?: [[number, number], [number, number]];
-  continent_rect?: [[number, number], [number, number]];
+  label_coord?: PointTuple;
+  map_rect?: [PointTuple, PointTuple];
+  continent_rect?: [PointTuple, PointTuple];
   points_of_interest?: Record<number, GW2ApiPoi>;
   sectors?: Record<number, GW2ApiSector>;
   id?: number;

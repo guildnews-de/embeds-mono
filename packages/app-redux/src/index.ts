@@ -26,4 +26,4 @@ export type MarkerReducerType = typeof markerReducer;
 export type MarkerActionsType = typeof markerActions;
 export { markerReducer, markerActions };
 
-export * from './shared/guildwars2Api';
+export * from './shared/gw2Api';
