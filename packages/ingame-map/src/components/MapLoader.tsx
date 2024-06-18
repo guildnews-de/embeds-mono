@@ -17,18 +17,19 @@ export type MapLoaderProps = {
 export default function MapLoader(props: MapLoaderProps) {
   const { data, actions, hooks } = props;
   const { addActiveMap, fetchMap } = actions;
-  const { useAppDispatch } = hooks;
+  const { useAppDispatch, useAppSelector } = hooks;
+  const { lang } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
   useMemo(() => {
     const { ids } = data!;
     if (ids && ids.length > 0 /* && !mapsLoaded */) {
       ids.forEach((id) => {
-        dispatch(fetchMap({ id: id, lang: 'de' }));
+        dispatch(fetchMap({ id: id, lang: lang }));
         dispatch(addActiveMap(id));
       });
     }
-  }, [dispatch, fetchMap, addActiveMap, data]);
+  }, [dispatch, fetchMap, addActiveMap, data, lang]);
 
   return <></>;
 }

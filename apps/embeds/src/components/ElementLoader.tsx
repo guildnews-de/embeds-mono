@@ -49,13 +49,13 @@ export function ElementLoader() {
 
 function ElementPortal(props: { element: EmbedElement; idx: number }) {
   const dispatch = useAppDispatch();
-  const { mapsLoaded } = useAppSelector((state) => state.app);
+  // const { mapsLoaded } = useAppSelector((state) => state.app);
   const { element, idx } = props;
   element.classList.remove('gw2MultiEmb');
   const { dataset } = element;
   const { gw2Embed: embedType } = dataset;
 
-  const { setMapsLoaded } = appActions;
+  // const { setMapsLoaded } = appActions;
 
   let ElementLoader: EmbedLoader;
   let ElementHooks: EmbedHooks;
@@ -89,11 +89,11 @@ function ElementPortal(props: { element: EmbedElement; idx: number }) {
     ElementLoader = IngameUiLoader;
   }
 
-  useMemo(() => {
-    if (!mapsLoaded && isIngameMapType(embedType)) {
-      dispatch(setMapsLoaded());
-    }
-  }, [embedType, dispatch, setMapsLoaded, mapsLoaded]);
+  // useMemo(() => {
+  //   if (!mapsLoaded && isIngameMapType(embedType)) {
+  //     dispatch(setMapsLoaded());
+  //   }
+  // }, [embedType, dispatch, setMapsLoaded, mapsLoaded]);
 
   if (ElementLoader) {
     const hash = MD5({ ...dataset, idx });

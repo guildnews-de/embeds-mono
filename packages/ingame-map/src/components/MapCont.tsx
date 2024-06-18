@@ -31,11 +31,12 @@ export type MapContProps = {
 export default function MapCont(props: MapContProps) {
   const { hooks, actions } = props;
   const { useAppSelector } = hooks;
-  const lang = 'de';
+
   // Grab redux state info
   const { bounds, activeMaps } = useAppSelector((state) => state.map);
+  const { lang } = useAppSelector((state) => state.app);
   const { active, groups } = useAppSelector((state) => state.marker);
-  const apiData = useAppSelector((state) => state.api.response.maps);
+  const { maps: apiData } = useAppSelector((state) => state.api.response);
 
   // Collect conditional data
   const marker =

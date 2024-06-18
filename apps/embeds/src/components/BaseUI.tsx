@@ -10,7 +10,7 @@ import { MapCont } from '@repo/ingame-map';
 
 export function BaseUI() {
   // const dispatch = useAppDispatch();
-  const { mapsLoaded } = useAppSelector((state) => state.app);
+  // const { mapsLoaded } = useAppSelector((state) => state.app);
   const { setDragged, setDragView, setRecenter, setMarkView } = mapActions;
   const { openCanvas, closeCanvas, toggleWide } = appActions;
   const { setClicked } = markerActions;
@@ -38,9 +38,11 @@ export function BaseUI() {
     <>
       <CssBaseline />
       <AppDrawer actions={drawerActions} hooks={baseHooks}>
-        {mapsLoaded && (
+        {
+          /* mapsLoaded && ( */
           <MapCont actions={mapContActions} hooks={baseHooks} hash={'hash'} />
-        )}
+          /* ) */
+        }
       </AppDrawer>
     </>
   );

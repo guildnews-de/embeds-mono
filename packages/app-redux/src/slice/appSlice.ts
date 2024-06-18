@@ -1,26 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { GW2ApiLang } from './apiSlice';
 
 export interface appState {
-  mapsLoaded: boolean;
+  // mapsLoaded: boolean;
+  // loadLL: boolean;
+  lang: GW2ApiLang;
   modal: boolean;
-  loadLL: boolean;
   canvas: {
     open: boolean;
     wide: boolean;
-    delayed: boolean;
+    // delayed: boolean;
   };
   debug: boolean;
 }
 
 const initState: appState = {
-  mapsLoaded: false,
+  // mapsLoaded: false,
+  // loadLL: false,
+  lang: 'en',
   modal: false,
-  loadLL: false,
   canvas: {
     open: false,
     wide: false,
-    delayed: false,
+    // delayed: false,
   },
   debug: false,
 };
@@ -29,6 +32,12 @@ export const appSlice = createSlice({
   name: 'map',
   initialState: initState,
   reducers: {
+    setLang(state, action: PayloadAction<GW2ApiLang>) {
+      return {
+        ...state,
+        lang: action.payload,
+      };
+    },
     toggleCanvas(state) {
       const { open } = state.canvas;
       return {
@@ -36,7 +45,7 @@ export const appSlice = createSlice({
         canvas: {
           ...state.canvas,
           open: !open,
-          delayed: !open,
+          // delayed: !open,
         },
       };
     },
@@ -46,7 +55,7 @@ export const appSlice = createSlice({
         canvas: {
           ...state.canvas,
           open: true,
-          delayed: true,
+          // delayed: true,
         },
       };
     },
@@ -56,19 +65,19 @@ export const appSlice = createSlice({
         canvas: {
           ...state.canvas,
           open: false,
-          delayed: false,
+          // delayed: false,
         },
       };
     },
-    setDelayed(state, action: PayloadAction<boolean>) {
-      return {
-        ...state,
-        canvas: {
-          ...state.canvas,
-          delayed: action.payload,
-        },
-      };
-    },
+    // setDelayed(state, action: PayloadAction<boolean>) {
+    //   return {
+    //     ...state,
+    //     canvas: {
+    //       ...state.canvas,
+    //       delayed: action.payload,
+    //     },
+    //   };
+    // },
     toggleWide(state) {
       const { wide } = state.canvas;
       return {
@@ -79,12 +88,12 @@ export const appSlice = createSlice({
         },
       };
     },
-    setMapsLoaded(state) {
-      return {
-        ...state,
-        mapsLoaded: true,
-      };
-    },
+    // setMapsLoaded(state) {
+    //   return {
+    //     ...state,
+    //     mapsLoaded: true,
+    //   };
+    // },
     toggleModal(state) {
       const { modal } = state;
       return {
