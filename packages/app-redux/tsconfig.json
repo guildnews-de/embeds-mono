@@ -3,6 +3,6 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "include": ["src", "src/apiMiddleware.ts", "src/hooks.ts"],
+  "include": ["src", "src/gw2Middleware.ts", "src/hooks.ts"],
   "exclude": ["node_modules", "dist"]
 }
