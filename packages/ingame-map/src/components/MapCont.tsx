@@ -31,10 +31,11 @@ export type MapContProps = {
 export default function MapCont(props: MapContProps) {
   const { hooks, actions } = props;
   const { useAppSelector } = hooks;
+  const lang = 'de';
   // Grab redux state info
   const { bounds, activeMaps } = useAppSelector((state) => state.map);
   const { active, groups } = useAppSelector((state) => state.marker);
-  const apiData = useAppSelector((state) => state.api.response);
+  const apiData = useAppSelector((state) => state.api.response.maps);
 
   // Collect conditional data
   const marker =
@@ -46,7 +47,8 @@ export default function MapCont(props: MapContProps) {
       sectors: {} as Record<number, GW2ApiSector>,
     };
     activeMaps.forEach((id) => {
-      const idData = apiData[id];
+      const mapKey = `${id}_${lang}`;
+      const idData = apiData ? apiData[mapKey] : undefined;
       if (idData) {
         const { poi, sectors } = idData;
         stack.poi = {
@@ -60,7 +62,7 @@ export default function MapCont(props: MapContProps) {
       }
     });
     return stack;
-  }, [activeMaps, apiData]);
+  }, [activeMaps, apiData, lang]);
 
   return (
     <MapContainer

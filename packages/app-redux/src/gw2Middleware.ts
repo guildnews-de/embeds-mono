@@ -26,11 +26,11 @@ const apiMiddleware: Middleware<Record<string, never>, RootState> =
     if (!isApiAction(action)) return;
 
     dispatch(setLoading());
-    const { id, lang } = action.payload;
+    const { id, lang = 'en' } = action.payload;
     const cacheKey = `maps_${id}_${lang}`;
     const dateNow = new Date();
 
-    const dbPromise = openDB('GW2_MapTool', 2, {
+    const dbPromise = openDB('GuildNews_GW2Embeds', 2, {
       upgrade(db) {
         db.createObjectStore('gw2_api_data');
       },
@@ -48,7 +48,9 @@ const apiMiddleware: Middleware<Record<string, never>, RootState> =
             if (cachedData && cacheAge < 3) {
               // If data is found in IndexedDB, dispatch it
               //console.debug('From Database');
-              dispatch(setData({ mapID: id, mapData: cachedData }));
+              dispatch(
+                setData({ mapID: id, apiLang: lang, mapData: cachedData }),
+              );
               dispatch(setDone());
             } else {
               //console.debug('From API');
@@ -104,7 +106,13 @@ const apiMiddleware: Middleware<Record<string, never>, RootState> =
                       };
                       //console.log(JSON.stringify(cropData));
                       //console.log(JSON.stringify(data));
-                      dispatch(setData({ mapID: id, mapData: apiData.map }));
+                      dispatch(
+                        setData({
+                          mapID: id,
+                          apiLang: lang,
+                          mapData: apiData.map,
+                        }),
+                      );
                       // Store the data in IndexedDB for future use
                       db.put(
                         'gw2_api_data',

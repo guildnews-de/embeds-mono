@@ -7,14 +7,7 @@ import {
   type GW2ApiPoi,
 } from '../shared/gw2Api';
 
-export interface GW2ApiRequest {
-  loading: boolean | undefined;
-  error?: GW2ApiError | null;
-  request: {
-    method?: string;
-  };
-  response: Record<number, GW2MapsApiData>;
-}
+export type GW2ApiLang = 'de' | 'en' | 'es' | 'fr';
 
 export interface GW2MapsApiData
   extends Omit<
@@ -26,38 +19,32 @@ export interface GW2MapsApiData
 
 export interface GW2ApiRequestParams {
   id: number;
-  lang?: 'de' | 'en' | 'es' | 'fr';
+  lang?: GW2ApiLang;
   access_token?: string;
+}
+
+export interface GW2ApiRequest {
+  loading: boolean | undefined;
+  error?: GW2ApiError | null;
+  request: {
+    url?: string;
+    method?: string;
+    params?: Record<string, string>;
+  };
+  response: {
+    maps?: Record<string, GW2MapsApiData>;
+  };
 }
 
 export const initState: GW2ApiRequest = {
   loading: undefined,
   error: null,
   request: {
+    url: undefined,
     method: 'GET',
   },
   response: {
-    0: {
-      id: 0,
-      name: 'Dummy Data',
-      min_level: 0,
-      max_level: 0,
-      default_floor: 1,
-      type: 'Public',
-      floors: [],
-      region_id: 0,
-      region_name: 'Tyria',
-      continent_id: 1,
-      continent_name: 'Tyria',
-      map_rect: [
-        [0, 0],
-        [81920, 114688],
-      ],
-      continent_rect: [
-        [0, 0],
-        [81920, 114688],
-      ],
-    },
+    maps: undefined,
   },
 };
 
@@ -81,6 +68,7 @@ export const apiSlice = createSlice({
     },
     fetchMap(state, action: PayloadAction<GW2ApiRequestParams>) {
       const { id, lang = 'en' } = action.payload;
+
       return {
         ...state,
         request: {
@@ -96,19 +84,27 @@ export const apiSlice = createSlice({
       state,
       action: PayloadAction<{
         mapID: number;
+        apiLang: GW2ApiLang;
         mapData: GW2ApiMapsResponse | GW2ApiRegionsResponse;
       }>,
     ) {
-      const { mapID, mapData: newData } = action.payload;
-      const prevState = state.response[mapID];
+      const { mapID, apiLang, mapData } = action.payload;
+
+      const mapKey = `${mapID}_${apiLang}`;
+      const { maps } = state.response;
+      const oldData = maps ? maps[mapKey] : undefined;
+
       return {
         ...state,
         error: null,
         response: {
           ...state.response,
-          [mapID]: {
-            ...prevState,
-            ...newData,
+          maps: {
+            ...maps,
+            [mapKey]: {
+              ...oldData,
+              ...mapData,
+            },
           },
         },
       };
