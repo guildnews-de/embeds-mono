@@ -137,6 +137,7 @@ interface AppDrawerActions {
   openCanvas: AppActionsType['openCanvas'];
   closeCanvas: AppActionsType['closeCanvas'];
   toggleWide: AppActionsType['toggleWide'];
+  setLang: AppActionsType['setLang'];
 }
 
 interface AppDrawerHooks {
@@ -162,13 +163,15 @@ export default function AppDrawer({
   const dispatch = useAppDispatch();
 
   const { open, wide } = useAppSelector((state) => state.app.canvas);
-  const { openCanvas, closeCanvas, toggleWide } = actions;
+  const { lang } = useAppSelector((state) => state.app);
+  const { openCanvas, closeCanvas, toggleWide, setLang } = actions;
 
   const wideClickAction = toggleWide();
   const WideIndicator = wide ? ZoomInMap : ZoomOutMap;
 
   const openClickAction = open ? closeCanvas() : openCanvas();
   const OpenIndicator = open ? ChevronRight : ChevronLeft;
+  const newLang = lang === 'en' ? 'de' : 'en';
 
   return (
     <Box className="Box">
@@ -199,6 +202,16 @@ export default function AppDrawer({
             }}
           >
             <OpenIndicator />
+          </StyledIconButton>
+          <Divider />
+          <StyledIconButton
+            color="inherit"
+            aria-label="toggle lang"
+            onClick={() => {
+              dispatch(setLang(newLang));
+            }}
+          >
+            {lang}
           </StyledIconButton>
         </MenuDiv>
         {open && <ContentDiv>{children}</ContentDiv>}
