@@ -1,9 +1,14 @@
 import loadable from '@loadable/component';
-import { TimerDataset, TimerData, TimerProps } from '../shared/interfaces';
+import {
+  TimerDataset,
+  TimerData,
+  // TimerProps,
+  TimerHooks,
+} from '../shared/interfaces';
 import { default as metasObject } from '../data/metas';
 
 import type { MetaBarComp, MetaBarProps } from '../components/MetaBar';
-import type { MetaCatComp, MetaCatProps } from '../components/MetaCat';
+// import type { MetaCatComp, MetaCatProps } from '../components/MetaCat';
 
 import { useMemo } from 'react';
 
@@ -12,10 +17,14 @@ import { useMemo } from 'react';
 export interface TimerLoaderProps {
   data: TimerDataset;
   hash: string;
+  hooks: TimerHooks;
 }
+// export interface IngameMapLoaderProps extends Omit<TimerProps, 'data'> {
+//   data: TimerDataset;
+// }
 
 export default function TimerLoader(props: TimerLoaderProps) {
-  const { data } = props;
+  const { data, hooks, hash } = props;
   const elementData = useMemo(() => {
     return new TimerData(data);
   }, [data]);
@@ -32,7 +41,12 @@ export default function TimerLoader(props: TimerLoaderProps) {
               ({ data }) => import(`./${data.type}`) as Promise<MetaBarComp>,
             );
             return (
-              <AsyncModule data={elementData} meta={meta} hash={props.hash} />
+              <AsyncModule
+                data={elementData}
+                hooks={hooks}
+                meta={meta}
+                hash={hash}
+              />
             );
           }
         }

@@ -12,7 +12,7 @@ export interface TimerSegment {
 }
 
 // Default export
-const metas: Record<number, TimerMeta> = {
+const metas: Record<string, TimerMeta> = {
   0: {
     category: 'other',
     name: 'Day and night',

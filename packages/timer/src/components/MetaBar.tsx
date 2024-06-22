@@ -2,11 +2,19 @@ import { Box, Paper, styled } from '@mui/material';
 import { clsx } from 'clsx';
 
 import { TimerMeta } from '../data/metas';
-import { TimeObj, TimerProps } from '../shared/interfaces';
+import {
+  TimeObj,
+  TimerData,
+  TimerHooks,
+  // TimerProps,
+} from '../shared/interfaces';
 import { default as MetaPhase, type MetaPhaseProps } from './MetaPhase';
 
-export interface MetaBarProps extends TimerProps {
+export interface MetaBarProps {
+  data: TimerData;
   meta: TimerMeta;
+  hooks: TimerHooks;
+  hash: string;
 }
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -14,8 +22,10 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(0.5),
 }));
 
-export default function MetaBar({ meta, data }: MetaBarProps) {
+export default function MetaBar({ meta, data, hooks }: MetaBarProps) {
   const { category, name, phases, offset = 0 } = meta;
+  const { useAppSelector } = hooks;
+  const { lang } = useAppSelector((state) => state.app);
   const lastPhase = phases.length - 1;
   const { mark } = data;
 

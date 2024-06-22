@@ -1,4 +1,6 @@
 import type { CSSProperties } from 'react';
+import type { UseAppSelectorHook, UseAppDispatchFunc } from '@repo/app-redux';
+import { MetaBarProps } from '../components/MetaBar';
 
 export interface TimerDataset {
   gw2Embed?: string;
@@ -133,7 +135,15 @@ export class TimeObj {
   }
 }
 
-export interface TimerProps {
-  data: TimerData;
-  hash: string;
+export interface TimerHooks {
+  useAppSelector: UseAppSelectorHook;
+  useAppDispatch: UseAppDispatchFunc;
 }
+
+export interface TimerDefaultProps {
+  hash: string;
+  data?: TimerData;
+  hooks: TimerHooks;
+}
+
+export type TimerProps = TimerDefaultProps & MetaBarProps;
