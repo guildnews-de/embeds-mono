@@ -8,7 +8,15 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   flexBasis: 'min-content',
 }));
 
-export default function MetaPhase({ phase }: { phase: TimerSegment }) {
+export default function MetaPhase({
+  phase,
+  time,
+  marked,
+}: {
+  phase: TimerSegment;
+  time: string;
+  marked?: boolean;
+}) {
   const { color, duration, name } = phase;
   return (
     <StyledPaper
@@ -17,13 +25,17 @@ export default function MetaPhase({ phase }: { phase: TimerSegment }) {
         backgroundColor: color,
         flexGrow: duration,
       }}
-      // style$="background: [[ phase.color ]]; color: [[ _textColor(phase.text) ]]; width:calc([[ _calcPhaseWidth(phase.duration) ]]% - .25rem);"
     >
-      <Box className="phase-time" sx={{ minWidth: 0 }}>
-        {/* [[ phase.hour ]]:[[ phase.minute ]] */}
-        {`${duration} Hour:Minute (work-inprogress)`}
+      <Box
+        className="phase-time"
+        sx={{ minWidth: 0, fontWeight: marked ? 'bold' : undefined }}
+      >
+        {time}
       </Box>
-      <Box className="phase-name" sx={{ minWidth: 0 }}>
+      <Box
+        className="phase-name"
+        sx={{ minWidth: 0, fontWeight: marked ? 'bold' : undefined }}
+      >
         {name}
       </Box>
     </StyledPaper>

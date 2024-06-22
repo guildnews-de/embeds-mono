@@ -95,7 +95,7 @@ const metas: Record<number, TimerMeta> = {
     name: 'Verdant Brink',
     phases: [
       {
-        name: '',
+        name: 'Night and the Enemy',
         duration: 10,
         color: '#84C147',
       },
@@ -105,12 +105,12 @@ const metas: Record<number, TimerMeta> = {
         color: '#6DAC2F',
       },
       {
-        name: 'Daytime',
+        name: 'Daytime: Securing Verdant Brink',
         duration: 75,
         color: '#C4E2A5',
       },
       {
-        name: 'Night',
+        name: 'Night and the Enemy',
         duration: 15,
         color: '#84C147',
       },

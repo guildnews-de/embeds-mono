@@ -52,6 +52,76 @@ export class TimerData {
   }
 }
 
+export class TimeObj {
+  start: Date;
+  startHour: number;
+  event: Date;
+  addHour: number;
+  addMin: number;
+
+  constructor() {
+    const now = new Date();
+    now.setMinutes(0);
+    now.setSeconds(0);
+    this.start = now;
+
+    // if (this.isDst()) {
+    //   this.start.setHours(this.start.getHours() - 1);
+    // }
+
+    // this.start = startDate;
+    console.debug('Start: ' + this.start.toString());
+
+    this.event = this.start;
+
+    this.startHour = this.event.getHours();
+    this.addHour = 0;
+    this.addMin = 0;
+  }
+
+  addMinutes(duration: number): void {
+    console.group(`Add: ${duration}`);
+
+    this.addMin += duration;
+
+    while (this.addMin >= 60) {
+      this.addMin -= 60;
+      this.addHour += 1;
+    }
+
+    if (this.addHour >= 2) {
+      this.addHour -= 2;
+    }
+
+    console.log(`Add HUR: ${this.addHour}`);
+    // console.log(`Offset_: ${offset}`);
+    console.log(`Add MIN: ${this.addMin}`);
+    this.event.setHours(this.startHour + this.addHour);
+    this.event.setMinutes(this.addMin);
+
+    console.debug(this.start.toString());
+    console.groupEnd();
+  }
+
+  getCurrentTimeString(): string {
+    return this.event.toLocaleTimeString('de-DE', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  }
+
+  stdTimezoneOffset(): number {
+    const fullYear = this.start.getFullYear();
+    const jan = new Date(fullYear, 0, 1);
+    const jul = new Date(fullYear, 6, 1);
+    return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
+  }
+
+  isDst(): boolean {
+    return this.start.getTimezoneOffset() < this.stdTimezoneOffset();
+  }
+}
+
 export interface TimerProps {
   data: TimerData;
   hash: string;
