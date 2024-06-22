@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Paper, styled } from '@mui/material';
 import { clsx } from 'clsx';
 
 import { TimerMeta } from '../data/metas';
@@ -9,6 +9,11 @@ export interface MetaBarProps extends TimerProps {
   meta: TimerMeta;
 }
 
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  margin: theme.spacing(0.25),
+  padding: theme.spacing(0.5),
+}));
+
 export default function MetaBar({ meta }: MetaBarProps) {
   const { category, name, phases } = meta;
 
@@ -18,12 +23,14 @@ export default function MetaBar({ meta }: MetaBarProps) {
     ));
 
   return (
-    <Box className={clsx('meta', category)}>
-      <p className="meta-name">{name}</p>
+    <StyledPaper className={clsx('meta', category)} elevation={2}>
+      <Box className="meta-name" sx={{ fontWeight: 'bold' }}>
+        {name}
+      </Box>
       <Box className="meta-bar" display={'flex'} flexDirection={'row'}>
         <PhasesRow />
       </Box>
-    </Box>
+    </StyledPaper>
   );
 }
 

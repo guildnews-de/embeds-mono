@@ -1,22 +1,36 @@
-import { Box } from '@mui/material';
+import { Box, Paper, styled } from '@mui/material';
 
 import { TimerSegment } from '../data/metas';
 
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  margin: theme.spacing(0.25),
+  padding: theme.spacing(0.5),
+  flexBasis: 'min-content',
+  overflow: '',
+}));
+
 export default function MetaPhase({ phase }: { phase: TimerSegment }) {
   const { color, duration, name } = phase;
+  const maxWidth = 1.2 * duration;
   return (
-    <Box
+    <StyledPaper
       className="phase"
-      sx={{ backgroundColor: color }}
-      flexGrow={duration}
+      sx={{
+        backgroundColor: color,
+        flexGrow: duration,
+        maxWidth: `${maxWidth}%`,
+      }}
+      // flexGrow={duration}
       // style$="background: [[ phase.color ]]; color: [[ _textColor(phase.text) ]]; width:calc([[ _calcPhaseWidth(phase.duration) ]]% - .25rem);"
     >
-      <Box className="phase-time" /* hidden$="[[ _isCompact(size) ]]" */>
+      <Box className="phase-time" sx={{ minWidth: 0 }}>
         {/* [[ phase.hour ]]:[[ phase.minute ]] */}
-        {`${duration} Hour:Minute (work-in-progress)`}
+        {`${duration} Hour:Minute (work-inprogress)`}
       </Box>
-      <Box className="phase-name">{name}</Box>
-    </Box>
+      <Box className="phase-name" sx={{ minWidth: 0 }}>
+        {name}
+      </Box>
+    </StyledPaper>
   );
 }
 
