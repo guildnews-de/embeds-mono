@@ -59,10 +59,11 @@ export class TimeObj {
   addHour: number;
   addMin: number;
 
-  constructor() {
+  constructor(offset: number) {
     const now = new Date();
     now.setMinutes(0);
     now.setSeconds(0);
+    now.setHours(Math.floor(now.getHours() / 2) * 2);
     this.start = now;
 
     // if (this.isDst()) {
@@ -72,11 +73,15 @@ export class TimeObj {
     // this.start = startDate;
     console.debug('Start: ' + this.start.toString());
 
-    this.event = this.start;
+    this.event = new Date(now.valueOf());
 
     this.startHour = this.event.getHours();
     this.addHour = 0;
     this.addMin = 0;
+
+    if (offset != 0) {
+      this.addMinutes(offset);
+    }
   }
 
   addMinutes(duration: number): void {
@@ -94,7 +99,6 @@ export class TimeObj {
     }
 
     console.log(`Add HUR: ${this.addHour}`);
-    // console.log(`Offset_: ${offset}`);
     console.log(`Add MIN: ${this.addMin}`);
     this.event.setHours(this.startHour + this.addHour);
     this.event.setMinutes(this.addMin);
@@ -105,6 +109,13 @@ export class TimeObj {
 
   getCurrentTimeString(): string {
     return this.event.toLocaleTimeString('de-DE', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  }
+
+  getInitTimeString(): string {
+    return this.start.toLocaleTimeString('de-DE', {
       hour: '2-digit',
       minute: '2-digit',
     });

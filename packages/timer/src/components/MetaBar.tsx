@@ -3,7 +3,7 @@ import { clsx } from 'clsx';
 
 import { TimerMeta } from '../data/metas';
 import { TimeObj, TimerProps } from '../shared/interfaces';
-import MetaPhase from './MetaPhase';
+import { default as MetaPhase, type MetaPhaseProps } from './MetaPhase';
 
 export interface MetaBarProps extends TimerProps {
   meta: TimerMeta;
@@ -15,25 +15,46 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 export default function MetaBar({ meta, data }: MetaBarProps) {
-  const { category, name, phases } = meta;
+  const { category, name, phases, offset = 0 } = meta;
+  const lastPhase = phases.length - 1;
   const { mark } = data;
 
-  const eventTime = new TimeObj();
+  const eventTime = new TimeObj(offset);
+  const renderPhases: MetaPhaseProps[] = [];
+  phases.forEach((phase, idx) => {
+    const { duration } = phase;
+    const marked = mark?.includes(idx);
+    const phaseTime = eventTime.getCurrentTimeString();
+    eventTime.addMinutes(duration);
+
+    if (offset && idx == lastPhase) {
+      renderPhases.unshift({
+        phase: { ...phase, duration: offset },
+        time: eventTime.getInitTimeString(),
+        marked: marked,
+      });
+
+      const { duration: phaseDur } = phase;
+      renderPhases.push({
+        phase: { ...phase, duration: phaseDur - offset },
+        time: phaseTime,
+        marked: marked,
+      });
+    } else {
+      renderPhases.push({
+        phase: phase,
+        time: phaseTime,
+        marked: marked,
+      });
+    }
+  });
 
   const PhasesRow = () =>
-    phases.map((phase, idx) => {
-      const marked = mark?.includes(idx);
-      const phaseTime = eventTime.getCurrentTimeString();
-      eventTime.addMinutes(phase.duration);
-      return (
-        <MetaPhase
-          phase={phase}
-          time={phaseTime}
-          marked={marked}
-          key={`${phase.name}${idx}`}
-        />
-      );
-    });
+    renderPhases.map((phaseProps, idx) => (
+      <MetaPhase key={`${phaseProps.phase.name}${idx}`} {...phaseProps} />
+    ));
+
+  console.debug('Start: ' + eventTime.start.toString());
 
   return (
     <StyledPaper className={clsx('meta', category)} elevation={2}>

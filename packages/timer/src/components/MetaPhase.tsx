@@ -8,15 +8,13 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   flexBasis: 'min-content',
 }));
 
-export default function MetaPhase({
-  phase,
-  time,
-  marked,
-}: {
+export interface MetaPhaseProps {
   phase: TimerSegment;
   time: string;
   marked?: boolean;
-}) {
+}
+
+export default function MetaPhase({ phase, time, marked }: MetaPhaseProps) {
   const { color, duration, name } = phase;
   return (
     <StyledPaper

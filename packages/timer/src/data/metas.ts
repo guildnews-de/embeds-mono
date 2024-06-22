@@ -1,6 +1,7 @@
 export interface TimerMeta {
   category: string;
   name: string;
+  offset?: number;
   phases: TimerSegment[];
 }
 
@@ -93,12 +94,13 @@ const metas: Record<number, TimerMeta> = {
   1052: {
     category: 'heart-of-thorns',
     name: 'Verdant Brink',
+    offset: 10,
     phases: [
-      {
-        name: 'Night and the Enemy',
-        duration: 10,
-        color: '#84C147',
-      },
+      // {
+      //   name: 'Night and the Enemy',
+      //   duration: 10,
+      //   color: '#84C147',
+      // },
       {
         name: 'Night Bosses',
         duration: 20,
@@ -111,7 +113,7 @@ const metas: Record<number, TimerMeta> = {
       },
       {
         name: 'Night and the Enemy',
-        duration: 15,
+        duration: 25,
         color: '#84C147',
       },
     ],
