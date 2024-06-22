@@ -5,7 +5,6 @@ import { default as metasObject } from '../data/metas';
 import type { MetaBarComp, MetaBarProps } from '../components/MetaBar';
 import type { MetaCatComp, MetaCatProps } from '../components/MetaCat';
 
-import '../package.scss';
 import { useMemo } from 'react';
 
 // type TimerComponent = MetaBarComp | MetaCatComp;
@@ -24,7 +23,7 @@ export default function TimerLoader(props: TimerLoaderProps) {
   const { type, ids } = elementData;
 
   switch (type) {
-    case 'metaBar':
+    case 'MetaBar':
       {
         if (ids && metasObject[ids]) {
           const meta = metasObject[ids];
@@ -39,7 +38,7 @@ export default function TimerLoader(props: TimerLoaderProps) {
         }
       }
       break;
-    // case 'metaCat': {
+    // case 'MetaCat': {
     //   if
     //   const AsyncModule = loadable<MetaCatProps>(
     //     ({ data }) => import(`./${data.type}`) as Promise<MetaCatComp>,

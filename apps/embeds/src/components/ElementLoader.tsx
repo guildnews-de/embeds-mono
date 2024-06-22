@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { MD5 } from 'object-hash';
@@ -26,8 +25,14 @@ import {
   type IngameUiElement,
 } from '@repo/ingame-ui';
 
-type EmbedElement = IngameMapElement | IngameUiElement;
-type EmbedLoader = typeof IngameMapLoader | typeof IngameUiLoader | undefined;
+import { isTimerType, TimerLoader, type TimerElement } from '@repo/timer';
+
+type EmbedElement = IngameMapElement | IngameUiElement | TimerElement;
+type EmbedLoader =
+  | typeof IngameMapLoader
+  | typeof IngameUiLoader
+  | typeof TimerLoader
+  | undefined;
 type EmbedActions = IngameMapActions | undefined;
 type EmbedHooks = IngameMapHooks | undefined;
 
@@ -48,7 +53,7 @@ export function ElementLoader() {
 }
 
 function ElementPortal(props: { element: EmbedElement; idx: number }) {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   // const { mapsLoaded } = useAppSelector((state) => state.app);
   const { element, idx } = props;
   element.classList.remove('gw2MultiEmb');
@@ -87,13 +92,9 @@ function ElementPortal(props: { element: EmbedElement; idx: number }) {
     };
   } else if (isIngameUiType(embedType)) {
     ElementLoader = IngameUiLoader;
+  } else if (isTimerType(embedType)) {
+    ElementLoader = TimerLoader;
   }
-
-  // useMemo(() => {
-  //   if (!mapsLoaded && isIngameMapType(embedType)) {
-  //     dispatch(setMapsLoaded());
-  //   }
-  // }, [embedType, dispatch, setMapsLoaded, mapsLoaded]);
 
   if (ElementLoader) {
     const hash = MD5({ ...dataset, idx });

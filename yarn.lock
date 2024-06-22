@@ -2257,6 +2257,7 @@ __metadata:
     "@repo/eslint-config": "npm:*"
     "@repo/ingame-map": "npm:*"
     "@repo/ingame-ui": "npm:*"
+    "@repo/timer": "npm:*"
     "@repo/typescript-config": "npm:*"
     "@repo/webpack-config": "npm:*"
     "@types/loadable__component": "npm:^5.13.9"
@@ -2830,7 +2831,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@repo/timer@workspace:packages/timer":
+"@repo/timer@npm:*, @repo/timer@workspace:packages/timer":
   version: 0.0.0-use.local
   resolution: "@repo/timer@workspace:packages/timer"
   dependencies:

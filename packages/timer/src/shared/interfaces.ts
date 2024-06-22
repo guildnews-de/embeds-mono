@@ -7,10 +7,10 @@ export interface TimerDataset {
   gw2Style?: CSSProperties;
 }
 
-export type TimerType = 'metaBar' | 'metaCat';
+export type TimerType = 'MetaBar' | 'MetaCat';
 
 export function isTimerType(value?: string): value is TimerType {
-  return value === 'metaBar' || value === 'metaCat';
+  return value === 'MetaBar' || value === 'MetaCat';
 }
 
 export interface TimerElement extends Omit<HTMLElement, 'dataset'> {
