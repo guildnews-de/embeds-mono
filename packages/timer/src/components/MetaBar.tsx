@@ -24,6 +24,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 
 export default function MetaBar({ meta, data, hooks }: MetaBarProps) {
   const eventObj = new TimerObj(meta);
+  const { name, category } = meta;
   const { phases } = eventObj;
   // console.log(phases);
   const renderPhases: MetaPhaseProps[] = [];
@@ -50,9 +51,9 @@ export default function MetaBar({ meta, data, hooks }: MetaBarProps) {
   console.log(renderPhases);
 
   return (
-    <StyledPaper className={clsx('meta', meta.category)} elevation={2}>
+    <StyledPaper className={clsx('meta', category)} elevation={2}>
       <Box className="meta-name" sx={{ fontWeight: 'bold' }}>
-        {/* {name} */}
+        {name}
       </Box>
       <Box className="meta-bar" display={'flex'} flexDirection={'row'}>
         {renderPhases.map((phaseProps, idx) => (
