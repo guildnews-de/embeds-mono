@@ -18,7 +18,7 @@ export interface IngameMapLoaderProps extends Omit<IngameMapProps, 'data'> {
 }
 
 export default function IngameMapLoader(props: IngameMapLoaderProps) {
-  const { data, actions, hooks, hash } = props;
+  const { data, hash } = props;
 
   const elementData = useMemo(() => {
     return new IngameMapData(data);
@@ -28,12 +28,5 @@ export default function IngameMapLoader(props: IngameMapLoaderProps) {
     ({ data }) => import(`./${data!.type}`) as Promise<IngameMapComponent>,
   );
 
-  return (
-    <AsyncModule
-      data={elementData}
-      actions={actions}
-      hooks={hooks}
-      hash={hash}
-    />
-  );
+  return <AsyncModule data={elementData} hash={hash} />;
 }

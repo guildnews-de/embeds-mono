@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import type { UseAppSelectorHook, UseAppDispatchFunc } from '@repo/app-redux';
+// import type { UseAppSelectorHook, UseAppDispatchFunc } from '@repo/app-redux';
 import { MetaBarProps } from '../components/MetaBar';
 import {
   TimerMeta,
@@ -132,15 +132,15 @@ export class TimerObj {
   }
 }
 
-export interface TimerHooks {
-  useAppSelector: UseAppSelectorHook;
-  useAppDispatch: UseAppDispatchFunc;
-}
+// export interface TimerHooks {
+//   useAppSelector: UseAppSelectorHook;
+//   useAppDispatch: UseAppDispatchFunc;
+// }
 
 export interface TimerDefaultProps {
   hash: string;
   data?: TimerData;
-  hooks: TimerHooks;
+  // hooks: TimerHooks;
 }
 
 export type TimerProps = TimerDefaultProps & MetaBarProps;

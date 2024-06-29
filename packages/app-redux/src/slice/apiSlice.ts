@@ -24,7 +24,7 @@ export interface GW2ApiRequestParams {
 }
 
 export interface GW2ApiRequest {
-  loading: boolean | undefined;
+  // loading: boolean | undefined;
   error?: GW2ApiError | null;
   request: {
     url?: string;
@@ -37,7 +37,7 @@ export interface GW2ApiRequest {
 }
 
 export const initState: GW2ApiRequest = {
-  loading: undefined,
+  // loading: undefined,
   error: null,
   request: {
     url: undefined,
@@ -52,13 +52,13 @@ export const apiSlice = createSlice({
   name: 'api',
   initialState: initState,
   reducers: {
-    setLoading(state) {
-      return {
-        ...state,
-        loading: true,
-        error: null,
-      };
-    },
+    // setLoading(state) {
+    //   return {
+    //     ...state,
+    //     loading: true,
+    //     error: null,
+    //   };
+    // },
     setError(state, action: PayloadAction<GW2ApiError>) {
       return {
         ...state,

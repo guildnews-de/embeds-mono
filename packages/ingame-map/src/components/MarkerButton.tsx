@@ -1,34 +1,23 @@
 import { useEffect } from 'react';
 import { Button } from '@mui/material';
 
-import { GW2Point, GW2PointGroup } from '@repo/app-redux';
-import type {
-  AppActionsType,
-  MarkerActionsType,
-  MapActionsType,
+import {
+  GW2Point,
+  GW2PointGroup,
+  useAppSelector,
+  useAppDispatch,
+  pushMarker,
+  openCanvas,
+  setMarker,
+  setDragged,
+  setRecenter,
 } from '@repo/app-redux';
 
-import type { IngameMapDefaultProps } from '../shared/interfaces';
+import type { IngameMapProps } from '../shared/interfaces';
 
-export interface MarkerButtonActions {
-  openCanvas: AppActionsType['openCanvas'];
-  setDragged: MapActionsType['setDragged'];
-  setRecenter: MapActionsType['setRecenter'];
-  pushMarker: MarkerActionsType['pushMarker'];
-  setMarker: MarkerActionsType['setMarker'];
-}
-
-export type MarkerButtonProps = {
-  actions: MarkerButtonActions;
-} & IngameMapDefaultProps;
-
-export default function MarkerButton(props: MarkerButtonProps) {
-  const { hooks, actions, data, hash } = props;
-  const { useAppSelector, useAppDispatch } = hooks;
+export default function MarkerButton({ data, hash }: IngameMapProps) {
   const dispatch = useAppDispatch();
   const { active, groupNames } = useAppSelector((state) => state.marker);
-  const { pushMarker, setMarker, openCanvas, setDragged, setRecenter } =
-    actions;
 
   const isActive = hash === active;
 
@@ -57,7 +46,7 @@ export default function MarkerButton(props: MarkerButtonProps) {
       });
       dispatch(pushMarker([hash, group]));
     }
-  }, [dispatch, pushMarker, groupNames, data, hash]);
+  }, [dispatch, groupNames, data, hash]);
 
   const offText = 'Karte zeigen';
   const onText = 'jetzt sichtbar';
@@ -67,31 +56,19 @@ export default function MarkerButton(props: MarkerButtonProps) {
     dispatch(setMarker(hash));
     dispatch(setDragged(false));
     setTimeout(() => {
-      // map.invalidateSize();
       dispatch(setRecenter(true));
     }, 600);
   };
 
   const handleActiveClick = () => {
     dispatch(openCanvas());
-    // dispatch(setMarker(hash));
     dispatch(setDragged(false));
-    // setTimeout(() => {
-    // map.invalidateSize();
     dispatch(setRecenter(true));
-    // }, 600);
   };
 
   return (
     <Button
       variant={isActive ? 'outlined' : 'contained'}
-      // disabled={isActive}
-      // onClick={() => {
-      //   dispatch(openCanvas());
-      //   dispatch(setMarker(hash));
-      //   dispatch(setDragged(false));
-      //   dispatch(setRecenter(true));
-      // }}
       onClick={isActive ? handleActiveClick : handleClick}
     >
       {isActive ? onText : offText}

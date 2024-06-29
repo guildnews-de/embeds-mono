@@ -27,14 +27,14 @@ import {
   // useTheme,
 } from '@mui/material';
 
-import type {
-  // MarkerActionsType,
-  // MapActionsType,
-  AppActionsType,
-  // GW2ApiPoi,
-  // GW2ApiSector,
+import {
+  useAppSelector,
+  useAppDispatch,
+  toggleWide,
+  closeCanvas,
+  openCanvas,
+  setLang,
 } from '@repo/app-redux';
-import type { UseAppSelectorHook, UseAppDispatchFunc } from '@repo/app-redux';
 
 const drawerWidth = 480;
 
@@ -133,38 +133,15 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
   color: theme.palette.grey[800],
 }));
 
-interface AppDrawerActions {
-  openCanvas: AppActionsType['openCanvas'];
-  closeCanvas: AppActionsType['closeCanvas'];
-  toggleWide: AppActionsType['toggleWide'];
-  setLang: AppActionsType['setLang'];
-}
-
-interface AppDrawerHooks {
-  useAppSelector: UseAppSelectorHook;
-  useAppDispatch: UseAppDispatchFunc;
-}
-
-interface AppDrawerProps {
-  actions: AppDrawerActions;
-  hooks: AppDrawerHooks;
-}
-
-interface AppDrawerPropsWithChildren extends AppDrawerProps {
+interface AppDrawerPropsWithChildren {
   children: ReactNode;
 }
 
-export default function AppDrawer({
-  children,
-  actions,
-  hooks,
-}: AppDrawerPropsWithChildren) {
-  const { useAppSelector, useAppDispatch } = hooks;
+export default function AppDrawer({ children }: AppDrawerPropsWithChildren) {
   const dispatch = useAppDispatch();
 
   const { open, wide } = useAppSelector((state) => state.app.canvas);
   const { lang } = useAppSelector((state) => state.app);
-  const { openCanvas, closeCanvas, toggleWide, setLang } = actions;
 
   const wideClickAction = toggleWide();
   const WideIndicator = wide ? ZoomInMap : ZoomOutMap;

@@ -4,19 +4,18 @@ import { useMap, useMapEvents } from 'react-leaflet';
 import { Bounds, LatLngBounds, Point, PointTuple } from 'leaflet';
 import type { LatLngExpression, LatLng } from 'leaflet';
 
-import type { GW2Point } from '@repo/app-redux';
-import type { MapContActions } from '../MapCont';
-import type { IngameMapHooks } from '../../shared/interfaces';
+import {
+  useAppSelector,
+  useAppDispatch,
+  type GW2Point,
+  setClicked,
+  setDragged,
+  setDragView,
+  setRecenter,
+  setMarkView,
+} from '@repo/app-redux';
 
-export function ClickedCoords({
-  hooks,
-  actions,
-}: {
-  hooks: IngameMapHooks;
-  actions: { setClicked: MapContActions['setClicked'] };
-}) {
-  const { useAppDispatch, useAppSelector } = hooks;
-  const { setClicked } = actions;
+export function ClickedCoords() {
   const dispatch = useAppDispatch();
   const map = useMapEvents({
     click(e) {
@@ -62,18 +61,7 @@ export function ClickedCoords({
   );
 }
 
-export function MapCenter({
-  hooks,
-  actions,
-}: {
-  hooks: IngameMapHooks;
-  actions: {
-    setDragged: MapContActions['setDragged'];
-    setDragView: MapContActions['setDragView'];
-    setRecenter: MapContActions['setRecenter'];
-  };
-}) {
-  const { useAppDispatch, useAppSelector } = hooks;
+export function MapCenter() {
   const dispatch = useAppDispatch();
   const { open } = useAppSelector((state) => state.app.canvas);
   const { dragView, markView, dragged, recenter } = useAppSelector(
@@ -81,7 +69,6 @@ export function MapCenter({
   );
   const { debug } = useAppSelector((state) => state.app);
 
-  const { setDragged, setDragView, setRecenter } = actions;
   const map = useMap();
 
   const view = useMemo(() => {
@@ -98,9 +85,6 @@ export function MapCenter({
     const min = map.project(llMin, zoom);
     const max = map.project(llMax, zoom);
 
-    // const min = bounds.getTopLeft();
-    // const max = bounds.getBottomRight();
-
     const view: [PointTuple, PointTuple] = [
       [min.x, min.y],
       [max.x, max.y],
@@ -110,7 +94,7 @@ export function MapCenter({
     if (dragged === false) {
       dispatch(setDragged(true));
     }
-  }, [dispatch, map, dragged, setDragged, setDragView, debug]);
+  }, [dispatch, map, dragged, debug]);
 
   useEffect(() => {
     map.on('dragend', setView);
@@ -135,25 +119,14 @@ export function MapCenter({
       }
       dispatch(setRecenter(false));
     }
-  }, [map, view, recenter, dispatch, setRecenter, open, debug]);
+  }, [map, view, recenter, dispatch, open, debug]);
 
   return <>{/* <MarkerBounds marker={marker} /> */}</>;
 }
 
-export function MarkerBounds({
-  hooks,
-  actions,
-  marker,
-}: {
-  hooks: IngameMapHooks;
-  actions: { setMarkView: MapContActions['setMarkView'] };
-  marker: GW2Point[];
-}) {
-  const { useAppDispatch, useAppSelector } = hooks;
+export function MarkerBounds({ marker }: { marker: GW2Point[] }) {
   const dispatch = useAppDispatch();
   const { debug } = useAppSelector((state) => state.app);
-
-  const { setMarkView } = actions;
 
   useMemo(() => {
     if (marker.length === 1) {
@@ -175,6 +148,6 @@ export function MarkerBounds({
       dispatch(setMarkView(view));
       debug && console.debug('View set (n): ' + JSON.stringify(view));
     }
-  }, [dispatch, setMarkView, marker, debug]);
+  }, [dispatch, marker, debug]);
   return <></>;
 }

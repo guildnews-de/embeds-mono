@@ -2,13 +2,10 @@ import { useMemo } from 'react';
 import { CRS, LatLng } from 'leaflet';
 import { MapContainer, Pane, LayerGroup, LayersControl } from 'react-leaflet';
 
-import type { IngameMapDefaultProps } from '../shared/interfaces';
-
-import type {
-  MarkerActionsType,
-  MapActionsType,
-  GW2ApiPoi,
-  GW2ApiSector,
+import {
+  useAppSelector,
+  type GW2ApiPoi,
+  type GW2ApiSector,
 } from '@repo/app-redux';
 
 import { IngameTiles } from './MapCont/IngameTiles';
@@ -16,22 +13,7 @@ import { GW2Sectors } from './MapCont/Sectors';
 import { GuideMarker, PoiMarker } from './MapCont/Marker';
 import { ClickedCoords, MapCenter, MarkerBounds } from './MapCont/Utility';
 
-export interface MapContActions {
-  setDragged: MapActionsType['setDragged'];
-  setDragView: MapActionsType['setDragView'];
-  setRecenter: MapActionsType['setRecenter'];
-  setMarkView: MapActionsType['setMarkView'];
-  setClicked: MarkerActionsType['setClicked'];
-}
-
-export type MapContProps = {
-  actions: MapContActions;
-} & IngameMapDefaultProps;
-
-export default function MapCont(props: MapContProps) {
-  const { hooks, actions } = props;
-  const { useAppSelector } = hooks;
-
+export default function MapCont() {
   // Grab redux state info
   const { bounds, activeMaps } = useAppSelector((state) => state.map);
   const { lang } = useAppSelector((state) => state.app);
@@ -76,7 +58,7 @@ export default function MapCont(props: MapContProps) {
       doubleClickZoom={false}
       style={{ width: '100%', height: '100%' }}
     >
-      <IngameTiles hooks={hooks} bounds={bounds} />
+      <IngameTiles /* hooks={hooks} */ bounds={bounds} />
       <LayersControl>
         <Pane
           name="guide-marker"
@@ -100,27 +82,9 @@ export default function MapCont(props: MapContProps) {
           </LayersControl.Overlay>
         )}
       </LayersControl>
-      <ClickedCoords
-        hooks={hooks}
-        actions={{ setClicked: actions.setClicked }}
-      />
-      {marker && (
-        <MarkerBounds
-          hooks={hooks}
-          actions={{ setMarkView: actions.setMarkView }}
-          marker={marker.points}
-        />
-      )}
-      {
-        <MapCenter
-          hooks={hooks}
-          actions={{
-            setDragged: actions.setDragged,
-            setDragView: actions.setDragView,
-            setRecenter: actions.setRecenter,
-          }}
-        />
-      }
+      <ClickedCoords />
+      {marker && <MarkerBounds marker={marker.points} />}
+      {<MapCenter />}
     </MapContainer>
   );
 }

@@ -20,12 +20,13 @@ const apiMiddleware: Middleware<Record<string, never>, RootState> =
   ({ dispatch }) =>
   (next) =>
   (action) => {
-    const { setLoading, setError, setData, setDone, fetchMap } = apiActions;
+    const { /* setLoading, */ setError, setData, setDone, fetchMap } =
+      apiActions;
     next(action);
     const isApiAction = isAnyOf(fetchMap);
     if (!isApiAction(action)) return;
 
-    dispatch(setLoading());
+    // dispatch(setLoading());
     const { id, lang = 'en' } = action.payload;
     const cacheKey = `maps_${id}_${lang}`;
     const dateNow = new Date();

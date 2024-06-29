@@ -4,19 +4,20 @@ import { LatLngBounds, type PointExpression, type PointTuple } from 'leaflet';
 import { getStorageInfo, removeTile } from 'leaflet.offline';
 
 import { CachedTileLayer } from './CachedTileLayer';
+import { useAppSelector } from '@repo/app-redux';
 
-import type { IngameMapHooks } from '../../shared/interfaces';
+// import type { IngameMapHooks } from '../../shared/interfaces';
 
 const tilesURL = 'https://assets.guildnews.de/tiles/1/1/{z}/{x}/{y}';
 
 export function IngameTiles({
-  hooks,
+  // hooks,
   bounds,
 }: {
-  hooks: IngameMapHooks;
+  // hooks: IngameMapHooks;
   bounds: PointTuple;
 }) {
-  const { useAppSelector } = hooks;
+  // const { useAppSelector } = hooks;
   const map = useMap();
   const unproject = (point: PointExpression) => {
     return map.unproject(point, map.getMaxZoom() - 1);

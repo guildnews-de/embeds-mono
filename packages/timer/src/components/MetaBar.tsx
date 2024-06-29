@@ -5,7 +5,7 @@ import { TimerMeta } from '../data/metas2';
 import {
   TimerObj,
   TimerData,
-  TimerHooks,
+  // TimerHooks,
   // TimerProps,
 } from '../shared/interfaces';
 import { default as MetaPhase, type MetaPhaseProps } from './MetaPhase';
@@ -13,7 +13,7 @@ import { default as MetaPhase, type MetaPhaseProps } from './MetaPhase';
 export interface MetaBarProps {
   data: TimerData;
   meta: TimerMeta;
-  hooks: TimerHooks;
+  // hooks: TimerHooks;
   hash: string;
 }
 
@@ -22,14 +22,14 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(0.5),
 }));
 
-export default function MetaBar({ meta, data, hooks }: MetaBarProps) {
+export default function MetaBar({ meta }: MetaBarProps) {
   const eventObj = new TimerObj(meta);
   const { name, category } = meta;
   const { phases } = eventObj;
   // console.log(phases);
   const renderPhases: MetaPhaseProps[] = [];
   let timePassed = 0;
-  eventObj.sequence.forEach((seq, idx) => {
+  eventObj.sequence.forEach((seq) => {
     if (timePassed > 120) {
       return;
     }

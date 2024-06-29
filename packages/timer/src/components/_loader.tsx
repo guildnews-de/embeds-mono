@@ -3,7 +3,7 @@ import {
   TimerDataset,
   TimerData,
   // TimerProps,
-  TimerHooks,
+  // TimerHooks,
 } from '../shared/interfaces';
 import { default as metasObject } from '../data/metas2';
 
@@ -17,14 +17,10 @@ import { useMemo } from 'react';
 export interface TimerLoaderProps {
   data: TimerDataset;
   hash: string;
-  hooks: TimerHooks;
 }
-// export interface IngameMapLoaderProps extends Omit<TimerProps, 'data'> {
-//   data: TimerDataset;
-// }
 
 export default function TimerLoader(props: TimerLoaderProps) {
-  const { data, hooks, hash } = props;
+  const { data, /* hooks, */ hash } = props;
   const elementData = useMemo(() => {
     return new TimerData(data);
   }, [data]);
@@ -43,7 +39,7 @@ export default function TimerLoader(props: TimerLoaderProps) {
             return (
               <AsyncModule
                 data={elementData}
-                hooks={hooks}
+                // hooks={hooks}
                 meta={meta}
                 hash={hash}
               />

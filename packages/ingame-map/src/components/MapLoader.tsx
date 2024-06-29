@@ -1,23 +1,16 @@
-import type { ApiActionsType, MapActionsType } from '@repo/app-redux';
+import {
+  useAppSelector,
+  useAppDispatch,
+  fetchMap,
+  addActiveMap,
+} from '@repo/app-redux';
 import { useMemo } from 'react';
 
-import type { IngameMapDefaultProps } from '../shared/interfaces';
+import type { IngameMapProps } from '../shared/interfaces';
 
 import '../package.scss';
 
-export interface MapLoaderActions {
-  addActiveMap: MapActionsType['addActiveMap'];
-  fetchMap: ApiActionsType['fetchMap'];
-}
-
-export type MapLoaderProps = {
-  actions: MapLoaderActions;
-} & IngameMapDefaultProps;
-
-export default function MapLoader(props: MapLoaderProps) {
-  const { data, actions, hooks } = props;
-  const { addActiveMap, fetchMap } = actions;
-  const { useAppDispatch, useAppSelector } = hooks;
+export default function MapLoader({ data }: IngameMapProps) {
   const { lang } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
@@ -29,7 +22,7 @@ export default function MapLoader(props: MapLoaderProps) {
         dispatch(addActiveMap(id));
       });
     }
-  }, [dispatch, fetchMap, addActiveMap, data, lang]);
+  }, [dispatch, data, lang]);
 
   return <></>;
 }

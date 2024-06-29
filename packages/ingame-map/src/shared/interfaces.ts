@@ -1,11 +1,3 @@
-import type { MapContActions, MapContProps } from '../components/MapCont';
-import type { MapLoaderActions, MapLoaderProps } from '../components/MapLoader';
-import type {
-  MarkerButtonActions,
-  MarkerButtonProps,
-} from '../components/MarkerButton';
-import type { UseAppSelectorHook, UseAppDispatchFunc } from '@repo/app-redux';
-
 export interface IngameMapDataset {
   // Common
   gw2Embed?: string;
@@ -70,29 +62,7 @@ export class IngameMapData {
   }
 }
 
-export type IngameMapActions = MapContActions &
-  MapLoaderActions &
-  MarkerButtonActions;
-
-export interface IngameMapHooks {
-  useAppSelector: UseAppSelectorHook;
-  useAppDispatch: UseAppDispatchFunc;
-}
-
-// export interface IngameMapProps {
-//   data: IngameMapData;
-//   actions: IngameMapActions;
-//   hooks: IngameMapHooks;
-//   hash: string;
-// }
-
-export interface IngameMapDefaultProps {
+export interface IngameMapProps {
   hash: string;
   data?: IngameMapData;
-  hooks: IngameMapHooks;
 }
-
-export type IngameMapProps = IngameMapDefaultProps &
-  MapContProps &
-  MapLoaderProps &
-  MarkerButtonProps;
