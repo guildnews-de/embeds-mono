@@ -5,7 +5,7 @@ import {
   // TimerProps,
   TimerHooks,
 } from '../shared/interfaces';
-import { default as metasObject } from '../data/metas';
+import { default as metasObject } from '../data/metas2';
 
 import type { MetaBarComp, MetaBarProps } from '../components/MetaBar';
 // import type { MetaCatComp, MetaCatProps } from '../components/MetaCat';

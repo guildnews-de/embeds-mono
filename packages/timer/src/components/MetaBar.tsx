@@ -1,9 +1,9 @@
 import { Box, Paper, styled } from '@mui/material';
 import { clsx } from 'clsx';
 
-import { TimerMeta } from '../data/metas';
+import { TimerMeta } from '../data/metas2';
 import {
-  TimeObj,
+  TimerObj,
   TimerData,
   TimerHooks,
   // TimerProps,
@@ -23,56 +23,41 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 export default function MetaBar({ meta, data, hooks }: MetaBarProps) {
-  const { category, name, phases, offset = 0 } = meta;
-  const { useAppSelector } = hooks;
-  const { lang } = useAppSelector((state) => state.app);
-  const lastPhase = phases.length - 1;
-  const { mark } = data;
-
-  const eventTime = new TimeObj(offset);
+  const eventObj = new TimerObj(meta);
+  const { phases } = eventObj;
+  // console.log(phases);
   const renderPhases: MetaPhaseProps[] = [];
-  phases.forEach((phase, idx) => {
-    const { duration } = phase;
-    const marked = mark?.includes(idx);
-    const phaseTime = eventTime.getCurrentTimeString();
-    eventTime.addMinutes(duration);
+  let timePassed = 0;
+  eventObj.sequence.forEach((seq, idx) => {
+    if (timePassed > 120) {
+      return;
+    }
+    const { r, d } = seq;
+    const phase = phases[r - 1];
 
-    if (offset && idx == lastPhase) {
-      renderPhases.unshift({
-        phase: { ...phase, duration: offset },
-        time: eventTime.getInitTimeString(),
-        marked: marked,
-      });
-
-      const { duration: phaseDur } = phase;
-      renderPhases.push({
-        phase: { ...phase, duration: phaseDur - offset },
-        time: phaseTime,
-        marked: marked,
-      });
-    } else {
+    if (phase) {
+      timePassed += d;
       renderPhases.push({
         phase: phase,
-        time: phaseTime,
-        marked: marked,
+        duration: d,
+        time: `${d}`,
       });
-    }
+    } /* else {
+      console.log(`undefined: ${r}`);
+    } */
   });
 
-  const PhasesRow = () =>
-    renderPhases.map((phaseProps, idx) => (
-      <MetaPhase key={`${phaseProps.phase.name}${idx}`} {...phaseProps} />
-    ));
-
-  console.debug('Start: ' + eventTime.start.toString());
+  console.log(renderPhases);
 
   return (
-    <StyledPaper className={clsx('meta', category)} elevation={2}>
+    <StyledPaper className={clsx('meta', meta.category)} elevation={2}>
       <Box className="meta-name" sx={{ fontWeight: 'bold' }}>
-        {name}
+        {/* {name} */}
       </Box>
       <Box className="meta-bar" display={'flex'} flexDirection={'row'}>
-        <PhasesRow />
+        {renderPhases.map((phaseProps, idx) => (
+          <MetaPhase key={`${phaseProps.phase.name}${idx}`} {...phaseProps} />
+        ))}
       </Box>
     </StyledPaper>
   );

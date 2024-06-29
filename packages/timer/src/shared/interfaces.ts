@@ -1,6 +1,12 @@
 import type { CSSProperties } from 'react';
 import type { UseAppSelectorHook, UseAppDispatchFunc } from '@repo/app-redux';
 import { MetaBarProps } from '../components/MetaBar';
+import {
+  TimerMeta,
+  TimerSegment,
+  TimerSequenceData,
+  TimerSequence,
+} from '../data/metas2';
 
 export interface TimerDataset {
   gw2Embed?: string;
@@ -21,7 +27,7 @@ export interface TimerElement extends Omit<HTMLElement, 'dataset'> {
 
 export class TimerData {
   type: TimerType;
-  ids?: number;
+  ids?: string;
   mark?: number[];
   style?: CSSProperties;
   constructor(props: TimerElement['dataset']) {
@@ -33,7 +39,7 @@ export class TimerData {
       throw Error(`Invalid embed type ${gw2Embed}`);
     }
 
-    this.ids = Number(gw2Id);
+    this.ids = gw2Id.length > 0 ? gw2Id : undefined;
     this.mark = gw2Mark ? this.splitIds(gw2Mark) : undefined;
     this.style = gw2Style;
   }
@@ -54,84 +60,75 @@ export class TimerData {
   }
 }
 
-export class TimeObj {
-  start: Date;
-  startHour: number;
-  event: Date;
-  addHour: number;
-  addMin: number;
+export class TimerObj {
+  fullrun = 1440; // 24h
+  start: number;
+  now: Date;
+  phases: TimerSegment[] = [];
+  sequence: TimerSequence[] = [];
+  timestamps: number[] = [];
 
-  constructor(offset: number) {
+  constructor(meta: TimerMeta) {
     const now = new Date();
-    now.setMinutes(0);
-    now.setSeconds(0);
-    now.setHours(Math.floor(now.getHours() / 2) * 2);
-    this.start = now;
+    this.now = now;
 
-    // if (this.isDst()) {
-    //   this.start.setHours(this.start.getHours() - 1);
-    // }
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const day = now.getDate();
+    const start = new Date(year, month, day, 23, 0);
+    now.getHours() < 23 && start.setDate(day - 1);
 
-    // this.start = startDate;
-    console.debug('Start: ' + this.start.toString());
+    this.start = start.getTime();
 
-    this.event = new Date(now.valueOf());
-
-    this.startHour = this.event.getHours();
-    this.addHour = 0;
-    this.addMin = 0;
-
-    if (offset != 0) {
-      this.addMinutes(offset);
-    }
+    const { segments, sequences } = meta;
+    this.pushPhases(segments);
+    this.pushSeqences(sequences);
   }
 
-  addMinutes(duration: number): void {
-    console.group(`Add: ${duration}`);
-
-    this.addMin += duration;
-
-    while (this.addMin >= 60) {
-      this.addMin -= 60;
-      this.addHour += 1;
-    }
-
-    if (this.addHour >= 2) {
-      this.addHour -= 2;
-    }
-
-    console.log(`Add HUR: ${this.addHour}`);
-    console.log(`Add MIN: ${this.addMin}`);
-    this.event.setHours(this.startHour + this.addHour);
-    this.event.setMinutes(this.addMin);
-
-    console.debug(this.start.toString());
-    console.groupEnd();
-  }
-
-  getCurrentTimeString(): string {
-    return this.event.toLocaleTimeString('de-DE', {
-      hour: '2-digit',
-      minute: '2-digit',
+  pushPhases(phases: Record<string, TimerSegment>) {
+    Object.keys(phases).forEach((key) => {
+      const phase = phases[key];
+      phase && this.phases?.push(phase);
     });
   }
 
+  pushSeqences(sequences: TimerSequenceData) {
+    let length = 0;
+    const { partial, pattern } = sequences;
+
+    partial.map((seq) => {
+      const { d } = seq;
+      length += d;
+      this.sequence.push(seq);
+    });
+
+    while (length < this.fullrun) {
+      pattern.map((seq) => {
+        if (length < this.fullrun) {
+          const { d } = seq;
+          length += d;
+          this.sequence.push(seq);
+        }
+      });
+    }
+  }
+
   getInitTimeString(): string {
-    return this.start.toLocaleTimeString('de-DE', {
+    return this.now.toLocaleTimeString('de-DE', {
       hour: '2-digit',
       minute: '2-digit',
     });
   }
 
   stdTimezoneOffset(): number {
-    const fullYear = this.start.getFullYear();
+    const fullYear = this.now.getFullYear();
     const jan = new Date(fullYear, 0, 1);
     const jul = new Date(fullYear, 6, 1);
     return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
   }
 
   isDst(): boolean {
-    return this.start.getTimezoneOffset() < this.stdTimezoneOffset();
+    return this.now.getTimezoneOffset() < this.stdTimezoneOffset();
   }
 }
 
