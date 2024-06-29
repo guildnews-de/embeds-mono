@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import loadable from '@loadable/component';
 import {
   TimerDataset,
@@ -10,7 +11,7 @@ import { default as metasObject } from '../data/metas2';
 import type { MetaBarComp, MetaBarProps } from '../components/MetaBar';
 // import type { MetaCatComp, MetaCatProps } from '../components/MetaCat';
 
-import { useMemo } from 'react';
+import { useAppSelector, useAppDispatch, setNowTimer } from '@repo/app-redux';
 
 // type TimerComponent = MetaBarComp | MetaCatComp;
 
@@ -26,6 +27,13 @@ export default function TimerLoader(props: TimerLoaderProps) {
   }, [data]);
 
   const { type, ids } = elementData;
+
+  const { nowTimer } = useAppSelector((state) => state.app);
+  const dispatch = useAppDispatch();
+
+  useMemo(() => {
+    !nowTimer && dispatch(setNowTimer(true));
+  }, [nowTimer, dispatch]);
 
   switch (type) {
     case 'MetaBar':

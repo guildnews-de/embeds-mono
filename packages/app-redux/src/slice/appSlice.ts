@@ -6,6 +6,8 @@ export interface appState {
   // mapsLoaded: boolean;
   // loadLL: boolean;
   lang: GW2ApiLang;
+  now: Date;
+  nowTimer: boolean;
   modal: boolean;
   canvas: {
     open: boolean;
@@ -19,6 +21,8 @@ const initState: appState = {
   // mapsLoaded: false,
   // loadLL: false,
   lang: 'en',
+  now: new Date(),
+  nowTimer: false,
   modal: false,
   canvas: {
     open: false,
@@ -29,13 +33,25 @@ const initState: appState = {
 };
 
 export const appSlice = createSlice({
-  name: 'map',
+  name: 'app',
   initialState: initState,
   reducers: {
     setLang(state, action: PayloadAction<GW2ApiLang>) {
       return {
         ...state,
         lang: action.payload,
+      };
+    },
+    setNow(state) {
+      return {
+        ...state,
+        now: new Date(),
+      };
+    },
+    setNowTimer(state, action: PayloadAction<boolean>) {
+      return {
+        ...state,
+        nowTimer: action.payload,
       };
     },
     toggleCanvas(state) {

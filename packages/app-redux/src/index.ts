@@ -24,6 +24,8 @@ export const {
   toggleWide,
   toggleModal,
   setDebug,
+  setNow,
+  setNowTimer,
 } = appActions;
 
 import { default as mapReducer, mapActions } from './slice/mapSlice';

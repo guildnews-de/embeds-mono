@@ -2,18 +2,15 @@ import { Box, Paper, styled } from '@mui/material';
 import { clsx } from 'clsx';
 
 import { TimerMeta } from '../data/metas2';
-import {
-  TimerObj,
-  TimerData,
-  // TimerHooks,
-  // TimerProps,
-} from '../shared/interfaces';
+import { TimerObj, TimerData } from '../shared/interfaces';
 import { default as MetaPhase, type MetaPhaseProps } from './MetaPhase';
+import { DateTime, Interval, Settings } from 'luxon';
+import { useMemo } from 'react';
+import { useAppSelector } from '@repo/app-redux';
 
 export interface MetaBarProps {
   data: TimerData;
   meta: TimerMeta;
-  // hooks: TimerHooks;
   hash: string;
 }
 
@@ -23,32 +20,50 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 export default function MetaBar({ meta }: MetaBarProps) {
-  const eventObj = new TimerObj(meta);
+  const { now } = useAppSelector((state) => state.app);
+  const eventObj = useMemo(() => {
+    return new TimerObj(meta, now);
+  }, [meta, now]);
+
   const { name, category } = meta;
-  const { phases } = eventObj;
-  // console.log(phases);
-  const renderPhases: MetaPhaseProps[] = [];
-  let timePassed = 0;
-  eventObj.sequence.forEach((seq) => {
-    if (timePassed > 120) {
-      return;
-    }
-    const { r, d } = seq;
-    const phase = phases[r - 1];
+  const { phases, sequence } = eventObj;
 
-    if (phase) {
-      timePassed += d;
-      renderPhases.push({
-        phase: phase,
-        duration: d,
-        time: `${d}`,
-      });
-    } /* else {
-      console.log(`undefined: ${r}`);
-    } */
-  });
+  const parsedMinutes = now.getMinutes() - (now.getMinutes() % 5);
+  const viewInterval = useMemo(() => {
+    const luxon = DateTime.fromJSDate(now);
+    const viewNow = DateTime.local(
+      luxon.year,
+      luxon.month,
+      luxon.day,
+      luxon.hour,
+      parsedMinutes,
+      0,
+      0,
+    );
+    return Interval.fromDateTimes(
+      viewNow.minus({ minutes: 20 }),
+      viewNow.plus({ minutes: 100 }),
+    );
+  }, [now, parsedMinutes]);
 
-  console.log(renderPhases);
+  const renderPhases = useMemo(() => {
+    const barProps: MetaPhaseProps[] = [];
+    sequence.forEach((seq) => {
+      Settings.throwOnInvalid = true;
+      const { interval, r, d } = seq;
+      const phase = phases[r - 1];
+
+      // const startTime = interval.start!.toLocaleString(DateTime.TIME_SIMPLE);
+      if (phase && viewInterval.contains(interval.start!)) {
+        barProps.push({
+          phase: phase,
+          duration: d,
+          time: interval,
+        });
+      }
+    });
+    return barProps;
+  }, [sequence, phases, viewInterval]);
 
   return (
     <StyledPaper className={clsx('meta', category)} elevation={2}>
