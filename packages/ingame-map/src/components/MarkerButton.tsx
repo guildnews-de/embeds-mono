@@ -18,6 +18,7 @@ import type { IngameMapProps } from '../shared/interfaces';
 export default function MarkerButton({ data, hash }: IngameMapProps) {
   const dispatch = useAppDispatch();
   const { active, groupNames } = useAppSelector((state) => state.marker);
+  const { lang } = useAppSelector((state) => state.app);
 
   const isActive = hash === active;
 
@@ -48,8 +49,8 @@ export default function MarkerButton({ data, hash }: IngameMapProps) {
     }
   }, [dispatch, groupNames, data, hash]);
 
-  const offText = 'Karte zeigen';
-  const onText = 'jetzt sichtbar';
+  const offText = lang === 'de' ? 'Karte zeigen' : 'Show map';
+  const onText = lang === 'de' ? 'Jetzt sichtbar' : 'Now visible';
 
   const handleClick = () => {
     dispatch(openCanvas());
