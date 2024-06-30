@@ -36,6 +36,9 @@ export default function MetaPhase({
       })
     : '';
 
+  const background = getCssColor(color);
+  const isGradient = background.startsWith('linear-gradient');
+
   const { now } = useAppSelector((state) => state.app);
   const nowPhase = time.contains(now.toLocal());
   const marked = nowPhase === true || propMarked === true;
@@ -44,7 +47,8 @@ export default function MetaPhase({
     <StyledPaper
       className="phase"
       sx={{
-        backgroundColor: getCssColor(color),
+        backgroundColor: isGradient ? undefined : background,
+        backgroundImage: isGradient ? background : undefined,
         flexGrow: duration,
         overflow: 'hidden',
       }}
