@@ -12,6 +12,7 @@ export default function auraReactor(props: IngameUiProps) {
       name={data.embedName as AuraType}
       //style={style}
       key={hash}
+      iconProps={data.getIconStyle()}
       {...props}
     />
   );

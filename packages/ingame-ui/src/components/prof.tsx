@@ -11,6 +11,7 @@ export default function profReactor(props: IngameUiProps) {
     <Profession
       name={data.embedName as ProfessionTypes}
       key={hash}
+      iconProps={data.getIconStyle()}
       {...props}
     />
   );

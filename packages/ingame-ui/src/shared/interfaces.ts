@@ -1,4 +1,7 @@
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ComponentProps } from 'react';
+import { Icon } from '@discretize/gw2-ui-new';
+
+export type IconProps = ComponentProps<typeof Icon>;
 
 export interface IngameUiDataset {
   // Common
@@ -175,6 +178,19 @@ export class IngameUiData {
     });
 
     return parseArray;
+  }
+
+  getIconStyle(): IconProps | undefined {
+    const iconProps = this.size
+      ? ({
+          style: {
+            fontSize: `${this.size}px`,
+            verticalAlign: 'middle',
+          } as CSSProperties,
+        } as IconProps)
+      : undefined;
+
+    return iconProps;
   }
 }
 

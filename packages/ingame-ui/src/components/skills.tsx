@@ -8,7 +8,7 @@ export default function skillReactor(props: IngameUiProps) {
   const embed = () =>
     ids?.map((id, i) => (
       <span key={`${hash}${i}`}>
-        <Skill id={id} {...props} />{' '}
+        <Skill id={id} iconProps={data.getIconStyle()} {...props} />{' '}
       </span>
     ));
   return embed();

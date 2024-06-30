@@ -12,6 +12,7 @@ export default function controlReactor(props: IngameUiProps) {
       name={data.embedName as ControlEffectTypes}
       //style={gw2Style}
       key={hash}
+      iconProps={data.getIconStyle()}
       {...props}
     />
   );

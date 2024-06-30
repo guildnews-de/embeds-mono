@@ -12,6 +12,7 @@ export default function boonReactor(props: IngameUiProps) {
       name={data.embedName as BoonTypes}
       //style={gw2Style}
       key={hash}
+      iconProps={data.getIconStyle()}
       {...props}
     />
   );

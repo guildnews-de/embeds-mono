@@ -8,7 +8,7 @@ export default function specializationReactor(props: IngameUiProps) {
   const embed = () =>
     ids?.map((id, i) => (
       <span key={`${hash}${i}`}>
-        <Specialization id={id} {...props} />{' '}
+        <Specialization id={id} iconProps={data.getIconStyle()} {...props} />{' '}
       </span>
     ));
   return embed();
