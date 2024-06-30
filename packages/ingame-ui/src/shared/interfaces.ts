@@ -181,4 +181,5 @@ export class IngameUiData {
 export interface IngameUiProps {
   data: IngameUiData;
   hash: string;
+  customLang?: string;
 }

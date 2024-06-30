@@ -20,6 +20,7 @@ import type { UiTraits } from '../components/traits';
 
 import '../package.scss';
 import { useMemo } from 'react';
+import { useAppSelector } from '@repo/app-redux';
 
 type IngameUiComponent =
   | UiAura
@@ -42,6 +43,8 @@ export interface IngameUiLoaderProps {
 
 export default function IngameUiLoader(props: IngameUiLoaderProps) {
   const { data } = props;
+  const { lang } = useAppSelector((state) => state.app);
+
   const elementData = useMemo(() => {
     return new IngameUiData(data);
   }, [data]);
@@ -50,5 +53,5 @@ export default function IngameUiLoader(props: IngameUiLoaderProps) {
     ({ data }) => import(`./${data.type}`) as Promise<IngameUiComponent>,
   );
 
-  return <AsyncModule data={elementData} hash={props.hash} />;
+  return <AsyncModule data={elementData} hash={props.hash} customLang={lang} />;
 }

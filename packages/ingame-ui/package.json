@@ -11,6 +11,7 @@
     "@discretize/gw2-ui-new": "file:./../../../guildnews-de_discretize-ui/gw2-ui/",
     "@discretize/typeface-menomonia": "^0.1.3",
     "@loadable/component": "^5.16.4",
+    "@repo/app-redux": "*",
     "@repo/core": "*"
   },
   "devDependencies": {
