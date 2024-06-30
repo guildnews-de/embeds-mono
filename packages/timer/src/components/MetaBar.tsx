@@ -70,6 +70,7 @@ export default function MetaBar({ meta }: MetaBarProps) {
     <StyledPaper className={clsx('meta', category)} elevation={2}>
       <Box className="meta-name" sx={{ fontWeight: 'bold' }}>
         <Typography variant="h6">{name}</Typography>
+        {/* <Typography>{now.toLocal().toString()}</Typography> */}
       </Box>
       <Box className="meta-bar" display={'flex'} flexDirection={'row'}>
         {renderPhases.map((phaseProps, idx) => (

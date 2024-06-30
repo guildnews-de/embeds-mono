@@ -37,8 +37,9 @@ export default function MetaPhase({
     : '';
 
   const { now } = useAppSelector((state) => state.app);
-  const nowPhase = time.contains(now);
+  const nowPhase = time.contains(now.toLocal());
   const marked = nowPhase === true || propMarked === true;
+  const fontWeight = marked ? 'bold' : undefined;
   return (
     <StyledPaper
       className="phase"
@@ -48,11 +49,10 @@ export default function MetaPhase({
         overflow: 'hidden',
       }}
     >
-      <Box
-        className="phase-time"
-        sx={{ minWidth: 0, fontWeight: marked ? 'bold' : undefined }}
-      >
-        <Typography display={'inline'}>{timeTextLocal}</Typography>
+      <Box className="phase-time">
+        <Typography display={'inline'} fontWeight={fontWeight}>
+          {timeTextLocal}
+        </Typography>
         <Typography display={'inline'} fontSize="0.6rem">
           {timeTextUTC}
         </Typography>
@@ -63,6 +63,7 @@ export default function MetaPhase({
       >
         <Typography
           fontSize="0.8rem"
+          fontWeight={fontWeight}
           maxHeight={'1.5em'}
           overflow={'hidden'}
           sx={{ wordBreak: 'break-all' }}
