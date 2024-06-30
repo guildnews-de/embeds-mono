@@ -70,7 +70,7 @@ const metas2: Record<string, TimerMeta> = {
     link: 'World boss',
     segments: {
       1: {
-        name: 'Admiral Taidha Covington',
+        name: 'Taidha Covington',
         link: 'Kill Admiral Taidha Covington',
         chatlink: '[&BKgBAAA=]',
         bg: [234, 98, 121],

@@ -1,4 +1,4 @@
-import { Box, Paper, styled } from '@mui/material';
+import { Box, Paper, Typography, styled } from '@mui/material';
 import { DateTime, Interval } from 'luxon';
 
 import { TimerSegment } from '../data/metas2';
@@ -25,12 +25,19 @@ export default function MetaPhase({
   marked: propMarked,
 }: MetaPhaseProps) {
   const { bg: color, name } = phase;
-  const timeText = time.start
-    ? time.start.toLocaleString(DateTime.TIME_SIMPLE)
+  const timeTextLocal = time.start
+    ? time.start.toLocal().toLocaleString(DateTime.TIME_SIMPLE)
     : 'invalid timestamp';
+  const timeTextUTC = time.start
+    ? time.start.toLocaleString({
+        hour: 'numeric',
+        minute: '2-digit',
+        timeZoneName: 'short',
+      })
+    : '';
 
   const { now } = useAppSelector((state) => state.app);
-  const nowPhase = time.contains(DateTime.fromJSDate(now));
+  const nowPhase = time.contains(now);
   const marked = nowPhase === true || propMarked === true;
   return (
     <StyledPaper
@@ -38,19 +45,30 @@ export default function MetaPhase({
       sx={{
         backgroundColor: getCssColor(color),
         flexGrow: duration,
+        overflow: 'hidden',
       }}
     >
       <Box
         className="phase-time"
         sx={{ minWidth: 0, fontWeight: marked ? 'bold' : undefined }}
       >
-        {timeText}
+        <Typography display={'inline'}>{timeTextLocal}</Typography>
+        <Typography display={'inline'} fontSize="0.6rem">
+          {timeTextUTC}
+        </Typography>
       </Box>
       <Box
         className="phase-name"
         sx={{ minWidth: 0, fontWeight: marked ? 'bold' : undefined }}
       >
-        {name}
+        <Typography
+          fontSize="0.8rem"
+          maxHeight={'1.5em'}
+          overflow={'hidden'}
+          sx={{ wordBreak: 'break-all' }}
+        >
+          {name}
+        </Typography>
       </Box>
     </StyledPaper>
   );

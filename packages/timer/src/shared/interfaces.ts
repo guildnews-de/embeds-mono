@@ -71,16 +71,11 @@ export class TimerObj {
   phases: TimerSegment[] = [];
   sequence: ParsedSequence[] = [];
 
-  constructor(meta: TimerMeta, appNow: Date) {
+  constructor(meta: TimerMeta, appNow: DateTime) {
     Settings.throwOnInvalid = true;
 
-    const eventNow = DateTime.fromJSDate(appNow);
-
-    const day =
-      eventNow.hour < 23 ? eventNow.minus({ day: 1 }).day : eventNow.day;
-    const start = eventNow.set({
-      day: day,
-      hour: 23,
+    const start = appNow.set({
+      hour: 0,
       minute: 0,
       millisecond: 0,
     });

@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { GW2ApiLang } from './apiSlice';
+import { DateTime } from 'luxon';
 
 export interface appState {
   // mapsLoaded: boolean;
   // loadLL: boolean;
   lang: GW2ApiLang;
-  now: Date;
+  now: DateTime;
   nowTimer: boolean;
   modal: boolean;
   canvas: {
@@ -21,7 +22,7 @@ const initState: appState = {
   // mapsLoaded: false,
   // loadLL: false,
   lang: 'en',
-  now: new Date(),
+  now: DateTime.utc(),
   nowTimer: false,
   modal: false,
   canvas: {
@@ -45,7 +46,7 @@ export const appSlice = createSlice({
     setNow(state) {
       return {
         ...state,
-        now: new Date(),
+        now: DateTime.utc(),
       };
     },
     setNowTimer(state, action: PayloadAction<boolean>) {

@@ -1,4 +1,4 @@
-import { Box, Paper, styled } from '@mui/material';
+import { Box, Paper, Typography, styled } from '@mui/material';
 import { clsx } from 'clsx';
 
 import { TimerMeta } from '../data/metas2';
@@ -28,14 +28,15 @@ export default function MetaBar({ meta }: MetaBarProps) {
   const { name, category } = meta;
   const { phases, sequence } = eventObj;
 
-  const parsedMinutes = now.getMinutes() - (now.getMinutes() % 5);
+  const parsedMinutes = now.minute - (now.minute % 5);
   const viewInterval = useMemo(() => {
-    const luxon = DateTime.fromJSDate(now);
+    const localNow = now.toLocal();
+    // const luxon = now;
     const viewNow = DateTime.local(
-      luxon.year,
-      luxon.month,
-      luxon.day,
-      luxon.hour,
+      localNow.year,
+      localNow.month,
+      localNow.day,
+      localNow.hour,
       parsedMinutes,
       0,
       0,
@@ -68,7 +69,7 @@ export default function MetaBar({ meta }: MetaBarProps) {
   return (
     <StyledPaper className={clsx('meta', category)} elevation={2}>
       <Box className="meta-name" sx={{ fontWeight: 'bold' }}>
-        {name}
+        <Typography variant="h6">{name}</Typography>
       </Box>
       <Box className="meta-bar" display={'flex'} flexDirection={'row'}>
         {renderPhases.map((phaseProps, idx) => (
