@@ -4,6 +4,7 @@ import {
   ChevronRight,
   ZoomOutMap,
   ZoomInMap,
+  Language as LangIcon,
 } from '@mui/icons-material';
 import {
   // AppBar,
@@ -22,6 +23,7 @@ import {
   IconButton,
   styled,
   Theme,
+  Tooltip,
   // Toolbar,
   // Typography,
   // useTheme,
@@ -43,8 +45,10 @@ const drawerBaseCss = (theme: Theme): CSSObject => ({
   flexDirection: 'row',
   overflowX: 'hidden',
   alignItems: 'center',
-  backgroundColor: theme.palette.grey[500],
-  borderRadius: theme.spacing(1, 0, 0, 1),
+  // backgroundColor: theme.palette.grey[500],
+  backgroundColor: 'transparent',
+  border: 'none',
+  // borderRadius: theme.spacing(1, 0, 0, 1),
 });
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -85,14 +89,22 @@ const MenuDiv = styled(Box)(({ theme }) => ({
   padding: theme.spacing(0, 0),
 }));
 
+const MenuGroup = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  marginTop: theme.spacing(0.5),
+  marginBottom: theme.spacing(0.5),
+  backgroundColor: theme.palette.grey[500],
+  borderRadius: theme.spacing(1, 0, 0, 1),
+}));
+
 const ContentDiv = styled(Box)(({ theme }) => ({
-  // display: 'flex',
-  // alignItems: 'center',
-  // justifyContent: 'flex-start',
-  height: '97%',
+  height: '100%',
   flexGrow: 1,
   overflow: 'hidden',
+  // marginLeft: theme.spacing(0.5),
   borderRadius: theme.spacing(0.5, 0, 0, 0.5),
+  backgroundColor: theme.palette.grey[500],
   padding: theme.spacing(0, 0),
 }));
 
@@ -142,6 +154,7 @@ export default function AppDrawer({ children }: AppDrawerPropsWithChildren) {
 
   const { open, wide } = useAppSelector((state) => state.app.canvas);
   const { lang } = useAppSelector((state) => state.app);
+  const { groupNames } = useAppSelector((state) => state.marker);
 
   const wideClickAction = toggleWide();
   const WideIndicator = wide ? ZoomInMap : ZoomOutMap;
@@ -149,10 +162,10 @@ export default function AppDrawer({ children }: AppDrawerPropsWithChildren) {
   const openClickAction = open ? closeCanvas() : openCanvas();
   const OpenIndicator = open ? ChevronRight : ChevronLeft;
   const newLang = lang === 'en' ? 'de' : 'en';
+  const newLangText = lang === 'en' ? 'Sprache wechseln' : 'Switch language';
 
   return (
     <Box className="Box">
-      {/* <CssBaseline /> */}
       <StyledDrawer
         className="Drawer"
         anchor="right"
@@ -160,36 +173,45 @@ export default function AppDrawer({ children }: AppDrawerPropsWithChildren) {
         open={open}
         wide={wide}
       >
-        <MenuDiv>
-          <StyledIconButton
-            color="inherit"
-            aria-label="toggle wide"
-            onClick={() => {
-              dispatch(wideClickAction);
-            }}
-          >
-            <WideIndicator />
-          </StyledIconButton>
-          <Divider />
-          <StyledIconButton
-            color="inherit"
-            aria-label="toggle drawer"
-            onClick={() => {
-              dispatch(openClickAction);
-            }}
-          >
-            <OpenIndicator />
-          </StyledIconButton>
-          <Divider />
-          <StyledIconButton
-            color="inherit"
-            aria-label="toggle lang"
-            onClick={() => {
-              dispatch(setLang(newLang));
-            }}
-          >
-            {lang}
-          </StyledIconButton>
+        <MenuDiv height={'100%'}>
+          {groupNames && groupNames.length > 0 && (
+            <MenuGroup>
+              <StyledIconButton
+                color="inherit"
+                aria-label="toggle wide"
+                onClick={() => {
+                  dispatch(wideClickAction);
+                }}
+              >
+                <WideIndicator />
+              </StyledIconButton>
+              <Divider />
+              <StyledIconButton
+                color="inherit"
+                aria-label="toggle drawer"
+                onClick={() => {
+                  dispatch(openClickAction);
+                }}
+              >
+                <OpenIndicator />
+              </StyledIconButton>
+            </MenuGroup>
+          )}
+          <Box flexGrow={10} />
+          <MenuGroup>
+            <Tooltip title={newLangText} placement="left">
+              <StyledIconButton
+                color="inherit"
+                aria-label="toggle lang"
+                // sx={{alignSelf}}
+                onClick={() => {
+                  dispatch(setLang(newLang));
+                }}
+              >
+                <LangIcon />
+              </StyledIconButton>
+            </Tooltip>
+          </MenuGroup>
         </MenuDiv>
         {open && <ContentDiv>{children}</ContentDiv>}
       </StyledDrawer>
