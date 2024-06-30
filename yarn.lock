@@ -1974,25 +1974,25 @@ __metadata:
 
 "@discretize/gw2-ui-new@file:./../../../guildnews-de_discretize-ui/gw2-ui/::locator=%40repo%2Fingame-ui%40workspace%3Apackages%2Fingame-ui":
   version: 0.1.5
-  resolution: "@discretize/gw2-ui-new@file:./../../../guildnews-de_discretize-ui/gw2-ui/#./../../../guildnews-de_discretize-ui/gw2-ui/::hash=af6b5d&locator=%40repo%2Fingame-ui%40workspace%3Apackages%2Fingame-ui"
+  resolution: "@discretize/gw2-ui-new@file:./../../../guildnews-de_discretize-ui/gw2-ui/#./../../../guildnews-de_discretize-ui/gw2-ui/::hash=c99c9e&locator=%40repo%2Fingame-ui%40workspace%3Apackages%2Fingame-ui"
   dependencies:
     "@discretize/typeface-menomonia": "npm:*"
     clsx: "npm:^1.1.1"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
-  checksum: 10c0/d01f91a0337ee9a64b97c44d03d9a8189e0110f27edfb09ed8e31f653f5c36b07023036db57102ac94bd0961f0b19a313abac0612fc512afb6d5e362d469ecc3
+  checksum: 10c0/330bd2fff2bc8768fe6a528600454949c02255759590fc3a7d87e7efb82f449b03d3e886df68db168cbee4cf9789d88b957b37401668e9f109492ac03dbef447
   languageName: node
   linkType: hard
 
 "@discretize/gw2-ui-new@file:./../../../guildnews-de_discretize-ui/gw2-ui/::locator=%40repo%2Ftimer%40workspace%3Apackages%2Ftimer":
   version: 0.1.5
-  resolution: "@discretize/gw2-ui-new@file:./../../../guildnews-de_discretize-ui/gw2-ui/#./../../../guildnews-de_discretize-ui/gw2-ui/::hash=af6b5d&locator=%40repo%2Ftimer%40workspace%3Apackages%2Ftimer"
+  resolution: "@discretize/gw2-ui-new@file:./../../../guildnews-de_discretize-ui/gw2-ui/#./../../../guildnews-de_discretize-ui/gw2-ui/::hash=c99c9e&locator=%40repo%2Ftimer%40workspace%3Apackages%2Ftimer"
   dependencies:
     "@discretize/typeface-menomonia": "npm:*"
     clsx: "npm:^1.1.1"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
-  checksum: 10c0/d01f91a0337ee9a64b97c44d03d9a8189e0110f27edfb09ed8e31f653f5c36b07023036db57102ac94bd0961f0b19a313abac0612fc512afb6d5e362d469ecc3
+  checksum: 10c0/330bd2fff2bc8768fe6a528600454949c02255759590fc3a7d87e7efb82f449b03d3e886df68db168cbee4cf9789d88b957b37401668e9f109492ac03dbef447
   languageName: node
   linkType: hard
 
