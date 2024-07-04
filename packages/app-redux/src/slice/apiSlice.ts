@@ -9,6 +9,8 @@ import {
 
 export type GW2ApiLang = 'de' | 'en' | 'es' | 'fr';
 
+// GW2 APi
+
 export interface GW2MapsApiData
   extends Omit<
     GW2ApiMapsResponse & GW2ApiRegionsResponse,
@@ -23,28 +25,74 @@ export interface GW2ApiRequestParams {
   access_token?: string;
 }
 
-export interface GW2ApiRequest {
-  // loading: boolean | undefined;
+// Event API
+
+export type RGB = [number, number, number];
+
+export type TimerColor = string | RGB | [RGB, RGB];
+
+export interface TimerMeta {
+  category: string;
+  name: string;
+  link?: string;
+  segments: Record<string, TimerSegment>;
+  sequences: TimerSequenceData;
+}
+
+export interface TimerSequenceData {
+  partial: TimerSequence[];
+  pattern: TimerSequence[];
+}
+
+export interface TimerSegment {
+  name: string;
+  link?: string;
+  chatlink?: string;
+  bg: TimerColor;
+}
+
+export interface TimerSequence {
+  r: number;
+  d: number;
+}
+
+export interface TimerMetaRequest {
+  id: string;
+}
+
+// Init State
+
+export interface ApiState {
   error?: GW2ApiError | null;
-  request: {
+  request_gw2: {
+    url?: string;
+    method?: string;
+    params?: Record<string, string>;
+  };
+  request_gn: {
     url?: string;
     method?: string;
     params?: Record<string, string>;
   };
   response: {
     maps?: Record<string, GW2MapsApiData>;
+    events?: Record<string, TimerMeta>;
   };
 }
 
-export const initState: GW2ApiRequest = {
-  // loading: undefined,
+export const initState: ApiState = {
   error: null,
-  request: {
+  request_gw2: {
+    url: undefined,
+    method: 'GET',
+  },
+  request_gn: {
     url: undefined,
     method: 'GET',
   },
   response: {
     maps: undefined,
+    events: undefined,
   },
 };
 
@@ -52,17 +100,9 @@ export const apiSlice = createSlice({
   name: 'api',
   initialState: initState,
   reducers: {
-    // setLoading(state) {
-    //   return {
-    //     ...state,
-    //     loading: true,
-    //     error: null,
-    //   };
-    // },
     setError(state, action: PayloadAction<GW2ApiError>) {
       return {
         ...state,
-        loading: false,
         error: action.payload,
       };
     },
@@ -71,8 +111,8 @@ export const apiSlice = createSlice({
 
       return {
         ...state,
-        request: {
-          ...state.request,
+        request_gw2: {
+          ...state.request_gw2,
           url: `/maps/${id}`,
           params: {
             lang: lang,
@@ -80,7 +120,7 @@ export const apiSlice = createSlice({
         },
       };
     },
-    setData(
+    setMap(
       state,
       action: PayloadAction<{
         mapID: number;
@@ -109,10 +149,27 @@ export const apiSlice = createSlice({
         },
       };
     },
-    setDone(state) {
+    fetchEvents(state, action: PayloadAction<TimerMetaRequest>) {
+      const { id } = action.payload;
+
       return {
         ...state,
-        loading: false,
+        request_gn: {
+          ...state.request_gn,
+          url: id,
+        },
+      };
+    },
+    setEvents(state, action: PayloadAction<Record<string, TimerMeta>>) {
+      const metaData = action.payload;
+
+      return {
+        ...state,
+        error: null,
+        response: {
+          ...state.response,
+          events: metaData,
+        },
       };
     },
   },

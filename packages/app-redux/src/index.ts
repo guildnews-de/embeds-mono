@@ -10,7 +10,8 @@ import { default as apiReducer, apiActions } from './slice/apiSlice';
 export type ApiReducerType = typeof apiReducer;
 export type ApiActionsType = typeof apiActions;
 export { apiReducer };
-export const { setError, fetchMap, setData, setDone } = apiActions;
+export const { setError, fetchMap, setMap, fetchEvents, setEvents } =
+  apiActions;
 
 import { default as appReducer, appActions } from './slice/appSlice';
 export type AppReducerType = typeof appReducer;

@@ -5,6 +5,7 @@ import { default as mapReducer } from './slice/mapSlice';
 import { default as markerReducer } from './slice/markerSlice';
 
 import gw2Middleware from './gw2Middleware';
+import gnMiddleware from './gnMiddleware';
 
 const rootReducer = combineReducers({
   api: apiReducer,
@@ -18,7 +19,9 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(gw2Middleware),
+    })
+      .concat(gw2Middleware)
+      .concat(gnMiddleware),
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

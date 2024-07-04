@@ -16,12 +16,11 @@ interface CachedGW2Data extends GW2ApiMapsResponse, GW2ApiRegionsResponse {
   timestamp: number;
 }
 
-const apiMiddleware: Middleware<Record<string, never>, RootState> =
+const gw2Middleware: Middleware<Record<string, never>, RootState> =
   ({ dispatch }) =>
   (next) =>
   (action) => {
-    const { /* setLoading, */ setError, setData, setDone, fetchMap } =
-      apiActions;
+    const { setError, setMap, fetchMap } = apiActions;
     next(action);
     const isApiAction = isAnyOf(fetchMap);
     if (!isApiAction(action)) return;
@@ -50,9 +49,8 @@ const apiMiddleware: Middleware<Record<string, never>, RootState> =
               // If data is found in IndexedDB, dispatch it
               //console.debug('From Database');
               dispatch(
-                setData({ mapID: id, apiLang: lang, mapData: cachedData }),
+                setMap({ mapID: id, apiLang: lang, mapData: cachedData }),
               );
-              dispatch(setDone());
             } else {
               //console.debug('From API');
               // axios default configs
@@ -81,7 +79,7 @@ const apiMiddleware: Middleware<Record<string, never>, RootState> =
                     axios.defaults.baseURL =
                       'https://assets.guildnews.de/json/v2';
                   }
-                  // dispatch(setData({ mapID: id!, mapData: data }));
+                  // dispatch(setMap({ mapID: id!, mapData: data }));
                 })
                 .then(() => {
                   axios({
@@ -108,7 +106,7 @@ const apiMiddleware: Middleware<Record<string, never>, RootState> =
                       //console.log(JSON.stringify(cropData));
                       //console.log(JSON.stringify(data));
                       dispatch(
-                        setData({
+                        setMap({
                           mapID: id,
                           apiLang: lang,
                           mapData: apiData.map,
@@ -132,10 +130,10 @@ const apiMiddleware: Middleware<Record<string, never>, RootState> =
                 })
                 .catch((error: GW2ApiError) => {
                   dispatch(setError(error));
-                })
-                .finally(() => {
-                  dispatch(setDone());
                 });
+              // .finally(() => {
+              //   dispatch(setDone());
+              // });
             }
           });
       })
@@ -144,4 +142,4 @@ const apiMiddleware: Middleware<Record<string, never>, RootState> =
       });
   };
 
-export default apiMiddleware;
+export default gw2Middleware;
