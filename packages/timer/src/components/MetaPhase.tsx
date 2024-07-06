@@ -25,7 +25,8 @@ export default function MetaPhase({
   time,
   marked: propMarked,
 }: MetaPhaseProps) {
-  const { bg: color, name } = phase;
+  const { bg: color, name, name_de } = phase;
+  const { lang } = useAppSelector((state) => state.app);
   const timeTextLocal = time.start
     ? time.start.toLocal().toLocaleString(DateTime.TIME_SIMPLE)
     : 'invalid timestamp';
@@ -73,7 +74,7 @@ export default function MetaPhase({
           overflow={'hidden'}
           sx={{ wordBreak: 'break-all' }}
         >
-          {name}
+          {lang == 'de' ? name_de : name}
         </Typography>
       </Box>
     </StyledPaper>

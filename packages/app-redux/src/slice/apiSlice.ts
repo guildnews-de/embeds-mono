@@ -33,7 +33,9 @@ export type TimerColor = string | RGB | [RGB, RGB];
 
 export interface TimerMeta {
   category: string;
+  category_de: string;
   name: string;
+  name_de: string;
   link?: string;
   segments: Record<string, TimerSegment>;
   sequences: TimerSequenceData;
@@ -46,6 +48,7 @@ export interface TimerSequenceData {
 
 export interface TimerSegment {
   name: string;
+  name_de: string;
   link?: string;
   chatlink?: string;
   bg: TimerColor;

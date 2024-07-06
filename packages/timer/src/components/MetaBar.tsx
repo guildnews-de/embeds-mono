@@ -21,12 +21,12 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 export default function MetaBar({ meta }: MetaBarProps) {
-  const { now } = useAppSelector((state) => state.app);
+  const { now, lang } = useAppSelector((state) => state.app);
   const eventObj = useMemo(() => {
     return new TimerObj(meta, now);
   }, [meta, now]);
 
-  const { name, category } = meta;
+  const { name, name_de, category } = meta;
   const { phases, sequence } = eventObj;
 
   const parsedMinutes = now.minute - (now.minute % 5);
@@ -70,7 +70,7 @@ export default function MetaBar({ meta }: MetaBarProps) {
   return (
     <StyledPaper className={clsx('meta', category)} elevation={2}>
       <Box className="meta-name" sx={{ fontWeight: 'bold' }}>
-        <Typography variant="h6">{name}</Typography>
+        <Typography variant="h6">{lang == 'de' ? name_de : name}</Typography>
         {/* <Typography>{now.toLocal().toString()}</Typography> */}
       </Box>
       <Box className="meta-bar" display={'flex'} flexDirection={'row'}>
