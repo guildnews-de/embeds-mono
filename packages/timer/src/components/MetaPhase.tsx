@@ -1,9 +1,10 @@
 import { Box, Paper, Typography, styled } from '@mui/material';
 import { DateTime, Interval } from 'luxon';
 
-import { TimerSegment } from '../data/metas2';
-import getCssColor from '../shared/getCssColor';
 import { useAppSelector } from '@repo/app-redux';
+import type { TimerSegment } from '@repo/app-redux';
+
+import getCssColor from '../shared/getCssColor';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   margin: theme.spacing(0.25),

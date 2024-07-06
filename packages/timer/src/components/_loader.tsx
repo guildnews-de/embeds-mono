@@ -6,12 +6,16 @@ import {
   // TimerProps,
   // TimerHooks,
 } from '../shared/interfaces';
-import { default as metasObject } from '../data/metas2';
 
 import type { MetaBarComp, MetaBarProps } from '../components/MetaBar';
 // import type { MetaCatComp, MetaCatProps } from '../components/MetaCat';
 
-import { useAppSelector, useAppDispatch, setNowTimer } from '@repo/app-redux';
+import {
+  useAppSelector,
+  useAppDispatch,
+  setNowTimer,
+  fetchEvents,
+} from '@repo/app-redux';
 
 // type TimerComponent = MetaBarComp | MetaCatComp;
 
@@ -31,15 +35,24 @@ export default function TimerLoader(props: TimerLoaderProps) {
   const { nowTimer } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
+  const { events } = useAppSelector((state) => state.api.response);
+  // useEffect(() => {
+  //   !events && dispatch(fetchEvents({ id: 'all' }));
+  // }, [dispatch, events]);
+
   useMemo(() => {
-    !nowTimer && dispatch(setNowTimer(true));
-  }, [nowTimer, dispatch]);
+    events && !nowTimer && dispatch(setNowTimer(true));
+  }, [nowTimer, dispatch, events]);
+
+  useMemo(() => {
+    !events && dispatch(fetchEvents({ id: 'all' }));
+  }, [dispatch, events]);
 
   switch (type) {
     case 'MetaBar':
       {
-        if (ids && metasObject[ids]) {
-          const meta = metasObject[ids];
+        if (ids && events?.[ids]) {
+          const meta = events[ids];
           if (meta) {
             const AsyncModule = loadable<MetaBarProps>(
               ({ data }) => import(`./${data.type}`) as Promise<MetaBarComp>,

@@ -31,9 +31,9 @@ const gnMiddleware: Middleware<Record<string, never>, RootState> =
     const cacheKey = `eventTimerData`;
     const dateNow = new Date();
 
-    const dbPromise = openDB('GuildNews_GW2Embeds', 2, {
+    const dbPromise = openDB('GuildNews_GW2Embeds', 3, {
       upgrade(db) {
-        db.createObjectStore('gw2_api_data');
+        db.createObjectStore('gn_api_data');
       },
     });
 
@@ -41,17 +41,16 @@ const gnMiddleware: Middleware<Record<string, never>, RootState> =
     dbPromise
       .then((db) => {
         return db
-          .get('gw2_api_data', cacheKey)
+          .get('gn_api_data', cacheKey)
           .then((cachedData: CachedTimerData | undefined) => {
             const cacheAge = cachedData
               ? differenceInDays(dateNow, cachedData.timestamp)
               : 4;
             if (cachedData && cacheAge < 3) {
               // If data is found in IndexedDB, dispatch it
-              //console.debug('From Database');
+
               dispatch(setEvents(cachedData.data));
             } else {
-              //console.debug('From API');
               // axios default configs
               axios.defaults.baseURL = 'https://assets.guildnews.de/events/v1';
               axios.defaults.timeout = 5000;
@@ -65,10 +64,10 @@ const gnMiddleware: Middleware<Record<string, never>, RootState> =
                   dispatch(setEvents(data));
                   // Store the data in IndexedDB for future use
                   db.put(
-                    'gw2_api_data',
+                    'gn_api_data',
                     {
                       timestamp: dateNow,
-                      ...data,
+                      data: data,
                     },
                     cacheKey,
                   ).catch((err) => {

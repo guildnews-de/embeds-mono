@@ -1,7 +1,8 @@
 import { Box, Paper, Typography, styled } from '@mui/material';
 import { clsx } from 'clsx';
 
-import { TimerMeta } from '../data/metas2';
+import type { TimerMeta } from '@repo/app-redux';
+
 import { TimerObj, TimerData } from '../shared/interfaces';
 import { default as MetaPhase, type MetaPhaseProps } from './MetaPhase';
 import { DateTime, Interval, Settings } from 'luxon';

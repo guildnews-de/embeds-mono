@@ -30,7 +30,7 @@ const gw2Middleware: Middleware<Record<string, never>, RootState> =
     const cacheKey = `maps_${id}_${lang}`;
     const dateNow = new Date();
 
-    const dbPromise = openDB('GuildNews_GW2Embeds', 2, {
+    const dbPromise = openDB('GuildNews_GW2Embeds', 3, {
       upgrade(db) {
         db.createObjectStore('gw2_api_data');
       },

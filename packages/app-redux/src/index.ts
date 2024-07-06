@@ -7,6 +7,13 @@ export type { RootState, AppDispatch } from './store';
 export { default as store } from './store';
 
 import { default as apiReducer, apiActions } from './slice/apiSlice';
+export type {
+  TimerMeta,
+  TimerSegment,
+  TimerSequence,
+  TimerSequenceData,
+  TimerColor,
+} from './slice/apiSlice';
 export type ApiReducerType = typeof apiReducer;
 export type ApiActionsType = typeof apiActions;
 export { apiReducer };

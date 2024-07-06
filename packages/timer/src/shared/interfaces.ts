@@ -7,7 +7,7 @@ import {
   TimerSegment,
   TimerSequenceData,
   TimerSequence,
-} from '../data/metas2';
+} from '@repo/app-redux';
 
 export interface TimerDataset {
   gw2Embed?: string;

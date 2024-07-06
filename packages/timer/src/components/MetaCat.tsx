@@ -1,9 +1,10 @@
 import { Box } from '@mui/material';
 // import { clsx } from 'clsx';
 
-import type { TimerMeta } from '../data/metas';
+import type { TimerMeta } from '@repo/app-redux';
+
 import { default as MetaBar } from './MetaBar';
-import { TimerProps } from '../shared/interfaces';
+import { TimerDefaultProps } from '../shared/interfaces';
 
 // function ClockIndicator() {
 //   return (
@@ -32,24 +33,22 @@ import { TimerProps } from '../shared/interfaces';
 //   );
 // }
 
-export interface MetaCatProps extends TimerProps {
+export interface MetaCatProps extends TimerDefaultProps {
   meta: TimerMeta[];
 }
 
 export default function MetaCat({ data, hash, meta }: MetaCatProps) {
-  const MetaBars = () =>
-    meta.map((metaData, idx) => (
-      <MetaBar
-        meta={metaData}
-        data={data}
-        hash={hash}
-        key={`${metaData.name}${idx}`}
-      />
-    ));
-
   return (
     <Box className="meta-container">
-      <MetaBars />
+      {data &&
+        meta.map((metaData, idx) => (
+          <MetaBar
+            meta={metaData}
+            data={data}
+            hash={hash}
+            key={`${metaData.name}${idx}`}
+          />
+        ))}
     </Box>
   );
 }
