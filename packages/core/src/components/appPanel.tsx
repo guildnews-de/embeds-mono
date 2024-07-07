@@ -39,6 +39,7 @@ import {
 } from '@repo/app-redux';
 
 const drawerWidth = 480;
+const teamMods = document.getElementById('wpadminbar') !== null;
 
 const drawerBaseCss = (theme: Theme): CSSObject => ({
   display: 'flex',
@@ -92,7 +93,7 @@ const MenuDiv = styled(Box)(({ theme }) => ({
 const MenuGroup = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  marginTop: theme.spacing(0.5),
+  marginTop: teamMods ? theme.spacing(4.5) : theme.spacing(0.5),
   marginBottom: theme.spacing(0.5),
   backgroundColor: theme.palette.grey[500],
   borderRadius: theme.spacing(1, 0, 0, 1),
@@ -103,6 +104,7 @@ const ContentDiv = styled(Box)(({ theme }) => ({
   flexGrow: 1,
   overflow: 'hidden',
   // marginLeft: theme.spacing(0.5),
+  paddingTop: teamMods ? theme.spacing(4) + ' !important' : undefined,
   borderRadius: theme.spacing(0.5, 0, 0, 0.5),
   backgroundColor: theme.palette.grey[500],
   padding: theme.spacing(0, 0),
