@@ -15,8 +15,6 @@ import {
 } from '@repo/ingame-ui';
 
 import { isTimerType, TimerLoader, type TimerElement } from '@repo/timer';
-import { useEffect } from 'react';
-import { setNow, useAppDispatch } from '@repo/app-redux';
 
 type EmbedElement = IngameMapElement | IngameUiElement | TimerElement;
 type EmbedLoader =
@@ -29,14 +27,6 @@ export function ElementLoader() {
   const targets: EmbedElement[] = Array.from(
     document.querySelectorAll('.gw2MultiEmb'),
   );
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const nowTimer = setInterval(() => dispatch(setNow()), 60000);
-    return () => {
-      clearInterval(nowTimer);
-    };
-  }, [dispatch]);
 
   const Portals = () =>
     targets.map((element, idx) => (

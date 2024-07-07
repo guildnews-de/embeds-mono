@@ -4,8 +4,6 @@ import { GW2ApiLang } from './apiSlice';
 import { DateTime } from 'luxon';
 
 export interface appState {
-  // mapsLoaded: boolean;
-  // loadLL: boolean;
   lang: GW2ApiLang;
   now: DateTime;
   nowTimer: boolean;
@@ -19,8 +17,6 @@ export interface appState {
 }
 
 const initState: appState = {
-  // mapsLoaded: false,
-  // loadLL: false,
   lang: 'de',
   now: DateTime.utc(),
   nowTimer: false,

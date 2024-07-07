@@ -36,9 +36,6 @@ export default function TimerLoader(props: TimerLoaderProps) {
   const dispatch = useAppDispatch();
 
   const { events } = useAppSelector((state) => state.api.response);
-  // useEffect(() => {
-  //   !events && dispatch(fetchEvents({ id: 'all' }));
-  // }, [dispatch, events]);
 
   useMemo(() => {
     events && !nowTimer && dispatch(setNowTimer(true));
