@@ -23,7 +23,7 @@ export class IngameMapData {
   marker?: string[];
   color: string;
   mode: string;
-  constructor(props: IngameMapElement['dataset']) {
+  constructor(props: IngameMapDataset) {
     const {
       gw2Embed,
       gw2Ids,

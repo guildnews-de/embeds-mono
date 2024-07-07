@@ -31,7 +31,7 @@ export class TimerData {
   ids?: string;
   mark?: number[];
   style?: CSSProperties;
-  constructor(props: TimerElement['dataset']) {
+  constructor(props: TimerDataset) {
     const { gw2Embed, gw2Mark, gw2Id = '', gw2Style } = props;
 
     if (gw2Embed && isTimerType(gw2Embed)) {

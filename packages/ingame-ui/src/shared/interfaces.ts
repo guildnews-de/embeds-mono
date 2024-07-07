@@ -86,7 +86,7 @@ export class IngameUiData {
   disableText: boolean;
   disableLink: boolean;
   disableIcon: boolean;
-  constructor(props: IngameUiElement['dataset']) {
+  constructor(props: IngameUiDataset) {
     const {
       gw2Embed,
       gw2Id = '',
