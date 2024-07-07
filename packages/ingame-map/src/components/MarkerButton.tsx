@@ -50,7 +50,7 @@ export default function MarkerButton({ data, hash }: IngameMapProps) {
   }, [dispatch, groupNames, data, hash]);
 
   const offText = lang === 'de' ? 'Karte zeigen' : 'Show map';
-  const onText = lang === 'de' ? 'Jetzt sichtbar' : 'Now visible';
+  const onText = lang === 'de' ? 'Neu zentrieren' : 'Recenter';
 
   const handleClick = () => {
     dispatch(openCanvas());
@@ -71,6 +71,7 @@ export default function MarkerButton({ data, hash }: IngameMapProps) {
     <Button
       variant={isActive ? 'outlined' : 'contained'}
       onClick={isActive ? handleActiveClick : handleClick}
+      sx={{ lineHeight: 1.0, verticalAlign: 'text-bottom' }}
     >
       {isActive ? onText : offText}
     </Button>
