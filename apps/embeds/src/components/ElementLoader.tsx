@@ -63,6 +63,8 @@ function ElementPortal(props: { element: EmbedElement; idx: number }) {
     ElementLoader = IngameUiLoader;
   } else if (isTimerType(embedType)) {
     ElementLoader = TimerLoader;
+  } else {
+    console.error(`Unrecognized embed type ${embedType}`);
   }
 
   if (ElementLoader) {
