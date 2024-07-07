@@ -1,18 +1,16 @@
 export interface IngameMapDataset {
   // Common
   gw2Embed?: string;
-  gw2mapIds?: string;
-  gw2mapMarker?: string;
-  gw2mapColor?: string;
-  gw2mapMode?: string;
+  gw2Ids?: string;
+  gw2Marker?: string;
+  gw2Color?: string;
+  gw2Mode?: string;
 }
 
-export type IngameMapType = 'MapCont' | 'MapLoader' | 'MarkerButton';
+export type IngameMapType = 'MapCont' | 'MapInit' | 'MarkerButton';
 
 export function isIngameMapType(value?: string): value is IngameMapType {
-  return (
-    value === 'MapCont' || value === 'MapLoader' || value === 'MarkerButton'
-  );
+  return value === 'MapCont' || value === 'MapInit' || value === 'MarkerButton';
 }
 
 export interface IngameMapElement extends Omit<HTMLElement, 'dataset'> {
@@ -28,10 +26,10 @@ export class IngameMapData {
   constructor(props: IngameMapElement['dataset']) {
     const {
       gw2Embed,
-      gw2mapIds,
-      gw2mapMarker,
-      gw2mapColor = 'blue',
-      gw2mapMode = 'points',
+      gw2Ids,
+      gw2Marker,
+      gw2Color = 'blue',
+      gw2Mode = 'points',
     } = props;
 
     if (gw2Embed && isIngameMapType(gw2Embed)) {
@@ -40,10 +38,10 @@ export class IngameMapData {
       throw Error(`Invalid embed type ${gw2Embed}`);
     }
 
-    this.ids = gw2mapIds ? this.splitIds(gw2mapIds) : undefined;
-    this.marker = gw2mapMarker?.split(';');
-    this.color = gw2mapColor;
-    this.mode = gw2mapMode;
+    this.ids = gw2Ids ? this.splitIds(gw2Ids) : undefined;
+    this.marker = gw2Marker?.split(';');
+    this.color = gw2Color;
+    this.mode = gw2Mode;
   }
 
   splitIds(rawIds: string) {
