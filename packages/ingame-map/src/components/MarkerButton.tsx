@@ -58,7 +58,7 @@ export default function MarkerButton({ data, hash }: IngameMapProps) {
     dispatch(setDragged(false));
     setTimeout(() => {
       dispatch(setRecenter(true));
-    }, 600);
+    }, 750);
   };
 
   const handleActiveClick = () => {
