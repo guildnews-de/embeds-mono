@@ -21,7 +21,7 @@ export interface appState {
 const initState: appState = {
   // mapsLoaded: false,
   // loadLL: false,
-  lang: 'en',
+  lang: 'de',
   now: DateTime.utc(),
   nowTimer: false,
   modal: false,
