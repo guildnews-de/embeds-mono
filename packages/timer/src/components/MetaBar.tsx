@@ -1,4 +1,4 @@
-import { Box, Paper, Typography, styled } from '@mui/material';
+import { Box, Paper, type PaperProps, Typography, styled } from '@mui/material';
 import { clsx } from 'clsx';
 
 import type { TimerMeta } from '@repo/app-redux';
@@ -10,14 +10,25 @@ import { useMemo } from 'react';
 import { useAppSelector } from '@repo/app-redux';
 
 export interface MetaBarProps {
-  data: TimerData;
+  data?: TimerData;
   meta: TimerMeta;
-  hash: string;
+  hash?: string;
 }
 
-const StyledPaper = styled(Paper)(({ theme }) => ({
+interface ModePaperProps extends PaperProps {
+  darkMode?: boolean;
+}
+
+const ModePaper = (props: ModePaperProps) => {
+  return <Paper {...props} />;
+};
+
+const StyledPaper = styled(ModePaper, {
+  shouldForwardProp: (prop) => prop !== 'darkMode',
+})(({ theme, darkMode }) => ({
   margin: theme.spacing(0.25),
   padding: theme.spacing(0.5),
+  backgroundColor: darkMode ? theme.palette.grey[700] : theme.palette.grey[300],
 }));
 
 export default function MetaBar({ meta }: MetaBarProps) {
@@ -68,7 +79,13 @@ export default function MetaBar({ meta }: MetaBarProps) {
   }, [sequence, phases, viewInterval]);
 
   return (
-    <StyledPaper className={clsx('meta', category)} elevation={2}>
+    <StyledPaper
+      className={clsx('meta', category)}
+      elevation={2}
+      darkMode={
+        document.querySelector('html')?.classList.contains('dark-skin') === true
+      }
+    >
       <Box className="meta-name" sx={{ fontWeight: 'bold' }}>
         <Typography variant="h6">{lang == 'de' ? name_de : name}</Typography>
         {/* <Typography>{now.toLocal().toString()}</Typography> */}
