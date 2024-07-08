@@ -25,7 +25,7 @@ export interface TimerLoaderProps {
 }
 
 export default function TimerLoader(props: TimerLoaderProps) {
-  const { data, /* hooks, */ hash } = props;
+  const { data, hash } = props;
   const elementData = useMemo(() => {
     return new TimerData(data);
   }, [data]);
@@ -52,7 +52,7 @@ export default function TimerLoader(props: TimerLoaderProps) {
           const meta = events[ids];
           if (meta) {
             const AsyncModule = loadable<MetaBarProps>(
-              ({ data }) => import(`./${data.type}`) as Promise<MetaBarComp>,
+              ({ data }) => import(`./${data?.type}`) as Promise<MetaBarComp>,
             );
             return (
               <AsyncModule

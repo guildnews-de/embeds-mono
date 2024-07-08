@@ -15,6 +15,7 @@
     "@reduxjs/toolkit": "^2.2.5",
     "@repo/app-redux": "*",
     "@repo/core": "*",
+    "@repo/timer": "*",
     "leaflet": "^1.9.4",
     "leaflet.offline": "^3.0.1",
     "react-leaflet": "^4.2.1"

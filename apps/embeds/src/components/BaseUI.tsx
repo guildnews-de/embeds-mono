@@ -1,4 +1,9 @@
-import { setNow, useAppDispatch, useAppSelector } from '@repo/app-redux';
+import {
+  fetchEvents,
+  setNow,
+  useAppDispatch,
+  useAppSelector,
+} from '@repo/app-redux';
 import { AppDrawer, CssBaseline } from '@repo/core';
 import { MapCont } from '@repo/ingame-map';
 import { useMemo } from 'react';
@@ -6,6 +11,7 @@ import { useMemo } from 'react';
 export function BaseUI() {
   const { groupNames } = useAppSelector((state) => state.marker);
   const { nowTimer } = useAppSelector((state) => state.app);
+  const { events } = useAppSelector((state) => state.api.response);
   const dispatch = useAppDispatch();
 
   useMemo(() => {
@@ -16,6 +22,11 @@ export function BaseUI() {
       };
     }
   }, [dispatch, nowTimer]);
+
+  useMemo(() => {
+    !events && dispatch(fetchEvents({ id: 'all' }));
+  }, [dispatch, events]);
+
   return (
     <>
       <CssBaseline />
