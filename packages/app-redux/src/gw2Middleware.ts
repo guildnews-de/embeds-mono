@@ -1,6 +1,5 @@
 import { Middleware, isAnyOf } from '@reduxjs/toolkit';
-import { differenceInDays } from 'date-fns';
-import { openDB } from 'idb';
+import { DateTime } from 'luxon';
 import axios from 'axios';
 
 import { apiActions } from './slice/apiSlice';
@@ -12,9 +11,7 @@ import {
   type GW2ApiError,
 } from './shared/gw2Api';
 
-interface CachedGW2Data extends GW2ApiMapsResponse, GW2ApiRegionsResponse {
-  timestamp: number;
-}
+import { default as dbPromise, type CachedGW2Data } from './database';
 
 const gw2Middleware: Middleware<Record<string, never>, RootState> =
   ({ dispatch }) =>
@@ -28,28 +25,22 @@ const gw2Middleware: Middleware<Record<string, never>, RootState> =
     // dispatch(setLoading());
     const { id, lang = 'en' } = action.payload;
     const cacheKey = `maps_${id}_${lang}`;
-    const dateNow = new Date();
-
-    const dbPromise = openDB('GuildNews_GW2Embeds', 3, {
-      upgrade(db) {
-        db.createObjectStore('gw2_api_data');
-      },
-    });
+    const dateNow = DateTime.utc();
 
     // Check if the data is already cached in IndexedDB
-    dbPromise
+    dbPromise()
       .then((db) => {
         return db
           .get('gw2_api_data', cacheKey)
           .then((cachedData: CachedGW2Data | undefined) => {
             const cacheAge = cachedData
-              ? differenceInDays(dateNow, cachedData.timestamp)
+              ? dateNow.diff(cachedData.timestamp, 'days').days
               : 4;
             if (cachedData && cacheAge < 3) {
               // If data is found in IndexedDB, dispatch it
               //console.debug('From Database');
               dispatch(
-                setMap({ mapID: id, apiLang: lang, mapData: cachedData }),
+                setMap({ mapID: id, apiLang: lang, mapData: cachedData.data }),
               );
             } else {
               //console.debug('From API');
@@ -117,7 +108,7 @@ const gw2Middleware: Middleware<Record<string, never>, RootState> =
                         'gw2_api_data',
                         {
                           timestamp: dateNow,
-                          ...apiData.map,
+                          data: apiData.map,
                         },
                         cacheKey,
                       ).catch((err) => {

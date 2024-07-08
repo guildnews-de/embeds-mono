@@ -1,15 +1,11 @@
 import { Middleware, isAnyOf } from '@reduxjs/toolkit';
-import { differenceInDays } from 'date-fns';
-import { openDB } from 'idb';
 import axios from 'axios';
 
 import { apiActions, TimerMeta } from './slice/apiSlice';
 import type { RootState } from './store';
 
-interface CachedTimerData {
-  data: Record<string, TimerMeta>;
-  timestamp: number;
-}
+import { default as dbPromise, type CachedTimerData } from './database';
+import { DateTime } from 'luxon';
 
 interface GNAssetsError {
   text: string;
@@ -29,22 +25,16 @@ const gnMiddleware: Middleware<Record<string, never>, RootState> =
     // dispatch(setLoading());
     const { id } = action.payload;
     const cacheKey = `eventTimerData`;
-    const dateNow = new Date();
-
-    const dbPromise = openDB('GuildNews_GW2Embeds', 3, {
-      upgrade(db) {
-        db.createObjectStore('gn_api_data');
-      },
-    });
+    const dateNow = DateTime.utc();
 
     // Check if the data is already cached in IndexedDB
-    dbPromise
+    dbPromise()
       .then((db) => {
         return db
           .get('gn_api_data', cacheKey)
           .then((cachedData: CachedTimerData | undefined) => {
             const cacheAge = cachedData
-              ? differenceInDays(dateNow, cachedData.timestamp)
+              ? dateNow.diff(cachedData.timestamp, 'days').days
               : 4;
             if (cachedData && cacheAge < 3) {
               // If data is found in IndexedDB, dispatch it
