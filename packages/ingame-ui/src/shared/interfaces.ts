@@ -1,7 +1,8 @@
 import type { CSSProperties, ComponentProps } from 'react';
-import { Icon } from '@discretize/gw2-ui-new';
+import { type Icon, type WikiLink } from '@discretize/gw2-ui-new';
 
 export type IconProps = ComponentProps<typeof Icon>;
+export type WikiLinkProps = ComponentProps<typeof WikiLink>;
 
 export interface IngameUiDataset {
   // Common
@@ -198,4 +199,6 @@ export interface IngameUiProps {
   data: IngameUiData;
   hash: string;
   customLang?: string;
+  wikiLinkProps?: Partial<WikiLinkProps>;
+  iconProps?: Partial<IconProps>;
 }

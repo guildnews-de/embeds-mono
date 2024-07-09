@@ -8,7 +8,7 @@ export default function traitReactor(props: IngameUiProps) {
   const embed = () =>
     ids?.map((id, i) => (
       <span key={`${hash}${i}`}>
-        <Trait id={id} iconProps={data.getIconStyle()} {...props} />{' '}
+        <Trait id={id} {...props} />{' '}
       </span>
     ));
   return embed();

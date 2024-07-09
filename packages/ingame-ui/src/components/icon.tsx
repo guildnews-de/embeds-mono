@@ -41,7 +41,6 @@ export default function iconReactor(props: IngameUiProps) {
         text={descr}
         style={iconStyle}
         key={hash}
-        iconProps={data.getIconStyle()}
         {...props}
       />
     );

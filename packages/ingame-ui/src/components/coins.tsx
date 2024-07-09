@@ -9,7 +9,6 @@ export default function coinReactor(props: IngameUiProps) {
       value={data.goldValue}
       //style={gw2Style}
       key={hash}
-      iconProps={data.getIconStyle()}
       {...props}
     />
   );

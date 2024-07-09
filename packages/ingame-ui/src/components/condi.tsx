@@ -8,12 +8,7 @@ export default function condiReactor(props: IngameUiProps) {
   type ConditionTypes = ComponentProps<typeof Condition>['name'];
 
   return (
-    <Condition
-      name={data.embedName as ConditionTypes}
-      key={hash}
-      iconProps={data.getIconStyle()}
-      {...props}
-    />
+    <Condition name={data.embedName as ConditionTypes} key={hash} {...props} />
   );
 }
 

@@ -12,7 +12,6 @@ export default function itemReactor(props: IngameUiProps) {
           id={id}
           upgrades={itemUpgrades ? itemUpgrades[i] : undefined}
           stat={itemStats}
-          iconProps={data.getIconStyle()}
           {...props}
         />{' '}
       </span>

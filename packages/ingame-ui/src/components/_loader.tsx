@@ -53,5 +53,13 @@ export default function IngameUiLoader(props: IngameUiLoaderProps) {
     ({ data }) => import(`./${data.type}`) as Promise<IngameUiComponent>,
   );
 
-  return <AsyncModule data={elementData} hash={props.hash} customLang={lang} />;
+  return (
+    <AsyncModule
+      hash={props.hash}
+      data={elementData}
+      customLang={lang}
+      wikiLinkProps={{ lang: lang }}
+      iconProps={elementData.getIconStyle()}
+    />
+  );
 }
