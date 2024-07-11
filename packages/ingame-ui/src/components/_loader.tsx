@@ -21,6 +21,7 @@ import type { UiTraits } from '../components/traits';
 import '../package.scss';
 import { useMemo } from 'react';
 import { useAppSelector } from '@repo/app-redux';
+import { Box, styled } from '@mui/material';
 
 type IngameUiComponent =
   | UiAura
@@ -35,6 +36,12 @@ type IngameUiComponent =
   | UiSpec
   | UiTraitline
   | UiTraits;
+
+const StyledBox = styled(Box)(({ theme }) => ({
+  borderRadius: theme.spacing(0.5),
+  overflow: 'hidden',
+  // padding: theme.spacing(0, 0),
+}));
 
 export interface IngameUiLoaderProps {
   data: IngameUiDataset;
@@ -54,12 +61,14 @@ export default function IngameUiLoader(props: IngameUiLoaderProps) {
   );
 
   return (
-    <AsyncModule
-      hash={props.hash}
-      data={elementData}
-      customLang={lang}
-      wikiLinkProps={{ lang: lang }}
-      iconProps={elementData.getIconStyle()}
-    />
+    <StyledBox>
+      <AsyncModule
+        hash={props.hash}
+        data={elementData}
+        customLang={lang}
+        wikiLinkProps={{ lang: lang }}
+        iconProps={elementData.getIconStyle()}
+      />
+    </StyledBox>
   );
 }

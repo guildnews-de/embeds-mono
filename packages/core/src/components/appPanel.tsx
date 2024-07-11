@@ -41,7 +41,7 @@ import {
 const drawerWidth = 480;
 const teamMods = document.getElementById('wpadminbar') !== null;
 
-const drawerBaseCss = (theme: Theme): CSSObject => ({
+const drawerBaseCss = (): CSSObject => ({
   display: 'flex',
   flexDirection: 'row',
   overflowX: 'hidden',
@@ -58,7 +58,7 @@ const openedMixin = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.enteringScreen,
   }),
   width: drawerWidth,
-  ...drawerBaseCss(theme),
+  ...drawerBaseCss(),
 });
 
 const openedMixinWide = (theme: Theme): CSSObject => ({
@@ -67,7 +67,7 @@ const openedMixinWide = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.enteringScreen,
   }),
   width: '100vw',
-  ...drawerBaseCss(theme),
+  ...drawerBaseCss(),
 });
 
 const closedMixin = (theme: Theme): CSSObject => ({
@@ -79,7 +79,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(4)} + 1px)`,
   },
-  ...drawerBaseCss(theme),
+  ...drawerBaseCss(),
 });
 
 const MenuDiv = styled(Box)(({ theme }) => ({

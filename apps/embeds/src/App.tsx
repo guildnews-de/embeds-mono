@@ -7,6 +7,8 @@ import { BaseUI } from './components/BaseUI';
 import { ElementLoader } from './components/ElementLoader';
 
 import { store } from '@repo/app-redux';
+import { embedTheme } from './shared/theme';
+import { ThemeProvider } from '@mui/material';
 
 export default function App() {
   const rootElement = document.getElementById('gw2embeds_root');
@@ -16,10 +18,12 @@ export default function App() {
     root.render(
       <React.StrictMode>
         <Provider store={store}>
-          <BaseUI />
-          <ErrorBoundary fallback={<div>{`Error in Root Node O_o`}</div>}>
-            <ElementLoader />
-          </ErrorBoundary>
+          <ThemeProvider theme={embedTheme}>
+            <BaseUI />
+            <ErrorBoundary fallback={<div>{`Error in Root Node O_o`}</div>}>
+              <ElementLoader />
+            </ErrorBoundary>
+          </ThemeProvider>
         </Provider>
       </React.StrictMode>,
     );

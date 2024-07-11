@@ -11,6 +11,7 @@
   "types": "dist/index.d.ts",
   "dependencies": {
     "@loadable/component": "^5.16.4",
+    "@mui/material": "^5.16.1",
     "@repo/app-redux": "*",
     "@repo/core": "*",
     "@repo/ingame-map": "*",
