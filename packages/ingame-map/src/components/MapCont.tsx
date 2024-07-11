@@ -12,6 +12,14 @@ import { IngameTiles } from './MapCont/IngameTiles';
 import { GW2Sectors } from './MapCont/Sectors';
 import { GuideMarker, PoiMarker } from './MapCont/Marker';
 import { ClickedCoords, MapCenter, MarkerBounds } from './MapCont/Utility';
+import { styled } from '@mui/material';
+
+const StyledMapContainer = styled(MapContainer)(({ theme }) => ({
+  width: '100%',
+  height: '100%',
+  borderRadius: theme.spacing(0.5, 0, 0, 0.5),
+  // padding: theme.spacing(0, 0),
+}));
 
 export default function MapCont() {
   // Grab redux state info
@@ -48,7 +56,7 @@ export default function MapCont() {
   }, [activeMaps, apiData, lang]);
 
   return (
-    <MapContainer
+    <StyledMapContainer
       crs={CRS.Simple}
       scrollWheelZoom={true}
       zoom={2}
@@ -56,7 +64,6 @@ export default function MapCont() {
       minZoom={1}
       maxZoom={8}
       doubleClickZoom={false}
-      style={{ width: '100%', height: '100%' }}
     >
       <IngameTiles /* hooks={hooks} */ bounds={bounds} />
       <LayersControl>
@@ -85,7 +92,7 @@ export default function MapCont() {
       <ClickedCoords />
       {marker && <MarkerBounds marker={marker.points} />}
       {<MapCenter />}
-    </MapContainer>
+    </StyledMapContainer>
   );
 }
 

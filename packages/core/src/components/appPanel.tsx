@@ -107,7 +107,7 @@ const ContentDiv = styled(Box)(({ theme }) => ({
   paddingTop: teamMods ? theme.spacing(4) + ' !important' : undefined,
   borderRadius: theme.spacing(0.5, 0, 0, 0.5),
   backgroundColor: theme.palette.grey[500],
-  padding: theme.spacing(0, 0),
+  paddingLeft: theme.spacing(0.5),
 }));
 
 interface WideDrawerProps extends DrawerProps {
@@ -215,7 +215,7 @@ export default function AppDrawer({ children }: AppDrawerPropsWithChildren) {
             </Tooltip>
           </MenuGroup>
         </MenuDiv>
-        {open && <ContentDiv>{children}</ContentDiv>}
+        {<ContentDiv>{children}</ContentDiv>}
       </StyledDrawer>
     </Box>
   );
