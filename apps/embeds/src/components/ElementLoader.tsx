@@ -28,15 +28,9 @@ export function ElementLoader() {
     document.querySelectorAll('.gw2MultiEmb'),
   );
 
-  const Portals = () =>
-    targets.map((element, idx) => (
-      <ElementPortal
-        element={element}
-        key={MD5(`GW2_Emebds_${idx}`)}
-        idx={idx}
-      />
-    ));
-  return Portals();
+  return targets.map((element, idx) => (
+    <ElementPortal element={element} key={MD5(`GW2_Emebds_${idx}`)} idx={idx} />
+  ));
 }
 
 function ElementPortal(props: { element: EmbedElement; idx: number }) {
