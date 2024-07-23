@@ -11,7 +11,7 @@ export default function MenuGroup({ children, teamMods }: MenuGroupProps) {
     marginTop: teamMods ? theme.spacing(4.5) : theme.spacing(0.5),
     marginBottom: theme.spacing(0.5),
     backgroundColor: theme.palette.grey[500],
-    borderRadius: theme.spacing(1, 0, 0, 1),
+    borderRadius: theme.spacing(0.5, 0, 0, 0.5),
   }));
 
   return <StyledMenuGroup>{children}</StyledMenuGroup>;
