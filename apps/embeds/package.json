@@ -5,6 +5,7 @@
   "scripts": {
     "lint": "eslint .",
     "build": "webpack --config webpack.config.js --mode development",
+    "build:prod": "webpack --config webpack.config.js --mode production",
     "postbuild": "tsc --emitDeclarationOnly --declaration --declarationDir dist/@types --skiplibCheck"
   },
   "module": "dist/index.js",

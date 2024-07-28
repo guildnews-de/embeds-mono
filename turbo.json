@@ -7,6 +7,10 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
+    "build:prod": {
+      "dependsOn": ["^build:prod"],
+      "outputs": ["dist/**"]
+    },
     "postbuild": {
       "dependsOn": ["^build"]
     },
