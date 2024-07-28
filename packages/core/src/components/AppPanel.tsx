@@ -7,6 +7,7 @@ import {
   DrawerProps,
   styled,
   Theme,
+  SxProps,
 } from '@mui/material';
 
 import {
@@ -67,7 +68,6 @@ const ContentDiv = styled(Box)(({ theme }) => ({
   height: '100%',
   flexGrow: 1,
   overflow: 'hidden',
-  paddingTop: teamMods ? theme.spacing(4) + ' !important' : undefined,
   borderRadius: theme.spacing(0.5, 0, 0, 0.5),
   backgroundColor: theme.palette.grey[500],
   paddingLeft: theme.spacing(0.5),
@@ -104,6 +104,11 @@ const StyledDrawer = styled(WideDrawer, {
   }),
 }));
 
+const DrawerPaperSx: SxProps = {
+  marginTop: teamMods ? '32px !important' : undefined,
+  height: 'calc(100% - 32px)',
+};
+
 export default function AppPanel({ children }: PropsWithChildren) {
   const dispatch = useAppDispatch();
 
@@ -126,6 +131,7 @@ export default function AppPanel({ children }: PropsWithChildren) {
       variant="permanent"
       open={open}
       wide={wide}
+      PaperProps={{ sx: DrawerPaperSx }}
     >
       <MenuDiv height={'100%'}>
         {groupNames && groupNames.length > 0 && (
