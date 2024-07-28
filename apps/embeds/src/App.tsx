@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import { BaseUI } from './components/BaseUI';
-import { ElementLoader } from './components/ElementLoader';
+import { EmbeddingsLoader } from './components/EmbeddingsLoader';
 
 import { store } from '@repo/app-redux';
 import { embedTheme } from './shared/theme';
@@ -21,7 +21,7 @@ export default function App() {
           <ThemeProvider theme={embedTheme}>
             <BaseUI />
             <ErrorBoundary fallback={<div>{`Error in Root Node O_o`}</div>}>
-              <ElementLoader />
+              <EmbeddingsLoader />
             </ErrorBoundary>
           </ThemeProvider>
         </Provider>

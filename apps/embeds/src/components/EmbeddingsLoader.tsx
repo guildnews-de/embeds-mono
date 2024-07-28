@@ -23,7 +23,7 @@ type EmbedLoader =
   | typeof TimerLoader
   | undefined;
 
-export function ElementLoader() {
+export function EmbeddingsLoader() {
   const targets: EmbedElement[] = Array.from(
     document.querySelectorAll('.gw2MultiEmb'),
   );
