@@ -60,7 +60,7 @@ export default function MetaPhase({
           {timeTextLocal}
         </Typography>
         <Typography display={'inline'} fontSize="0.6rem">
-          {timeTextUTC}
+          {` ${timeTextUTC}`}
         </Typography>
       </Box>
       <Box

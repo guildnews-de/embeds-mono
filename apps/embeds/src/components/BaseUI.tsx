@@ -4,7 +4,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '@repo/app-redux';
-import { AppPanel, CssBaseline } from '@repo/core';
+import { AppPanel /* , CssBaseline  */ } from '@repo/core';
 import { MapCont } from '@repo/ingame-map';
 import { useMemo } from 'react';
 
@@ -29,7 +29,7 @@ export function BaseUI() {
 
   return (
     <>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       <AppPanel>{groupNames && groupNames.length > 0 && <MapCont />}</AppPanel>
     </>
   );
