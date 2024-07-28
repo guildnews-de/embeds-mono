@@ -56,11 +56,13 @@ export default function MetaPhase({
       }}
     >
       <Box className="phase-time">
-        <Typography display={'inline'} fontWeight={fontWeight}>
-          {timeTextLocal}
-        </Typography>
-        <Typography display={'inline'} fontSize="0.6rem">
-          {` ${timeTextUTC}`}
+        <Typography whiteSpace={'nowrap'} overflow={'hidden'}>
+          <Typography display={'inline'} fontWeight={fontWeight}>
+            {timeTextLocal}
+          </Typography>
+          <Typography display={'inline'} fontSize="0.6rem">
+            {` ${timeTextUTC}`}
+          </Typography>
         </Typography>
       </Box>
       <Box

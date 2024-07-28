@@ -106,7 +106,7 @@ const StyledDrawer = styled(WideDrawer, {
 
 const DrawerPaperSx: SxProps = {
   marginTop: teamMods ? '32px !important' : undefined,
-  height: 'calc(100% - 32px)',
+  height: teamMods ? 'calc(100% - 32px)' : '100%',
 };
 
 export default function AppPanel({ children }: PropsWithChildren) {
