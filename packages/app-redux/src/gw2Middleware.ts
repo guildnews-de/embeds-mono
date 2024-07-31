@@ -68,7 +68,7 @@ const gw2Middleware: Middleware<Record<string, never>, RootState> =
 
                   if (special.includes(id)) {
                     axios.defaults.baseURL =
-                      'https://assets.guildnews.de/json/v2';
+                      'https://assets.guildnews.de/maps/v2';
                   }
                   // dispatch(setMap({ mapID: id!, mapData: data }));
                 })
