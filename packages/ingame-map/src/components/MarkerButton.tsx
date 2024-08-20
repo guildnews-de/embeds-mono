@@ -29,9 +29,12 @@ export default function MarkerButton({ data, hash }: IngameMapProps) {
       const points: GW2Point[] = [];
       marker?.forEach((string) => {
         const childArray = string.split(',');
-        if (childArray.length >= 3) {
-          const [name = '', x = '2', y = '2'] = childArray;
 
+        const y = childArray.pop();
+        const x = childArray.pop();
+
+        if (x && y) {
+          const name = childArray.join(',');
           points.push(
             new GW2Point({
               tupel: [Number(x), Number(y)],
