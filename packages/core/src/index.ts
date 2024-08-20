@@ -17,6 +17,7 @@ const {
   iceIcon,
   eodIcon,
   sotoIcon,
+  jwIcon,
 } = variousIcons;
 
 export interface Gw2Icon {
@@ -103,7 +104,14 @@ export const masterySoto: Gw2Icon = {
   text_de: 'SotO-Beherrschungspunkt',
 };
 
-export const various = {
+export const masteryJw: Gw2Icon = {
+  src: jwIcon,
+  color: '#03c',
+  text: 'Janthir-Mastery-Point',
+  text_de: 'Janthir-Beherrschungspunkt',
+};
+
+export const various: Record<string, Gw2Icon> = {
   ap: ap,
   gems: gems,
   karma: karma,
@@ -121,6 +129,8 @@ export const various = {
   masteryEod: masteryEod,
   soto: masterySoto,
   masterySoto: masterySoto,
+  jw: masteryJw,
+  masteryJw: masteryJw,
 };
 
 export default {

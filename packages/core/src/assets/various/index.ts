@@ -10,3 +10,4 @@ export { default as pofIcon } from './mpPof.png';
 export { default as iceIcon } from './mpIce.png';
 export { default as eodIcon } from './mpEod.png';
 export { default as sotoIcon } from './mpSoto.png';
+export { default as jwIcon } from './mpJw.png';
