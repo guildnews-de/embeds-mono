@@ -6,7 +6,7 @@ import { GW2Point, GW2PointGroup } from '@repo/app-redux';
 import type { GW2ApiPoi } from '@repo/app-redux';
 
 import defaultIcon from 'leaflet/dist/images/marker-icon.png';
-import './tooltip.scss';
+import { styled } from '@mui/material';
 
 const {
   heart,
@@ -124,17 +124,56 @@ function DefaultMark(props: DefaultMarkProps) {
       position={map.unproject([gw2poi.x, gw2poi.y], map.getMaxZoom() - 1)}
     >
       {gw2poi.name && (
-        <Tooltip
+        <StyledTooltip
           direction="right"
           offset={[-8, 0]}
           permanent={props.perm ? true : false}
         >
           {gw2poi.name}
-        </Tooltip>
+        </StyledTooltip>
       )}
     </Marker>
   );
 }
+
+const StyledTooltip = styled(Tooltip)(({ theme }) => ({
+  fontFamily: 'Menomonia',
+  fontWeight: 'bold',
+  fontSize: '1rem',
+  lineHeight: 1.4,
+  borderRadius: '0 50vh 50vh 0 !important',
+  paddingLeft: `${theme.spacing(3)} !important`,
+  paddingRight: `${theme.spacing(1.5)} !important`,
+  border: 'none !important',
+  background:
+    'linear-gradient(90deg, rgba(2, 0, 36, 0) 0%, rgba(255, 255, 255, 1) 50%) !important',
+  textShadow: multiShadow('#fff9', 2),
+  ':before': {
+    opacity: 0,
+  },
+}));
+
+const multiShadow = (color: string, size: number) => {
+  const abs = Math.abs(size);
+  const half = abs / 2.0;
+
+  const shadows = [
+    [abs, 0],
+    [-abs, 0],
+    [0, abs],
+    [0, -abs],
+    [half, half],
+    [-half, -half],
+    [half, -half],
+    [-half, half],
+  ];
+
+  const result = shadows.map(([x, y]) => {
+    return `${color} ${x}px ${y}px ${abs}px`;
+  });
+
+  return result.join(', ');
+};
 
 function LeafletIcon(point: GW2Point) {
   const { type, icon: iconURL } = point;
