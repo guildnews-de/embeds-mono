@@ -41,7 +41,7 @@ export function ClickedCoords() {
     : '';
 
   if (clicked) {
-    posCopy(posString).catch((err) => {
+    posCopy(posString.slice(1, posString.length - 1)).catch((err) => {
       console.error(err);
     });
   }
