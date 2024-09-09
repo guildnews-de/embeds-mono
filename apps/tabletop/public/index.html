@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html class="dark-skin">
+
+<body>
+    <div id="root"></div>
+    <div style="display: flex; flex-direction: column;padding-left:14vw;padding-right:14vw;">
+        <!-- Ingame-UI -->
+        <div style="display: flex; flex-direction: row; justify-content: space-evenly; padding:2vw;">
+            <div>
+                <div class="gw2MultiEmb" data-gw2-embed="aura" data-gw2-name="Dark" data-gw2-size="32"></div>
+                <div class="gw2MultiEmb" data-gw2-embed="boon" data-gw2-name="Might" data-gw2-size="32"
+                    data-gw2-count=10>
+                </div>
+                <div class="gw2MultiEmb" data-gw2-embed="condi" data-gw2-name="Bleeding" data-gw2-size="32"
+                    data-gw2-count=10>
+                </div>
+                <div class="gw2MultiEmb" data-gw2-embed="control" data-gw2-name="Daze" data-gw2-size="32"></div>
+            </div>
+            <div>
+
+                <div class="gw2MultiEmb" data-gw2-embed="coins" data-gw2-value=1234567 data-gw2-size="32"></div>
+                <div class="gw2MultiEmb" data-gw2-embed="icon" data-gw2-name="ap" data-gw2-count=10 data-gw2-size="32">
+                </div>
+                <div class="gw2MultiEmb" data-gw2-embed="skills" data-gw2-id=10574 data-gw2-size="32"></div>
+                <div class="gw2MultiEmb" data-gw2-embed="items" data-gw2-id=75187 data-gw2-stats="Berserker"
+                    data-gw2-upgrades="86303, 86303" data-gw2-size="32"></div>
+            </div>
+            <div>
+
+                <div class="gw2MultiEmb" data-gw2-embed="prof" data-gw2-name="Harbinger" data-gw2-size="32"></div>
+                <div class="gw2MultiEmb" data-gw2-embed="spec" data-gw2-id=42 data-gw2-size="32"></div>
+                <div class="gw2MultiEmb" data-gw2-embed="traits" data-gw2-id=1503 data-gw2-size="32"></div>
+            </div>
+            <div class="gw2MultiEmb" data-gw2-embed="traitline" data-gw2-id=41 data-gw2-traits="227, 214, 1672"
+                style="flex-grow: 0.8;">
+            </div>
+        </div>
+
+        <!-- Ingame-Map -->
+        <div style="padding:2vw; justify-content: space-between;">
+            <div class="gw2MultiEmb" data-gw2-embed="MapInit" data-gw2-ids="1490,1438,1428" data-gw2-debug="false">
+            </div>
+            <div style="display:flex; gap:25px; justify-content: space-evenly; text-align: center; padding: 2vw;">
+                <div>
+                    <h3>Dummy 1</h3>
+                    <div class="gw2MultiEmb" data-gw2-embed="MarkerButton" data-gw2-mode='line'
+                        data-gw2-marker="Punkt 1,37832,102136" data-gw2-color="yellow"></div>
+                </div>
+                <div>
+                    <h3>Dummy 2</h3>
+                    <div class="gw2MultiEmb" data-gw2-embed="MarkerButton" data-gw2-mode='line'
+                        data-gw2-marker="Punkt 1,37832,102136;,38212,102392;Punkt 3,37608,102568" data-gw2-color="blue">
+                    </div>
+                </div>
+                <div>
+                    <h3>Dummy 3</h3>
+                    <div class="gw2MultiEmb" data-gw2-embed="MarkerButton" data-gw2-mode='line'
+                        data-gw2-marker="Punkt 3,37608,102568" data-gw2-color="yellow"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timer -->
+        <div>
+            <div class="gw2MultiEmb" data-gw2-embed="MetaBar" data-gw2-id="time_central" data-gw2-mark="0"></div>
+            <div class="gw2MultiEmb" data-gw2-embed="MetaBar" data-gw2-id="meta_988" data-gw2-mark="0"></div>
+            <div class="gw2MultiEmb" data-gw2-embed="MetaBar" data-gw2-id="event_wb" data-gw2-mark="0"></div>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>

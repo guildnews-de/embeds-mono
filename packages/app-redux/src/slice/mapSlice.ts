@@ -78,7 +78,7 @@ export const mapSlice = createSlice({
       const { date } = action.payload;
       return {
         ...state,
-        tileDate: date,
+        tileDate: Number(date),
       };
     },
     addActiveMap(state, action: PayloadAction<number>) {

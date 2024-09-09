@@ -50,6 +50,8 @@ export const {
   addActiveMap,
 } = mapActions;
 
+export { getTileDate } from './getTileDate';
+
 import { default as markerReducer, markerActions } from './slice/markerSlice';
 export type MarkerReducerType = typeof markerReducer;
 export type MarkerActionsType = typeof markerActions;
