@@ -1,13 +1,13 @@
 import { Box, Paper, type PaperProps, Typography, styled } from '@mui/material';
 import { clsx } from 'clsx';
 
-import type { TimerMeta } from '@repo/app-redux';
+import type { TimerMeta } from 'app-redux';
 
 import { TimerObj, TimerData } from '../shared/interfaces';
 import { default as MetaPhase, type MetaPhaseProps } from './MetaPhase';
 import { DateTime, Interval, Settings } from 'luxon';
 import { useMemo } from 'react';
-import { useAppSelector } from '@repo/app-redux';
+import { useAppSelector } from 'app-redux';
 
 export interface MetaBarProps {
   data?: TimerData;

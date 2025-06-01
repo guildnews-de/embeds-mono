@@ -1,6 +1,6 @@
 import { IconWithText } from '@discretize/gw2-ui-new';
 import { IngameUiProps } from '../shared/interfaces';
-import { various } from '@repo/core';
+import { various } from 'core';
 
 type AssetTypes = keyof typeof various;
 export function isIconType(name: string): name is AssetTypes {
@@ -15,7 +15,7 @@ export default function iconReactor(props: IngameUiProps) {
   const { data, hash, customLang } = props;
   const { embedName, count, text } = data;
 
-  if (embedName && isIconType(embedName)) {
+  if (embedName && isIconType(embedName) && various[embedName]) {
     const assetIcon = various[embedName];
 
     const { src, color } = assetIcon;

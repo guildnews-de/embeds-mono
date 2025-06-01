@@ -6,7 +6,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { BaseUI } from './components/BaseUI';
 import { EmbeddingsLoader } from './components/EmbeddingsLoader';
 
-import { store } from '@repo/app-redux';
+import { store } from 'app-redux';
 import { embedTheme } from './shared/theme';
 import { ThemeProvider } from '@mui/material';
 

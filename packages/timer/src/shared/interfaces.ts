@@ -1,13 +1,13 @@
 import type { CSSProperties } from 'react';
 import { DateTime, Interval, Settings } from 'luxon';
-// import type { UseAppSelectorHook, UseAppDispatchFunc } from '@repo/app-redux';
+// import type { UseAppSelectorHook, UseAppDispatchFunc } from 'app-redux';
 import { MetaBarProps } from '../components/MetaBar';
 import {
   TimerMeta,
   TimerSegment,
   TimerSequenceData,
   TimerSequence,
-} from '@repo/app-redux';
+} from 'app-redux';
 
 export interface TimerDataset {
   gw2Embed?: string;

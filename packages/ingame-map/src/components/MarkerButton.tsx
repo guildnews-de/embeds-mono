@@ -11,7 +11,7 @@ import {
   setMarker,
   setDragged,
   setRecenter,
-} from '@repo/app-redux';
+} from 'app-redux';
 
 import type { IngameMapProps } from '../shared/interfaces';
 
@@ -23,7 +23,7 @@ export default function MarkerButton({ data, hash }: IngameMapProps) {
   const isActive = hash === active;
 
   useEffect(() => {
-    if (!groupNames || groupNames?.indexOf(hash) === -1) {
+    if (!groupNames || groupNames?.includes(hash)) {
       const { marker, color, mode } = data!;
 
       const points: GW2Point[] = [];

@@ -4,7 +4,7 @@ import { LatLngBounds, type PointExpression, type PointTuple } from 'leaflet';
 import { getStorageInfo, removeTile } from 'leaflet.offline';
 
 import { CachedTileLayer } from './CachedTileLayer';
-import { useAppSelector } from '@repo/app-redux';
+import { useAppSelector } from 'app-redux';
 
 // import type { IngameMapHooks } from '../../shared/interfaces';
 

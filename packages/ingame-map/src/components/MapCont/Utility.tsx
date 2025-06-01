@@ -13,7 +13,7 @@ import {
   setDragView,
   setRecenter,
   setMarkView,
-} from '@repo/app-redux';
+} from 'app-redux';
 
 export function ClickedCoords() {
   const dispatch = useAppDispatch();

@@ -17,7 +17,7 @@ import {
   closeCanvas,
   openCanvas,
   setLang,
-} from '@repo/app-redux';
+} from 'app-redux';
 
 import MenuItem from './MenuItem';
 import MenuGroup from './MenuGroup';
@@ -38,20 +38,19 @@ const drawerBaseCss = (theme: Theme): CSSObject => ({
   border: 'none',
 });
 
-const openedMixin = (theme: Theme): CSSObject => ({
-  width: drawerWidth,
-  ...drawerBaseCss(theme),
-});
-
-const openedMixinWide = (theme: Theme): CSSObject => ({
-  width: '100vw',
+const openedMixin = (theme: Theme, wide: boolean): CSSObject => ({
+  maxWidth: '100vw',
+  width: wide ? '100vw' : drawerWidth,
+  [theme.breakpoints.down('sm')]: {
+    width: '100vw',
+  },
   ...drawerBaseCss(theme),
 });
 
 const closedMixin = (theme: Theme): CSSObject => ({
-  width: `calc(${theme.spacing(2)} + 1px)`,
+  // width: theme.spacing(2),
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(4)} + 1px)`,
+    width: theme.spacing(4),
   },
   ...drawerBaseCss(theme),
 });
@@ -88,16 +87,10 @@ const StyledDrawer = styled(WideDrawer, {
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',
   overflow: 'hidden',
-  ...(open &&
-    !wide && {
-      ...openedMixin(theme),
-      '& .MuiDrawer-paper': openedMixin(theme),
-    }),
-  ...(open &&
-    wide && {
-      ...openedMixinWide(theme),
-      '& .MuiDrawer-paper': openedMixinWide(theme),
-    }),
+  ...(open && {
+    ...openedMixin(theme, wide),
+    '& .MuiDrawer-paper': openedMixin(theme, wide),
+  }),
   ...(!open && {
     ...closedMixin(theme),
     '& .MuiDrawer-paper': closedMixin(theme),
@@ -107,6 +100,7 @@ const StyledDrawer = styled(WideDrawer, {
 const DrawerPaperSx: SxProps = {
   marginTop: teamMods ? '32px !important' : undefined,
   height: teamMods ? 'calc(100% - 32px)' : '100%',
+  maxWidth: '100vw',
 };
 
 export default function AppPanel({ children }: PropsWithChildren) {
@@ -126,6 +120,7 @@ export default function AppPanel({ children }: PropsWithChildren) {
 
   return (
     <StyledDrawer
+      id="rememberme"
       className="Drawer"
       anchor="right"
       variant="permanent"

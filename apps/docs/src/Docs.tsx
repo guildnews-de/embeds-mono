@@ -1,4 +1,3 @@
-import React from 'react';
 // import logo from './logo.svg';
 import './Docs.css';
 import * as script from '@guildnews/embeds';

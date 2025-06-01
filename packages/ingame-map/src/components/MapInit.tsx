@@ -4,13 +4,13 @@ import {
   fetchMap,
   addActiveMap,
   type TimerMeta,
-} from '@repo/app-redux';
+} from 'app-redux';
 import { useMemo } from 'react';
 
 import type { IngameMapProps } from '../shared/interfaces';
 
 import '../package.scss';
-import { MetaBar } from '@repo/timer';
+import { MetaBar } from 'timer';
 
 export default function MapInit({ data }: IngameMapProps) {
   const { lang } = useAppSelector((state) => state.app);

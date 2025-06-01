@@ -6,15 +6,15 @@ import {
   isIngameMapType,
   IngameMapLoader,
   type IngameMapElement,
-} from '@repo/ingame-map';
+} from 'ingame-map';
 
 import {
   isIngameUiType,
   IngameUiLoader,
   type IngameUiElement,
-} from '@repo/ingame-ui';
+} from 'ingame-ui';
 
-import { isTimerType, TimerLoader, type TimerElement } from '@repo/timer';
+import { isTimerType, TimerLoader, type TimerElement } from 'timer';
 
 type EmbedElement = IngameMapElement | IngameUiElement | TimerElement;
 type EmbedLoader =

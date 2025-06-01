@@ -20,7 +20,7 @@ import type { UiTraits } from '../components/traits';
 
 import '../package.scss';
 import { useMemo } from 'react';
-import { useAppSelector } from '@repo/app-redux';
+import { useAppSelector } from 'app-redux';
 // import { Box, styled } from '@mui/material';
 
 type IngameUiComponent =
