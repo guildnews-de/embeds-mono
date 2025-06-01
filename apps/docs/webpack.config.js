@@ -1,1 +1,1 @@
-module.exports = require('@repo/webpack-config/webpack.app');
+module.exports = require('~/config/webpack-config');
