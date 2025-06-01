@@ -1,5 +1,5 @@
 {
-  "name": "@repo/timer",
+  "name": "timer",
   "version": "0.0.0",
   "private": true,
   "exports": "./src/index.ts",
@@ -10,22 +10,20 @@
   "dependencies": {
     "@discretize/gw2-ui-new": "file:./../../../guildnews-de_discretize-ui/gw2-ui/",
     "@discretize/typeface-menomonia": "^0.1.3",
-    "@loadable/component": "^5.16.4",
-    "@mui/material": "^5.15.20",
-    "@repo/app-redux": "*",
-    "@repo/core": "*",
+    "@loadable/component": "^5.16.7",
+    "@mui/material": "^7.1.0",
+    "app-redux": "workspace:*",
     "clsx": "^2.1.1",
-    "luxon": "^3.4.4"
+    "core": "workspace:*",
+    "luxon": "^3.6.1"
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
-    "@turbo/gen": "^2.0.3",
+    "@turbo/gen": "^2.5.3",
     "@types/loadable__component": "^5.13.9",
-    "@types/luxon": "^3",
-    "@types/node": "^20.14.2",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "react": "^18.3.1"
+    "@types/luxon": "^3.6.2",
+    "@types/node": "^22.15.24",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.5",
+    "react": "^19.1.0"
   }
 }
