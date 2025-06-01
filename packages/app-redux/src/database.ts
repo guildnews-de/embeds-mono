@@ -27,7 +27,7 @@ export interface GN_GW2EmbDBv1 extends DBSchema {
   };
 }
 
-export async function dbPromise() {
+export async function openGNDB() {
   await deleteDB('GuildNews_GW2Embeds');
   return await openDB<GN_GW2EmbDBv1>('GN_GW2EmbDB', 1, {
     upgrade(db) {
@@ -43,4 +43,4 @@ export async function dbPromise() {
   });
 }
 
-export default dbPromise;
+export default openGNDB;

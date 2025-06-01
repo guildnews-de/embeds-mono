@@ -1,136 +1,111 @@
 import { Middleware, isAnyOf } from '@reduxjs/toolkit';
 import { DateTime } from 'luxon';
-import axios from 'axios';
 
 import { apiActions } from './slice/apiSlice';
 import type { RootState } from './store';
 
-import {
+import type {
   GW2ApiMapsResponse,
-  type GW2ApiRegionsResponse,
-  type GW2ApiError,
+  GW2ApiRegionsResponse,
 } from './shared/gw2Api';
+import type { GW2MapsApiData } from './slice/apiSlice';
 
-import { default as dbPromise, type CachedGW2Data } from './database';
+import { default as openGNDB } from './database';
 
 const gw2Middleware: Middleware<Record<string, never>, RootState> =
   ({ dispatch }) =>
   (next) =>
-  (action) => {
+  async (action) => {
     const { setError, setMap, fetchMap } = apiActions;
+
+    if (!setError || !setMap || !fetchMap) {
+      throw new Error('api-methods undefined');
+    }
+
     next(action);
     const isApiAction = isAnyOf(fetchMap);
     if (!isApiAction(action)) return;
 
-    // dispatch(setLoading());
-    const { id, lang = 'en' } = action.payload;
+    // eslint-disable-next-line
+    const id = Number(action.payload.id);
+    // eslint-disable-next-line
+    const lang = action.payload.lang ? String(action.payload.lang) : 'en';
     const cacheKey = `maps_${id}_${lang}`;
     const dateNow = DateTime.utc();
 
-    // Check if the data is already cached in IndexedDB
-    dbPromise()
-      .then((db) => {
-        return db
-          .get('gw2_api_data', cacheKey)
-          .then((cachedData: CachedGW2Data | undefined) => {
-            const cacheAge = cachedData
-              ? dateNow.diff(cachedData.timestamp, 'days').days
-              : 4;
-            if (cachedData && cacheAge < 3) {
-              // If data is found in IndexedDB, dispatch it
-              //console.debug('From Database');
-              dispatch(
-                setMap({ mapID: id, apiLang: lang, mapData: cachedData.data }),
-              );
-            } else {
-              //console.debug('From API');
-              // axios default configs
-              axios.defaults.baseURL = 'https://api.guildwars2.com/v2';
-              axios.defaults.timeout = 5000;
-              axios.defaults.headers.common['Content-Type'] =
-                'application/json';
+    try {
+      const gnDb = await openGNDB();
 
-              const special = [922];
+      const cacheData = await gnDb.get('gn_api_data', cacheKey);
+      const cacheAge = cacheData
+        ? dateNow.diff(cacheData.timestamp, 'days').days
+        : 4;
+      if (cacheData && cacheAge < 3) {
+        // If data is found in IndexedDB, dispatch it
+        //console.debug('From Database');
+        dispatch(setMap({ mapID: id, apiLang: lang, mapData: cacheData.data }));
+      } else {
+        const baseUrl = 'https://api.guildwars2.com/v2';
+        const fetchMapUrl = new URL(`/maps/${id}`, baseUrl);
+        fetchMapUrl.searchParams.append('lang', lang);
 
-              const apiData = {
-                regId: 0,
-                map: {} as GW2ApiMapsResponse,
-              };
-              axios({
-                url: `/maps/${id}`,
-                params: {
-                  lang: lang,
-                },
-              })
-                .then(({ data }: { data: GW2ApiMapsResponse }) => {
-                  apiData.regId = data.region_id!;
-                  apiData.map = data;
+        const fetchResponse = await fetch(fetchMapUrl, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (!fetchResponse.ok) {
+          throw new Error(`HTTP error! status: ${fetchResponse.status}`);
+        }
+        const fetchMapData = (await fetchResponse.json()) as GW2ApiMapsResponse;
 
-                  if (special.includes(id)) {
-                    axios.defaults.baseURL =
-                      'https://assets.guildnews.de/maps/v2';
-                  }
-                  // dispatch(setMap({ mapID: id!, mapData: data }));
-                })
-                .then(() => {
-                  axios({
-                    url: `/continents/1/floors/1/regions/${apiData.regId}/maps/${id}`,
-                    params: {
-                      lang: lang,
-                    },
-                  })
-                    .then(({ data }: { data: GW2ApiRegionsResponse }) => {
-                      const {
-                        label_coord,
-                        points_of_interest: poi,
-                        sectors,
-                      } = data;
-                      const cropData = {
-                        label_coord: label_coord,
-                        poi: poi,
-                        sectors: sectors,
-                      };
-                      apiData.map = {
-                        ...apiData.map,
-                        ...cropData,
-                      };
-                      //console.log(JSON.stringify(cropData));
-                      //console.log(JSON.stringify(data));
-                      dispatch(
-                        setMap({
-                          mapID: id,
-                          apiLang: lang,
-                          mapData: apiData.map,
-                        }),
-                      );
-                      // Store the data in IndexedDB for future use
-                      db.put(
-                        'gw2_api_data',
-                        {
-                          timestamp: dateNow,
-                          data: apiData.map,
-                        },
-                        cacheKey,
-                      ).catch((err) => {
-                        console.error(err);
-                      });
-                    })
-                    .catch((error: GW2ApiError) => {
-                      dispatch(setError(error));
-                    });
-                })
-                .catch((error: GW2ApiError) => {
-                  dispatch(setError(error));
-                });
-              // .finally(() => {
-              //   dispatch(setDone());
-              // });
-            }
-          });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+        const fetchRegionUrl = new URL(
+          `/continents/1/floors/1/regions/${fetchMapData.region_id}/maps/${id}`,
+          baseUrl,
+        );
+        fetchRegionUrl.searchParams.append('lang', lang);
+        const fetchRegionsResponse = await fetch(fetchMapUrl, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (!fetchRegionsResponse.ok) {
+          throw new Error(`HTTP error! status: ${fetchRegionsResponse.status}`);
+        }
+        const fetchRegionsData =
+          (await fetchRegionsResponse.json()) as GW2ApiRegionsResponse;
+        const {
+          label_coord,
+          points_of_interest: poi,
+          sectors,
+        } = fetchRegionsData;
+
+        const combinedData: GW2MapsApiData = {
+          ...fetchMapData,
+          label_coord,
+          poi,
+          sectors,
+        };
+
+        dispatch(
+          setMap({
+            mapID: id,
+            apiLang: lang,
+            mapData: combinedData,
+          }),
+        );
+
+        await gnDb.put(
+          'gw2_api_data',
+          {
+            timestamp: dateNow,
+            data: combinedData,
+          },
+          cacheKey,
+        );
+      }
+    } catch (error) {
+      // FixMe: Fehlerverarbeitung umbauen (GNAssetsError)
+      dispatch(setError(error));
+    }
   };
 
 export default gw2Middleware;
