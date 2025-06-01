@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import type { PayloadAction, Slice } from '@reduxjs/toolkit';
 import type { GW2PointGroup } from '../shared/gw2Api';
 
 export interface MarkerState {
@@ -16,14 +16,14 @@ const initSate: MarkerState = {
   groupNames: [],
 };
 
-export const markerSlice = createSlice({
+export const markerSlice: Slice<MarkerState> = createSlice({
   name: 'marker',
   initialState: initSate,
   reducers: {
     pushMarker(state, action: PayloadAction<[string, GW2PointGroup]>) {
       const [hash, object] = action.payload;
       const groupNames = state.groupNames?.slice();
-      if (groupNames && groupNames.indexOf(hash) != -1) {
+      if (groupNames?.includes(hash)) {
         return state;
       } else {
         groupNames?.push(hash);

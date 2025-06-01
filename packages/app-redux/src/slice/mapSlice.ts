@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import type { PayloadAction, Slice } from '@reduxjs/toolkit';
 // import type { PointTuple } from 'leaflet';
 
 type PointTuple = [number, number];
@@ -40,7 +40,7 @@ const initState: mapState = {
   tileDate: 0,
 };
 
-export const mapSlice = createSlice({
+export const mapSlice: Slice<mapState> = createSlice({
   name: 'map',
   initialState: initState,
   reducers: {
@@ -83,7 +83,7 @@ export const mapSlice = createSlice({
     },
     addActiveMap(state, action: PayloadAction<number>) {
       const activeMaps = state.activeMaps.slice();
-      if (activeMaps.indexOf(action.payload) != -1) {
+      if (activeMaps.includes(action.payload)) {
         return state;
       }
       if (activeMaps.length === 1 && activeMaps[0] === 0) {

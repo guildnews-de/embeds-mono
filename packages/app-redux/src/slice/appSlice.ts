@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import type { PayloadAction, Slice } from '@reduxjs/toolkit';
 import { GW2ApiLang } from './apiSlice';
 import { DateTime } from 'luxon';
 
@@ -29,7 +29,7 @@ const initState: appState = {
   debug: false,
 };
 
-export const appSlice = createSlice({
+export const appSlice: Slice<appState> = createSlice({
   name: 'app',
   initialState: initState,
   reducers: {

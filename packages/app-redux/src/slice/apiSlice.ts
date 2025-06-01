@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import type { PayloadAction, Slice } from '@reduxjs/toolkit';
 import {
   GW2ApiMapsResponse,
   GW2ApiError,
@@ -99,7 +99,7 @@ export const initState: ApiState = {
   },
 };
 
-export const apiSlice = createSlice({
+export const apiSlice: Slice<ApiState> = createSlice({
   name: 'api',
   initialState: initState,
   reducers: {
