@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
-    "axios": "^1.9.0",
     "core": "workspace:*",
     "idb": "^8.0.3",
     "leaflet": "^1.9.4",
