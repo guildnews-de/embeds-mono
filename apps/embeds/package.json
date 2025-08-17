@@ -18,18 +18,18 @@
     "ingame-map": "workspace:*",
     "ingame-ui": "workspace:*",
     "object-hash": "^3.0.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "react-error-boundary": "^6.0.0",
     "react-redux": "^9.2.0",
     "timer": "workspace:*"
   },
   "devDependencies": {
-    "@types/loadable__component": "^5.13.9",
-    "@types/node": "^22.15.24",
+    "@types/loadable__component": "^5.13.10",
+    "@types/node": "^24.3.0",
     "@types/object-hash": "^3.0.6",
-    "@types/react": "^19.1.6",
-    "@types/react-dom": "^19.1.5",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
     "webpack-config": "workspace:*"
   },
   "browserslist": {
