@@ -17,10 +17,7 @@
     "prettier": "^3.6.2",
     "turbo": "^2.5.3",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.39.1",
-    "webpack": "^5.101.2",
-    "webpack-cli": "^6.0.1",
-    "webpack-config": "workspace:*"
+    "typescript-eslint": "^8.39.1"
   },
   "engines": {
     "node": ">=18"
