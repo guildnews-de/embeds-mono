@@ -15,7 +15,7 @@ import {
   useAppDispatch,
   setNowTimer,
   fetchEvents,
-} from 'app-redux';
+} from '@internal/core';
 
 // type TimerComponent = MetaBarComp | MetaCatComp;
 

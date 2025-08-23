@@ -10,14 +10,13 @@ import {
   SxProps,
 } from '@mui/material';
 
+import { useAppSelector, useAppDispatch } from '../hooks';
 import {
-  useAppSelector,
-  useAppDispatch,
   toggleWide,
   closeCanvas,
   openCanvas,
   setLang,
-} from 'app-redux';
+} from '../slice/appSlice';
 
 import MenuItem from './MenuItem';
 import MenuGroup from './MenuGroup';

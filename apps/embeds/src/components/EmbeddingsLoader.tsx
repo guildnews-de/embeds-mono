@@ -1,20 +1,20 @@
+import { useId } from 'react';
 import { createPortal } from 'react-dom';
 import { ErrorBoundary } from 'react-error-boundary';
-import { MD5 } from 'object-hash';
 
 import {
   isIngameMapType,
   IngameMapLoader,
   type IngameMapElement,
-} from 'ingame-map';
+} from '@internal/ingame-map';
 
 import {
   isIngameUiType,
   IngameUiLoader,
   type IngameUiElement,
-} from 'ingame-ui';
+} from '@internal/ingame-ui';
 
-import { isTimerType, TimerLoader, type TimerElement } from 'timer';
+import { isTimerType, TimerLoader, type TimerElement } from '@internal/timer';
 
 type EmbedElement = IngameMapElement | IngameUiElement | TimerElement;
 type EmbedLoader =
@@ -24,16 +24,22 @@ type EmbedLoader =
   | undefined;
 
 export function EmbeddingsLoader() {
+  const key = useId();
   const targets: EmbedElement[] = Array.from(
     document.querySelectorAll('.gw2MultiEmb'),
   );
 
   return targets.map((element, idx) => (
-    <ElementPortal element={element} key={MD5(`GW2_Emebds_${idx}`)} idx={idx} />
+    <ElementPortal
+      element={element}
+      key={['Gw2Embeds', key, idx].toString()}
+      idx={idx}
+    />
   ));
 }
 
 function ElementPortal(props: { element: EmbedElement; idx: number }) {
+  const key = useId();
   const { element, idx } = props;
   element.classList.remove('gw2MultiEmb');
   const { dataset } = element;
@@ -52,7 +58,7 @@ function ElementPortal(props: { element: EmbedElement; idx: number }) {
   }
 
   if (ElementLoader) {
-    const hash = MD5({ ...dataset, idx });
+    const hash = [embedType, key, idx].toString();
 
     return createPortal(
       <ErrorBoundary

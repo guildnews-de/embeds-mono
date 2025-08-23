@@ -6,7 +6,7 @@ import {
   useAppSelector,
   type GW2ApiPoi,
   type GW2ApiSector,
-} from 'app-redux';
+} from '@internal/core';
 
 import { IngameTiles } from './MapCont/IngameTiles';
 import { GW2Sectors } from './MapCont/Sectors';

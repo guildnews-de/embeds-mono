@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { default as apiReducer } from './slice/apiSlice';
-import { default as appReducer } from './slice/appSlice';
-import { default as mapReducer } from './slice/mapSlice';
-import { default as markerReducer } from './slice/markerSlice';
+import { apiReducer } from './slice/apiSlice';
+import { appReducer } from './slice/appSlice';
+import { mapReducer } from './slice/mapSlice';
+import { markerReducer } from './slice/markerSlice';
 
 import gw2Middleware from './gw2Middleware';
 import gnMiddleware from './gnMiddleware';
@@ -24,6 +24,8 @@ const store = configureStore({
       .concat(gnMiddleware),
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
-export type AppDispatch = typeof store.dispatch;
-export default store;
+type RootState = ReturnType<typeof rootReducer>;
+type AppDispatch = typeof store.dispatch;
+
+export { store };
+export type { RootState, AppDispatch };

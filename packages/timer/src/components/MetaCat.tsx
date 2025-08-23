@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 // import { clsx } from 'clsx';
 
-import type { TimerMeta } from 'app-redux';
+import type { TimerMeta } from '@internal/core';
 
 import { default as MetaBar } from './MetaBar';
 import { TimerDefaultProps } from '../shared/interfaces';

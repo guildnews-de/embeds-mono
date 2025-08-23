@@ -1,8 +1,8 @@
 import { Box, Paper, Typography, styled } from '@mui/material';
 import { DateTime, Interval } from 'luxon';
 
-import { useAppSelector } from 'app-redux';
-import type { TimerSegment } from 'app-redux';
+import { useAppSelector } from '@internal/core';
+import type { TimerSegment } from '@internal/core';
 
 import getCssColor from '../shared/getCssColor';
 

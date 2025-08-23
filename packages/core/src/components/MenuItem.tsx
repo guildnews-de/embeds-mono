@@ -1,4 +1,10 @@
-import { IconButton, styled, Tooltip, type TooltipProps } from '@mui/material';
+import {
+  IconButton,
+  styled,
+  Tooltip,
+  type TooltipProps,
+  type SvgIcon,
+} from '@mui/material';
 import {
   ChevronLeft,
   ChevronRight,
@@ -8,20 +14,18 @@ import {
   ErrorOutline,
 } from '@mui/icons-material';
 
-const muiIcons = {
+type MuiSvgIcon = typeof SvgIcon;
+
+const muiIcons: Record<string, MuiSvgIcon> = {
   ChevronLeft,
   ChevronRight,
   ZoomOutMap,
   ZoomInMap,
   Language,
   ErrorOutline,
-};
+} as const;
 
 type MuiIconKey = keyof typeof muiIcons;
-
-function isMuiIconKey(key: string): key is MuiIconKey {
-  return Object.keys(muiIcons).includes(key);
-}
 
 interface MenuItemProps {
   tooltip: string;
@@ -35,7 +39,7 @@ export default function MenuItem(props: MenuItemProps) {
   const { tooltip, icon, aria, placement = 'left', onClick } = props;
 
   const MuiIcon = ({ name }: { name: string }) => {
-    const Icon = isMuiIconKey(name) ? muiIcons[name] : muiIcons.ErrorOutline;
+    const Icon = muiIcons[name] ?? ErrorOutline;
     return <Icon />;
   };
 

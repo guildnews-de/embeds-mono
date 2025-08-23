@@ -3,9 +3,9 @@ import {
   setNow,
   useAppDispatch,
   useAppSelector,
-} from 'app-redux';
-import { AppPanel /* , CssBaseline  */ } from 'core';
-import { MapCont } from 'ingame-map';
+  AppPanel,
+} from '@internal/core';
+import { MapCont } from '@internal/ingame-map';
 import { useMemo } from 'react';
 
 export function BaseUI() {

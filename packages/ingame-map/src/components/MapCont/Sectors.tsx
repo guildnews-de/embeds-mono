@@ -6,7 +6,7 @@ import {
   Marker,
 } from 'react-leaflet';
 import { divIcon, type LatLng } from 'leaflet';
-import type { GW2ApiSector } from 'app-redux';
+import type { GW2ApiSector } from '@internal/core';
 
 import './Sectors.scss';
 

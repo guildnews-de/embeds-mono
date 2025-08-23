@@ -11,7 +11,7 @@ import {
   setMarker,
   setDragged,
   setRecenter,
-} from 'app-redux';
+} from '@internal/core';
 
 import type { IngameMapProps } from '../shared/interfaces';
 

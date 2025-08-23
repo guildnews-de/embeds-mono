@@ -1,9 +1,8 @@
 import { Marker, Polyline, Tooltip, useMap } from 'react-leaflet';
 import { icon, type LatLngExpression, type PathOptions } from 'leaflet';
 
-import { map } from 'core';
-import { GW2Point, GW2PointGroup } from 'app-redux';
-import type { GW2ApiPoi } from 'app-redux';
+import { mapIcons, GW2Point, GW2PointGroup } from '@internal/core';
+import type { GW2ApiPoi } from '@internal/core';
 
 import defaultIcon from 'leaflet/dist/images/marker-icon.png';
 import { styled } from '@mui/material';
@@ -19,7 +18,7 @@ const {
   star_rose,
   star_green,
   star_yellow,
-} = map;
+} = mapIcons;
 
 export function GuideMarker(props: { markers: GW2PointGroup; perm?: boolean }) {
   const map = useMap();

@@ -1,10 +1,11 @@
 import { Middleware, isAnyOf } from '@reduxjs/toolkit';
 
-import { apiActions, TimerMeta } from './slice/apiSlice';
+import { setError, setEvents, fetchEvents, TimerMeta } from './slice/apiSlice';
 import type { RootState } from './store';
 
 import { default as openGNDB } from './database';
 import { DateTime } from 'luxon';
+import { GW2ApiError } from './shared/gw2Api';
 
 // interface GNAssetsError {
 //   text: string;
@@ -16,21 +17,14 @@ const gnMiddleware: Middleware<Record<string, never>, RootState> =
   ({ dispatch }) =>
   (next) =>
   async (action) => {
-    const { setError, setEvents, fetchEvents } = apiActions;
     if (!setError || !setEvents || !fetchEvents) {
       throw new Error('api-methods undefined');
     }
 
     next(action);
+    const isApiAction = isAnyOf(fetchEvents);
+    if (!isApiAction(action)) return;
 
-    const isFetchEvent = (action: unknown): action is typeof fetchEvents => {
-      return !!(fetchEvents && isAnyOf(fetchEvents)(action));
-    };
-
-    if (!action || !isFetchEvent(action)) return;
-
-    // @ts-expect-error Check how to properly type payload
-    // eslint-disable-next-line
     const id = Number(action.payload.id);
     const cacheKey = `eventTimerData`;
     const dateNow = DateTime.utc();
@@ -70,7 +64,7 @@ const gnMiddleware: Middleware<Record<string, never>, RootState> =
       }
     } catch (error) {
       // FixMe: Fehlerverarbeitung umbauen (GNAssetsError)
-      dispatch(setError(error));
+      dispatch(setError(error as GW2ApiError));
     }
   };
 

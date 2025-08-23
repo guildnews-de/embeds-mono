@@ -1,10 +1,11 @@
 import { Middleware, isAnyOf } from '@reduxjs/toolkit';
 import { DateTime } from 'luxon';
 
-import { apiActions } from './slice/apiSlice';
+import { setError, setMap, fetchMap } from './slice/apiSlice';
 import type { RootState } from './store';
 
 import type {
+  GW2ApiError,
   GW2ApiMapsResponse,
   GW2ApiRegionsResponse,
 } from './shared/gw2Api';
@@ -16,8 +17,6 @@ const gw2Middleware: Middleware<Record<string, never>, RootState> =
   ({ dispatch }) =>
   (next) =>
   async (action) => {
-    const { setError, setMap, fetchMap } = apiActions;
-
     if (!setError || !setMap || !fetchMap) {
       throw new Error('api-methods undefined');
     }
@@ -26,10 +25,8 @@ const gw2Middleware: Middleware<Record<string, never>, RootState> =
     const isApiAction = isAnyOf(fetchMap);
     if (!isApiAction(action)) return;
 
-    // eslint-disable-next-line
     const id = Number(action.payload.id);
-    // eslint-disable-next-line
-    const lang = action.payload.lang ? String(action.payload.lang) : 'en';
+    const lang = action.payload.lang ?? 'en';
     const cacheKey = `maps_${id}_${lang}`;
     const dateNow = DateTime.utc();
 
@@ -104,7 +101,7 @@ const gw2Middleware: Middleware<Record<string, never>, RootState> =
       }
     } catch (error) {
       // FixMe: Fehlerverarbeitung umbauen (GNAssetsError)
-      dispatch(setError(error));
+      dispatch(setError(error as GW2ApiError));
     }
   };
 
