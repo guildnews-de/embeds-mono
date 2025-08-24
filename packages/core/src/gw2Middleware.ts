@@ -42,8 +42,8 @@ const gw2Middleware: Middleware<Record<string, never>, RootState> =
         //console.debug('From Database');
         dispatch(setMap({ mapID: id, apiLang: lang, mapData: cacheData.data }));
       } else {
-        const baseUrl = 'https://api.guildwars2.com/v2';
-        const fetchMapUrl = new URL(`/maps/${id}`, baseUrl);
+        const baseUrl = 'https://api.guildwars2.com';
+        const fetchMapUrl = new URL(`/v2/maps/${id}`, baseUrl);
         fetchMapUrl.searchParams.append('lang', lang);
 
         const fetchResponse = await fetch(fetchMapUrl, {
@@ -56,7 +56,7 @@ const gw2Middleware: Middleware<Record<string, never>, RootState> =
         const fetchMapData = (await fetchResponse.json()) as GW2ApiMapsResponse;
 
         const fetchRegionUrl = new URL(
-          `/continents/1/floors/1/regions/${fetchMapData.region_id}/maps/${id}`,
+          `/v2/continents/1/floors/1/regions/${fetchMapData.region_id}/maps/${id}`,
           baseUrl,
         );
         fetchRegionUrl.searchParams.append('lang', lang);

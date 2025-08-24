@@ -62,7 +62,27 @@ function ElementPortal(props: { element: EmbedElement; idx: number }) {
 
     return createPortal(
       <ErrorBoundary
-        fallback={<div>{`Element Error in Type '${embedType}'`}</div>}
+        // fallback={<div>{`Element Error in Type '${embedType}'`}</div>}
+        // onError={console.error}
+        fallbackRender={({ error }) => {
+          const finalError =
+            error instanceof Error
+              ? error
+              : new Error('Failed to load embed component', {
+                  cause: error,
+                });
+          return (
+            <div>
+              <p>Failed to load embed component</p>
+              <pre style={{ backgroundColor: 'lightyellow' }}>
+                {JSON.stringify({ hash, dataset }, null)}
+              </pre>
+              <pre style={{ backgroundColor: 'lightcoral' }}>
+                {finalError.message}
+              </pre>
+            </div>
+          );
+        }}
       >
         <ElementLoader data={dataset} hash={hash} />
       </ErrorBoundary>,

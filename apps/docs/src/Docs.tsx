@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import './Docs.css';
-import * as script from '@guildnews/embeds';
+// import * as script from '@guildnews/embeds/ts';
 
 function Docs() {
   return (
@@ -121,7 +121,7 @@ function Docs() {
           data-gw2map-debug="false"
         ></div>
       </div>
-      <script>{script}</script>
+      {/* <script>{script}</script> */}
     </div>
   );
 }

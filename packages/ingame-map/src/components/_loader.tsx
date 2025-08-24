@@ -6,12 +6,8 @@ import {
   type IngameMapDataset,
   type IngameMapProps,
 } from '../shared/interfaces';
-import type { MapContComp } from './MapCont';
-import type { MarkerButtonComp } from './MarkerButton';
 
 import '../package.scss';
-
-type IngameMapComponent = MapContComp | MarkerButtonComp;
 
 export interface IngameMapLoaderProps extends Omit<IngameMapProps, 'data'> {
   data: IngameMapDataset;
@@ -24,9 +20,19 @@ export default function IngameMapLoader(props: IngameMapLoaderProps) {
     return new IngameMapData(data);
   }, [data]);
 
-  const AsyncModule = loadable<IngameMapProps>(
-    ({ data }) => import(`./${data!.type}`) as Promise<IngameMapComponent>,
-  );
+  const AsyncModule = loadable<IngameMapProps>(({ data }) => {
+    switch (data!.type) {
+      case 'MapCont':
+        return import('./MapCont');
+      case 'MapInit':
+        return import('./MapInit');
+      case 'MarkerButton':
+        return import('./MarkerButton');
+      default:
+        // FixMe: Implement proper Fallback Embed
+        throw Error('[ingame-map] Unkown embed type');
+    }
+  });
 
   return <AsyncModule data={elementData} hash={hash} />;
 }

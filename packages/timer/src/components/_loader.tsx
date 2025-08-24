@@ -7,7 +7,7 @@ import {
   // TimerHooks,
 } from '../shared/interfaces';
 
-import type { MetaBarComp, MetaBarProps } from '../components/MetaBar';
+import type { MetaBarProps } from '../components/MetaBar';
 // import type { MetaCatComp, MetaCatProps } from '../components/MetaCat';
 
 import {
@@ -45,15 +45,26 @@ export default function TimerLoader(props: TimerLoaderProps) {
     !events && dispatch(fetchEvents({ id: 'all' }));
   }, [dispatch, events]);
 
+  // FixMe: Resturcture this switch hell
   switch (type) {
     case 'MetaBar':
       {
         if (ids && events?.[ids]) {
           const meta = events[ids];
           if (meta) {
-            const AsyncModule = loadable<MetaBarProps>(
-              ({ data }) => import(`./${data?.type}`) as Promise<MetaBarComp>,
-            );
+            const AsyncModule = loadable<MetaBarProps>(({ data }) => {
+              switch (data!.type) {
+                case 'MetaBar':
+                  return import('./MetaBar');
+                // case 'MetaCat':
+                //   return import('./MetaCat');
+                // case 'MetaPhase':
+                //   return import('./MetaPhase');
+                default:
+                  // FixMe: Implement proper Fallback Embed
+                  throw Error('[timer] Unkown embed type');
+              }
+            });
             return (
               <AsyncModule
                 data={elementData}

@@ -1,4 +1,8 @@
 packages:
-  - "config/*"
-  - "apps/*"
-  - "packages/*"
+  - config/*
+  - apps/*
+  - packages/*
+
+onlyBuiltDependencies:
+  - '@swc/core'
+  - core-js-pure

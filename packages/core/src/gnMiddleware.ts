@@ -25,7 +25,7 @@ const gnMiddleware: Middleware<Record<string, never>, RootState> =
     const isApiAction = isAnyOf(fetchEvents);
     if (!isApiAction(action)) return;
 
-    const id = Number(action.payload.id);
+    const id = action.payload.id;
     const cacheKey = `eventTimerData`;
     const dateNow = DateTime.utc();
 

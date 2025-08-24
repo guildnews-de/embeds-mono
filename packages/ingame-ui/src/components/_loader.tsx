@@ -5,43 +5,9 @@ import {
   IngameUiProps,
 } from '../shared/interfaces';
 
-import type { UiAura } from '../components/aura';
-import type { UiBoon } from '../components/boon';
-import type { UiCoin } from '../components/coins';
-import type { UiCondi } from '../components/condi';
-import type { UiControl } from '../components/control';
-import type { UiIcon } from '../components/icon';
-import type { UiItems } from '../components/items';
-import type { UiProf } from '../components/prof';
-import type { UiSkills } from '../components/skills';
-import type { UiSpec } from '../components/spec';
-import type { UiTraitline } from '../components/traitline';
-import type { UiTraits } from '../components/traits';
-
 import '../package.scss';
 import { useMemo } from 'react';
 import { useAppSelector } from '@internal/core';
-// import { Box, styled } from '@mui/material';
-
-type IngameUiComponent =
-  | UiAura
-  | UiBoon
-  | UiCoin
-  | UiCondi
-  | UiControl
-  | UiIcon
-  | UiItems
-  | UiProf
-  | UiSkills
-  | UiSpec
-  | UiTraitline
-  | UiTraits;
-
-// const StyledBox = styled(Box)(({ theme }) => ({
-//   borderRadius: theme.spacing(0.5),
-//   overflow: 'hidden',
-//   // padding: theme.spacing(0, 0),
-// }));
 
 export interface IngameUiLoaderProps {
   data: IngameUiDataset;
@@ -56,9 +22,37 @@ export default function IngameUiLoader(props: IngameUiLoaderProps) {
     return new IngameUiData(data);
   }, [data]);
 
-  const AsyncModule = loadable<IngameUiProps>(
-    ({ data }) => import(`./${data.type}`) as Promise<IngameUiComponent>,
-  );
+  const AsyncModule = loadable<IngameUiProps>(({ data }) => {
+    switch (data.type) {
+      case 'aura':
+        return import('./aura');
+      case 'boon':
+        return import('./boon');
+      case 'coins':
+        return import('./coins');
+      case 'condi':
+        return import('./condi');
+      case 'control':
+        return import('./control');
+      case 'icon':
+        return import('./icon');
+      case 'items':
+        return import('./items');
+      case 'prof':
+        return import('./prof');
+      case 'skills':
+        return import('./skills');
+      case 'spec':
+        return import('./spec');
+      case 'traitline':
+        return import('./traitline');
+      case 'traits':
+        return import('./traits');
+      default:
+        // FixMe: Implement proper Fallback Embed
+        throw Error('[ingame-ui] Unkown embed type');
+    }
+  });
 
   return (
     // <StyledBox>
