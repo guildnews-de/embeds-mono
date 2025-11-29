@@ -16,32 +16,16 @@ import {
 
 import { isTimerType, TimerLoader, type TimerElement } from '@internal/timer';
 
-type EmbedElement = IngameMapElement | IngameUiElement | TimerElement;
+export type EmbedElement = IngameMapElement | IngameUiElement | TimerElement;
 type EmbedLoader =
   | typeof IngameMapLoader
   | typeof IngameUiLoader
   | typeof TimerLoader
   | undefined;
 
-export function EmbeddingsLoader() {
-  const key = useId();
-  const targets: EmbedElement[] = Array.from(
-    document.querySelectorAll('.gw2MultiEmb'),
-  );
-
-  return targets.map((element, idx) => (
-    <ElementPortal
-      element={element}
-      key={['Gw2Embeds', key, idx].toString()}
-      idx={idx}
-    />
-  ));
-}
-
-function ElementPortal(props: { element: EmbedElement; idx: number }) {
+export function ElementPortal(props: { element: EmbedElement; idx: number }) {
   const key = useId();
   const { element, idx } = props;
-  element.classList.remove('gw2MultiEmb');
   const { dataset } = element;
   const { gw2Embed: embedType } = dataset;
 

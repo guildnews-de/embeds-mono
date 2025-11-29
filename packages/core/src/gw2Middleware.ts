@@ -48,7 +48,6 @@ const gw2Middleware: Middleware<Record<string, never>, RootState> =
 
         const fetchResponse = await fetch(fetchMapUrl, {
           method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
         });
         if (!fetchResponse.ok) {
           throw new Error(`HTTP error! status: ${fetchResponse.status}`);
@@ -62,7 +61,6 @@ const gw2Middleware: Middleware<Record<string, never>, RootState> =
         fetchRegionUrl.searchParams.append('lang', lang);
         const fetchRegionsResponse = await fetch(fetchMapUrl, {
           method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
         });
         if (!fetchRegionsResponse.ok) {
           throw new Error(`HTTP error! status: ${fetchRegionsResponse.status}`);

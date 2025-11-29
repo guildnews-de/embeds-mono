@@ -5,7 +5,7 @@ import {
   addActiveMap,
   type TimerMeta,
 } from '@internal/core';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import type { IngameMapProps } from '../shared/interfaces';
 
@@ -17,19 +17,23 @@ export default function MapInit({ data }: IngameMapProps) {
   const { events } = useAppSelector((state) => state.api.response);
   const dispatch = useAppDispatch();
 
-  const metaIds = useMemo(() => {
-    const { ids } = data!;
-    const metaIds: TimerMeta[] = [];
-    if (ids && ids.length > 0) {
-      ids.forEach((id) => {
-        dispatch(fetchMap({ id: id, lang: lang }));
-        dispatch(addActiveMap(id));
-        const metaId = `meta_${id}`;
-        events?.[metaId] && metaIds.push(events[metaId]);
-      });
-    }
-    return metaIds;
-  }, [dispatch, data, lang, events]);
+  const dataIds = useMemo(() => {
+    return data?.ids ?? [];
+  }, [data]);
+
+  const metaIds = dataIds.reduce<TimerMeta[]>((result, id) => {
+    const metaId = `meta_${id}`;
+    events?.[metaId] && result.push(events[metaId]);
+
+    return result;
+  }, []);
+
+  useEffect(() => {
+    dataIds.forEach((id) => {
+      dispatch(fetchMap({ id: id, lang: lang }));
+      dispatch(addActiveMap(id));
+    });
+  }, [dispatch, dataIds, lang]);
 
   return (
     <>

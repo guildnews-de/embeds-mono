@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+import { useAppSelector } from '@internal/core';
 import loadable from '@loadable/component';
 import {
   IngameUiDataset,
@@ -5,9 +7,11 @@ import {
   IngameUiProps,
 } from '../shared/interfaces';
 
-import '../package.scss';
-import { useMemo } from 'react';
-import { useAppSelector } from '@internal/core';
+// import '../package.scss';
+import '@discretize/typeface-menomonia/index.css';
+// import '@discretize/gw2-ui-new/dist/default_style.css';
+// import '@discretize/gw2-ui-new/dist/index.css';
+import './_loader.css';
 
 export interface IngameUiLoaderProps {
   data: IngameUiDataset;

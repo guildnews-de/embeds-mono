@@ -2,7 +2,10 @@
   "name": "@internal/ingame-map",
   "version": "0.0.0",
   "private": true,
-  "exports": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./MapCont": "./src/components/MapCont.tsx"
+  },
   "scripts": {
     "lint": "eslint .",
     "generate:component": "turbo gen react-component"
@@ -10,15 +13,15 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@internal/core": "workspace:*",
+    "@internal/timer": "workspace:*",
     "@loadable/component": "^5.16.7",
     "@mui/material": "^7.1.0",
     "@react-leaflet/core": "^3.0.0",
     "@reduxjs/toolkit": "^2.8.2",
-    "@internal/core": "workspace:*",
     "leaflet": "^1.9.4",
     "leaflet.offline": "^3.1.0",
-    "react-leaflet": "^5.0.0",
-    "@internal/timer": "workspace:*"
+    "react-leaflet": "^5.0.0"
   },
   "devDependencies": {
     "@turbo/gen": "^2.5.6",

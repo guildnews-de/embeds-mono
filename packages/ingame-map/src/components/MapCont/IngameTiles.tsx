@@ -8,7 +8,8 @@ import { useAppSelector } from '@internal/core';
 
 // import type { IngameMapHooks } from '../../shared/interfaces';
 
-const tilesURL = 'https://assets.guildnews.de/tiles/1/1/{z}/{x}/{y}';
+// const tilesURL = 'https://assets.guildnews.de/tiles/1/1/{z}/{x}/{y}';
+const tilesURL = 'https://tiles{s}.guildwars2.com/1/1/{z}/{x}/{y}.jpg';
 
 export function IngameTiles({
   // hooks,

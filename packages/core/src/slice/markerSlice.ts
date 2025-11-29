@@ -6,7 +6,7 @@ interface MarkerState {
   active?: string;
   clicked?: string;
   groups?: Record<string, GW2PointGroup>;
-  groupNames?: string[];
+  groupNames: string[];
 }
 
 const initSate: MarkerState = {
@@ -21,19 +21,17 @@ const _pushMarker: CaseReducer<
   PayloadAction<[h: string, p: GW2PointGroup]>
 > = (state, action) => {
   const [hash, object] = action.payload;
-  const groupNames = state.groupNames?.slice();
-  if (groupNames?.includes(hash)) {
+  if (state.groupNames.includes(hash)) {
     return state;
-  } else {
-    groupNames?.push(hash);
   }
+
   return {
     ...state,
     groups: {
       ...state.groups,
       [hash]: object,
     },
-    groupNames: groupNames,
+    groupNames: [...state.groupNames, hash],
   };
 };
 

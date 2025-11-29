@@ -1,22 +1,31 @@
-import { Point, PointTuple } from 'leaflet';
+type PointTuple = [x: number, y: number];
+type PointRect = [a: PointTuple, b: PointTuple];
 
 // Classes
 
-export class GW2Point extends Point {
+export class GW2Point {
+  x: number;
+  y: number;
   name: string;
   type: string;
   icon: string;
   constructor(props: GW2PointProps) {
-    const { tupel, name, type, icon = '' } = props;
-    super(tupel[0], tupel[1]);
+    const {
+      tupel: [x, y],
+      name,
+      type,
+      icon = '',
+    } = props;
 
+    this.x = x;
+    this.y = y;
     this.name = name;
     this.type = type;
     this.icon = icon;
   }
 
   toString() {
-    return `[${this.name},${this.type}]${super.toString()}`;
+    return `Point(${this.x}, ${this.y}) [${this.name}, ${this.type}]`;
   }
 }
 
@@ -82,8 +91,8 @@ export interface GW2ApiMapsResponse {
   region_name?: string;
   continent_id?: number;
   continent_name?: string;
-  map_rect?: [PointTuple, PointTuple];
-  continent_rect?: [PointTuple, PointTuple];
+  map_rect?: PointRect;
+  continent_rect?: PointRect;
 }
 
 export interface GW2ApiRegionsResponse {
@@ -92,8 +101,8 @@ export interface GW2ApiRegionsResponse {
   max_level?: number;
   default_floor?: number;
   label_coord?: PointTuple;
-  map_rect?: [PointTuple, PointTuple];
-  continent_rect?: [PointTuple, PointTuple];
+  map_rect?: PointRect;
+  continent_rect?: PointRect;
   points_of_interest?: Record<number, GW2ApiPoi>;
   sectors?: Record<number, GW2ApiSector>;
   id?: number;

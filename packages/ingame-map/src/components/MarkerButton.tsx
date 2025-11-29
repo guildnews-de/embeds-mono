@@ -23,7 +23,7 @@ export default function MarkerButton({ data, hash }: IngameMapProps) {
   const isActive = hash === active;
 
   useEffect(() => {
-    if (!groupNames || groupNames?.includes(hash)) {
+    if (groupNames.length == 0 || !groupNames.includes(hash)) {
       const { marker, color, mode } = data!;
 
       const points: GW2Point[] = [];

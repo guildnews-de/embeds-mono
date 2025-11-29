@@ -16,10 +16,7 @@ interface TileUrlEvent extends TileEvent {
   };
 }
 
-export function leafletOfflineLayer(
-  urlTemplate: string,
-  options: TileLayerOptions,
-) {
+function leafletOfflineLayer(urlTemplate: string, options: TileLayerOptions) {
   const loLayer = tileLayer(urlTemplate, options);
 
   loLayer.on('tileloadstart', (event: TileUrlEvent) => {

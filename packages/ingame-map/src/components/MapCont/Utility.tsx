@@ -138,7 +138,8 @@ export function MarkerBounds({ marker }: { marker: GW2Point[] }) {
       dispatch(setMarkView(view));
       debug && console.debug('View set (1): ' + JSON.stringify(view));
     } else {
-      const bounds = new Bounds(marker);
+      const leafPoints = marker.map(({ x, y }) => new Point(x, y));
+      const bounds = new Bounds(leafPoints);
       const min = bounds.getTopLeft();
       const max = bounds.getBottomRight();
       const view: [PointTuple, PointTuple] = [

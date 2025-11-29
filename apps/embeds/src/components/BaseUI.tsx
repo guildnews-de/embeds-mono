@@ -1,36 +1,31 @@
 import {
+  AppPanel,
   fetchEvents,
-  setNow,
+  // setNow,
   useAppDispatch,
   useAppSelector,
-  AppPanel,
 } from '@internal/core';
-import { MapCont } from '@internal/ingame-map';
-import { useMemo } from 'react';
+import { useEffect } from 'react';
+
+import loadable from '@loadable/component';
 
 export function BaseUI() {
   const { groupNames } = useAppSelector((state) => state.marker);
-  const { nowTimer } = useAppSelector((state) => state.app);
+  // const { nowTimer } = useAppSelector((state) => state.app);
   const { events } = useAppSelector((state) => state.api.response);
   const dispatch = useAppDispatch();
 
-  useMemo(() => {
-    if (nowTimer) {
-      const timer = setInterval(() => dispatch(setNow()), 60000);
-      return () => {
-        clearInterval(timer);
-      };
-    }
-  }, [dispatch, nowTimer]);
-
-  useMemo(() => {
+  useEffect(() => {
     !events && dispatch(fetchEvents({ id: 'all' }));
   }, [dispatch, events]);
 
+  const AsyncModule = loadable<Record<string, never>>(
+    () => import('@internal/ingame-map/MapCont'),
+  );
+
   return (
-    <>
-      {/* <CssBaseline /> */}
-      <AppPanel>{groupNames && groupNames.length > 0 && <MapCont />}</AppPanel>
-    </>
+    <AppPanel>
+      {groupNames.length > 0 ? <AsyncModule /> : <p>--empty--</p>}
+    </AppPanel>
   );
 }

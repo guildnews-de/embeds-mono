@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 export interface IngameMapDataset {
   // Common
   gw2Embed?: string;
@@ -10,7 +12,9 @@ export interface IngameMapDataset {
 export type IngameMapType = 'MapCont' | 'MapInit' | 'MarkerButton';
 
 export function isIngameMapType(value?: string): value is IngameMapType {
-  return value === 'MapCont' || value === 'MapInit' || value === 'MarkerButton';
+  return (
+    /* value === 'MapCont' || */ value === 'MapInit' || value === 'MarkerButton'
+  );
 }
 
 export interface IngameMapElement extends Omit<HTMLElement, 'dataset'> {
@@ -64,3 +68,5 @@ export interface IngameMapProps {
   hash: string;
   data?: IngameMapData;
 }
+
+export type IngameMapConstructor = (props: IngameMapProps) => JSX.Element;

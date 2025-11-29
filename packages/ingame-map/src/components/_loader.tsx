@@ -7,6 +7,7 @@ import {
   type IngameMapProps,
 } from '../shared/interfaces';
 
+import 'leaflet/dist/leaflet.css';
 import '../package.scss';
 
 export interface IngameMapLoaderProps extends Omit<IngameMapProps, 'data'> {
@@ -22,8 +23,8 @@ export default function IngameMapLoader(props: IngameMapLoaderProps) {
 
   const AsyncModule = loadable<IngameMapProps>(({ data }) => {
     switch (data!.type) {
-      case 'MapCont':
-        return import('./MapCont');
+      // case 'MapCont':
+      //   return import('./MapCont');
       case 'MapInit':
         return import('./MapInit');
       case 'MarkerButton':
