@@ -1,5 +1,5 @@
 import type { CSSProperties, ComponentProps, JSX } from 'react';
-import type { Icon, WikiLink } from '@discretize/gw2-ui-new/ts';
+import type { Icon, WikiLink } from '@discretize/gw2-ui-new';
 
 export type IconProps = ComponentProps<typeof Icon>;
 export type WikiLinkProps = ComponentProps<typeof WikiLink>;

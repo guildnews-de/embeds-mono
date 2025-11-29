@@ -1,4 +1,4 @@
-import { ControlEffect } from '@discretize/gw2-ui-new/ts';
+import { ControlEffect } from '@discretize/gw2-ui-new';
 import { ComponentProps } from 'react';
 import { IngameUiProps } from '../shared/interfaces';
 

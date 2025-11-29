@@ -1,4 +1,4 @@
-import { IconWithText } from '@discretize/gw2-ui-new/ts';
+import { IconWithText } from '@discretize/gw2-ui-new';
 import { IngameUiProps } from '../shared/interfaces';
 import { variousIcons } from '@internal/core';
 

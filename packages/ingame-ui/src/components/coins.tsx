@@ -1,4 +1,4 @@
-import { Coin } from '@discretize/gw2-ui-new/ts';
+import { Coin } from '@discretize/gw2-ui-new';
 import { IngameUiProps } from '../shared/interfaces';
 
 export default function coinReactor(props: IngameUiProps) {
