@@ -1,5 +1,5 @@
-import type { CSSProperties, ComponentProps } from 'react';
-import { type Icon, type WikiLink } from '@discretize/gw2-ui-new';
+import type { CSSProperties, ComponentProps, JSX } from 'react';
+import type { Icon, WikiLink } from '@discretize/gw2-ui-new/ts';
 
 export type IconProps = ComponentProps<typeof Icon>;
 export type WikiLinkProps = ComponentProps<typeof WikiLink>;
@@ -202,3 +202,5 @@ export interface IngameUiProps {
   wikiLinkProps?: Partial<WikiLinkProps>;
   iconProps?: Partial<IconProps>;
 }
+
+export type IngameUiConstructor = (props: IngameUiProps) => JSX.Element;

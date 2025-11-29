@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import loadable from '@loadable/component';
 import {
   TimerDataset,
@@ -37,11 +37,11 @@ export default function TimerLoader(props: TimerLoaderProps) {
 
   const { events } = useAppSelector((state) => state.api.response);
 
-  useMemo(() => {
+  useEffect(() => {
     events && !nowTimer && dispatch(setNowTimer(true));
   }, [nowTimer, dispatch, events]);
 
-  useMemo(() => {
+  useEffect(() => {
     !events && dispatch(fetchEvents({ id: 'all' }));
   }, [dispatch, events]);
 

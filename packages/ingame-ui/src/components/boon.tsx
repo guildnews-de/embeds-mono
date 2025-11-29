@@ -1,4 +1,4 @@
-import { Boon } from '@discretize/gw2-ui-new';
+import { Boon } from '@discretize/gw2-ui-new/ts';
 import { ComponentProps } from 'react';
 import { IngameUiProps } from '../shared/interfaces';
 

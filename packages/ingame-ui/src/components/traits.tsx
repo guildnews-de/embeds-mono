@@ -1,17 +1,19 @@
-import { Trait } from '@discretize/gw2-ui-new';
+import { Trait } from '@discretize/gw2-ui-new/ts';
 import { IngameUiProps } from '../shared/interfaces';
 
 export default function traitReactor(props: IngameUiProps) {
   const { data, hash } = props;
   const { ids } = data;
 
-  const embed = () =>
-    ids?.map((id, i) => (
-      <span key={`${hash}${i}`}>
-        <Trait id={id} {...props} />{' '}
-      </span>
-    ));
-  return embed();
+  return (
+    <>
+      {ids?.map((id, i) => (
+        <span key={`${hash}${i}`}>
+          <Trait id={id} {...props} />{' '}
+        </span>
+      ))}
+    </>
+  );
 }
 
 export type UiTraits = typeof traitReactor;

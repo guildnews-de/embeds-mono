@@ -56,7 +56,11 @@ export default function MetaPhase({
       }}
     >
       <Box className="phase-time">
-        <Typography whiteSpace={'nowrap'} overflow={'hidden'}>
+        <Typography
+          component={'span'}
+          whiteSpace={'nowrap'}
+          overflow={'hidden'}
+        >
           <Typography display={'inline'} fontWeight={fontWeight}>
             {timeTextLocal}
           </Typography>
