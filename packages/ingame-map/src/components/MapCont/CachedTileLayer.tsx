@@ -4,65 +4,93 @@ import {
   updateGridLayer,
   withPane,
 } from '@react-leaflet/core';
-import { TileEvent, tileLayer, type TileLayer } from 'leaflet';
+import { TileEvent, tileLayer, type Coords, type TileLayer } from 'leaflet';
 import { getBlobByKey, downloadTile, saveTile } from 'leaflet.offline';
 import type { TileLayerProps } from 'react-leaflet';
 
-type TileLayerOptions = ReturnType<typeof withPane>;
+import fallbackTile from './fallbackTile.jpg';
 
-interface TileUrlEvent extends TileEvent {
-  target: {
-    _url: string;
-  };
+type TileLayerOptions = ReturnType<typeof withPane>;
+type TileTarget = {
+  _url: string;
+};
+
+interface TileEventWithTarget extends TileEvent {
+  target: TileTarget;
 }
 
 function leafletOfflineLayer(urlTemplate: string, options: TileLayerOptions) {
   const loLayer = tileLayer(urlTemplate, options);
 
-  loLayer.on('tileloadstart', (event: TileUrlEvent) => {
-    const { tile } = event;
-    const url = tile.src;
-    // reset tile.src, to not start download yet
-    tile.src = '';
-    getBlobByKey(url)
-      .then((blob) => {
-        if (blob) {
-          tile.src = URL.createObjectURL(blob);
-          // console.debug(`Loaded ${url} from idb`);
-          return;
-        }
-        tile.src = url;
-        // create helper function for it?
-        const { x, y, z } = event.coords;
-        const { _url: urlTemplate } = event.target;
-        const tileInfo = {
-          key: url,
-          url,
-          x,
-          y,
-          z,
-          urlTemplate,
-          createdAt: Date.now() / 1000,
-        };
-        downloadTile(url)
-          .then((dl) => saveTile(tileInfo, dl))
-          .catch((err) => {
-            console.error(err);
-          });
-        //.then(() => console.debug(`Saved ${url} in idb`));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  });
+  loLayer.on(
+    'tileloadstart',
+    ({ tile, coords, target }: TileEventWithTarget) => {
+      // tile.src = '';
+
+      fetchTile(tile, coords, target)
+        .then((objUrl) => (tile.src = objUrl))
+        .catch(console.error);
+    },
+  );
 
   return loLayer;
 }
 
-export const CachedTileLayer = createTileLayerComponent<
-  TileLayer,
-  TileLayerProps
->(
+async function fetchTile(
+  tile: HTMLImageElement,
+  coords: Coords,
+  target: TileTarget,
+): Promise<string> {
+  try {
+    const { src } = tile;
+    tile.src = '';
+    const { _url } = target;
+    const { z, x, y } = coords;
+
+    const keyPrefix = src.includes('guildnews') ? 'gn' : 'an';
+    const blobKey = [keyPrefix, z, x, y].join('-');
+    let blob = await getBlobByKey(blobKey);
+
+    if (!blob) {
+      // console.log('from src', blobKey);
+      blob = await downloadTile(src);
+
+      if (!blob) {
+        throw new Error(`Blob download was empty! [${blobKey}]`);
+      }
+
+      saveTile(
+        {
+          key: blobKey,
+          url: src,
+          z,
+          x,
+          y,
+          urlTemplate: _url,
+          createdAt: Date.now() / 1000,
+        },
+        blob,
+      );
+    }
+    // else {
+    //   console.log('from db', blobKey);
+    // }
+
+    return URL.createObjectURL(blob);
+  } catch (err) {
+    // const finalErr =
+    //   err instanceof Error
+    //     ? err
+    //     : new Error('Unknown error while loading tile image', { cause: err });
+
+    // finalErr.message = '[fetchTile] ' + finalErr.message;
+    // throw finalErr;
+
+    return fallbackTile;
+  }
+}
+
+const CachedTileLayer = createTileLayerComponent<TileLayer, TileLayerProps>(
   function createTileLayer({ url, ...options }, context) {
     const layer = leafletOfflineLayer(url, withPane(options, context));
     return createElementObject(layer, context);
@@ -76,3 +104,5 @@ export const CachedTileLayer = createTileLayerComponent<
     }
   },
 );
+
+export { CachedTileLayer };

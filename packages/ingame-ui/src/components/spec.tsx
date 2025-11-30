@@ -1,4 +1,4 @@
-import { Specialization } from '@discretize/gw2-ui-new';
+import { Specialization } from '@discretize/gw2-ui-new/ts';
 import { IngameUiProps } from '../shared/interfaces';
 
 export default function specializationReactor(props: IngameUiProps) {

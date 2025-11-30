@@ -17,17 +17,21 @@
     "@internal/timer": "workspace:*",
     "@loadable/component": "^5.16.7",
     "@mui/material": "^7.1.0",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
     "react-error-boundary": "^6.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-redux": "^9.2.0"
   },
   "devDependencies": {
     "@types/loadable__component": "^5.13.10",
     "@types/node": "^24.3.0",
     "@types/object-hash": "^3.0.6",
-    "@types/react": "^19.1.10",
-    "@types/react-dom": "^19.1.7"
+    "@types/react": "~19.2.7",
+    "@types/react-dom": "~19.2.3"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "browserslist": {
     "production": [

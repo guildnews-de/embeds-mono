@@ -1,4 +1,4 @@
-import { Skill } from '@discretize/gw2-ui-new';
+import { Skill } from '@discretize/gw2-ui-new/ts';
 import { IngameUiProps } from '../shared/interfaces';
 
 export default function skillReactor(props: IngameUiProps) {

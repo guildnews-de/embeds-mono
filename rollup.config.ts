@@ -41,22 +41,27 @@ const config: RollupOptions = {
       preventAssignment: true,
       'process.env.NODE_ENV': JSON.stringify(nodeEnv),
     }),
-    nodeResolve({ extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'] }),
-    commonjs(),
+    nodeResolve({
+      extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+      dedupe: ['react', 'react-dom'],
+    }),
+    commonjs({ sourceMap: true }),
     // scss({
     //   sourceMap: true,
     //   fileName: 'index.css',
     //   processor: () => new postcss(),
     // }),
     styles({
-      mode: ['extract', 'index.css'],
+      // mode: ['extract', 'index.css'],
       dts: true,
       sourceMap: true,
+      autoModules: true,
       extensions: ['.css', '.pcss', '.postcss', '.sss', '.scss'],
     }),
     image(),
     swc({
       swc: {
+        sourceMaps: true,
         jsc: {
           parser: { syntax: 'typescript', tsx: true },
           transform: {

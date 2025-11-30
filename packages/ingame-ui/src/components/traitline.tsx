@@ -1,4 +1,4 @@
-import { TraitLine } from '@discretize/gw2-ui-new';
+import { TraitLine } from '@discretize/gw2-ui-new/ts';
 import { IngameUiProps } from '../shared/interfaces';
 
 export default function traitlineReactor(props: IngameUiProps) {

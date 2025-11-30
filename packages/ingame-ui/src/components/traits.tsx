@@ -1,4 +1,4 @@
-import { Trait } from '@discretize/gw2-ui-new';
+import { Trait } from '@discretize/gw2-ui-new/ts';
 import { IngameUiProps } from '../shared/interfaces';
 
 export default function traitReactor(props: IngameUiProps) {

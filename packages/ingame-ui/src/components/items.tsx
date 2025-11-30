@@ -1,4 +1,4 @@
-import { Item } from '@discretize/gw2-ui-new';
+import { Item } from '@discretize/gw2-ui-new/ts';
 import { IngameUiProps } from '../shared/interfaces';
 
 export default function itemReactor(props: IngameUiProps) {
