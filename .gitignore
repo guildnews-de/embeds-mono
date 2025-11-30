@@ -15,11 +15,7 @@ node_modules
 # Testing
 coverage
 
-# Vercel
-.vercel
-
 # Build Outputs
-.next/
 out/
 build
 dist
@@ -33,3 +29,5 @@ yarn-error.log*
 .DS_Store
 *.pem
 .directory
+
+**/vendor/

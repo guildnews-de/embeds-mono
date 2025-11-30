@@ -1,0 +1,178 @@
+<?php
+
+/**
+ *  HTML Builder for default shortcodes.
+ */
+
+/** Default shortcodes class */
+class GW2Emb_HtmlBuilder
+{
+    /**
+     * Primary attributes.
+     *
+     * @var array
+     */
+    protected $filter_array = [
+        'error' => 'filter empty',
+    ];
+
+    /**
+     * Shortcode tag.
+     *
+     * @var string
+     */
+    private $sc_tag;
+
+    /**
+     * Key => value for html element.
+     *
+     * @var array
+     */
+    private $output_array = [];
+
+    /**
+     * Shortcode html dom.
+     *
+     * @var DOMDocument
+     */
+    private $dom;
+
+    /**
+     * Shortcode span element.
+     *
+     * @var DOMElement
+     */
+    private $span;
+
+    /**
+     * Error handling.
+     *
+     * @var array
+     */
+    private $status = [
+        'ready' => false,
+        'error' => false,
+        'msg' => '[ GW2emb Error: ',
+    ];
+
+    /**
+     * Setup variables.
+     *
+     * @param array  $atts   shortcode parameters
+     * @param string $tag    of shortcode
+     * @param array  $filter
+     */
+    public function __construct($atts, $tag, $filter)
+    {
+        // save essential info.
+        $sc_prefix_length = strlen(GW2Emb_Shortcodes::PREFIX);
+        $this->sc_tag = substr($tag, $sc_prefix_length);
+        $this->filter_array = $filter;
+
+        // prepare empty html-element.
+        $this->dom = new DOMDocument();
+        $this->span = $this->dom->createElement('span');
+        $this->span->setAttribute('class', 'gw2MultiEmb');
+
+        // process input attributes.
+        $this->parse_attributes($atts);
+    }
+
+    /**
+     *   Triggerd by shortcode-handler
+     *   puts the final html-element together.
+     */
+    public function get_embedding()
+    {
+        if (true === $this->status['error']) {
+            return $this->status['msg'];
+        }
+        if (false === $this->status['ready']) {
+            return 'attributes not set';
+        }
+
+        $this->append_atts();
+        $this->dom->appendChild($this->span);
+
+        return $this->dom->saveHTML();
+    }
+
+    /**
+     * Central function to get GW2-Armory html-attributes
+     * for the given shortcode attributes.
+     *
+     * @param array $atts to be parsed
+     */
+    protected function parse_attributes($atts)
+    {
+        // filter unsupported an empty attributes.
+        $form_array = array_filter(shortcode_atts($this->filter_array, $atts));
+
+        // stop if no compatible primary-atts.
+        if (0 === count($atts)) {
+            $this->shortcode_error('attributes missing');
+
+            return;
+        }
+
+        // always given. no check needed.
+        $this->push_attribute('embed', $this->sc_tag);
+
+        // finds the fitting attribute-tag for the shortcode atts.
+        foreach ($form_array as $key => $value) {
+            $success = false;
+            $success = $this->push_attribute($key, $value);
+            if ($success) {
+                // eliminate source array-entry if successful.
+                unset($form_array[$key]);
+            }
+        }
+
+        if (count($form_array) > 0) {
+            // stop if atts-array still not empty.
+            $this->shortcode_error('leftover attributes "'.count($form_array).'"');
+        }
+        $this->status['ready'] = true;
+    }
+
+    /**
+     * Takes an processed attribute, finds fitting armory-embed attribute
+     * and adds it to the output-array.
+     *
+     * @param string $att_tag
+     * @param string $value
+     *
+     * @return bool
+     */
+    protected function push_attribute($att_tag, $value)
+    {
+        $attribute = GW2Emb_Shortcodes::DATASET.$att_tag;
+
+        // add attribute => value to output_array.
+        $this->output_array[$attribute] = $value;
+
+        return true;
+    }
+
+    /**
+     *   Takes every entry from output-array and
+     *   adds it as attribute to the final html-element.
+     */
+    protected function append_atts()
+    {
+        foreach ($this->output_array as $key => $value) {
+            $this->span->setAttribute($key, $value);
+        }
+    }
+
+    /**
+     * Set error text.
+     *
+     * @param string $str
+     */
+    protected function shortcode_error($str)
+    {
+        $this->status['msg'] .= '~'.$str.'~ ] ';
+        $this->status['error'] = true;
+    }
+}

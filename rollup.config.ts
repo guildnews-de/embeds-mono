@@ -16,6 +16,9 @@ import type { RollupOptions } from 'rollup';
 const pathSrcEmbeds = 'apps/embeds';
 const pathOutEmbeds = 'dist/embeds';
 
+const pathSrcEmbedsWp = 'apps/embeds-wp/src';
+const pathOutEmbedsWp = 'dist/embeds-wp';
+
 const nodeEnv =
   process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
@@ -35,7 +38,7 @@ const config: RollupOptions = {
   },
   plugins: [
     del({
-      targets: ['dist/embeds/*'],
+      targets: ['dist/**/*'],
     }),
     replace({
       preventAssignment: true,
@@ -77,7 +80,19 @@ const config: RollupOptions = {
       destDir: `${pathOutEmbeds}/assets`,
     }),
     copy({
-      targets: [{ src: `${pathSrcEmbeds}/public/*`, dest: pathOutEmbeds }],
+      targets: [
+        { src: `${pathSrcEmbeds}/public/*`, dest: pathOutEmbeds },
+        { src: `${pathSrcEmbedsWp}/*`, dest: pathOutEmbedsWp },
+      ],
+    }),
+    copy({
+      hook: 'writeBundle',
+      targets: [
+        {
+          src: `${pathOutEmbeds}/*`,
+          dest: `${pathOutEmbedsWp}/public/gw2embeds`,
+        },
+      ],
     }),
     visualizer({ emitFile: true, filename: 'stats.html' }),
   ],

@@ -1,0 +1,41 @@
+{
+  "name": "guildnews-de/gw2-embeds_wp",
+  "description": "Wordpress Shortcodes for the GW2Embeds script",
+  "type": "wordpress-plugin",
+  "license": "BSD-3-Clause",
+  "autoload": {
+    "psr-4": {
+      "GuildNewsDE\\Gw2EmbedsWp\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "thom-10",
+      "email": "thomaszehnder@outlook.de"
+    }
+  ],
+  "scripts": {
+    "lint": [
+      "php-cs-fixer fix --dry-run --verbose ./src"
+    ],
+    "lint:fix": [
+      "php-cs-fixer fix ./src"
+    ],
+    "install-codestandards": [
+      "PHPCSStandards\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run"
+    ]
+  },
+  "require": {
+    "php": ">=8.1",
+    "vena/php-cs-fixer-wordpress": "^1.0"
+  },
+  "require-dev": {
+    "wp-coding-standards/wpcs": "^3.3",
+    "friendsofphp/php-cs-fixer": "^3.91"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}
