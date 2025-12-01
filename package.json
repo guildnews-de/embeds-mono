@@ -2,9 +2,9 @@
   "name": "gw2embeds",
   "private": true,
   "scripts": {
-    "build": "rollup --config && tsx buildZip.ts",
-    "build:wp": "tsx buildZip.ts",
-    "build:watch": "rollup --config --watch",
+    "build:dev": "NODE_ENV=development rollup --config",
+    "build:prod": "NODE_ENV=production rollup --config && tsx buildZip.ts",
+    "build:watch": "NODE_ENV=development rollup --config --watch",
     "lint": "eslint",
     "typecheck": "tsc --noemit",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
