@@ -5,7 +5,7 @@ import type { TimerMeta } from '@internal/core';
 
 import { TimerObj, TimerData } from '../shared/interfaces';
 import { default as MetaPhase, type MetaPhaseProps } from './MetaPhase';
-import { DateTime, Interval, Settings } from 'luxon';
+import { DateTime, Interval } from 'luxon';
 import { useMemo } from 'react';
 import { useAppSelector } from '@internal/core';
 
@@ -62,7 +62,6 @@ export default function MetaBar({ meta }: MetaBarProps) {
   const renderPhases = useMemo(() => {
     const barProps: MetaPhaseProps[] = [];
     sequence.forEach((seq) => {
-      Settings.throwOnInvalid = true;
       const { interval, r, d } = seq;
       const phase = phases[r - 1];
 

@@ -128,7 +128,7 @@ export function MarkerBounds({ marker }: { marker: GW2Point[] }) {
   const dispatch = useAppDispatch();
   const { debug } = useAppSelector((state) => state.app);
 
-  useMemo(() => {
+  useEffect(() => {
     if (marker.length === 1) {
       const { x, y } = marker[0]!;
       const view: [PointTuple, PointTuple] = [

@@ -1,6 +1,6 @@
 {
   "include": ["apps/**/*", "packages/**/*", "config/**/*"],
-  "exclude": ["dist/**/*"],
+  "exclude": ["dist/**/*", "**/vendor/*"],
   "compilerOptions": {
     "noEmit": true,
     // "allowImportingTsExtensions": true,

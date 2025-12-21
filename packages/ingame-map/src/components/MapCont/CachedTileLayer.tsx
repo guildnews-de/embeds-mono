@@ -11,9 +11,9 @@ import type { TileLayerProps } from 'react-leaflet';
 import fallbackTile from './fallbackTile.jpg';
 
 type TileLayerOptions = ReturnType<typeof withPane>;
-type TileTarget = {
+interface TileTarget {
   _url: string;
-};
+}
 
 interface TileEventWithTarget extends TileEvent {
   target: TileTarget;
@@ -77,7 +77,7 @@ async function fetchTile(
     // }
 
     return URL.createObjectURL(blob);
-  } catch (err) {
+  } catch (_err) {
     // const finalErr =
     //   err instanceof Error
     //     ? err

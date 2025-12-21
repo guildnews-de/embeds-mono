@@ -35,19 +35,19 @@ interface MenuItemProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
+const MuiIcon = ({ name }: { name: string }) => {
+  const Icon = muiIcons[name] ?? ErrorOutline;
+  return <Icon />;
+};
+
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  padding: theme.spacing(0.25),
+  margin: theme.spacing(0.25),
+  color: theme.palette.grey[800],
+}));
+
 export default function MenuItem(props: MenuItemProps) {
   const { tooltip, icon, aria, placement = 'left', onClick } = props;
-
-  const MuiIcon = ({ name }: { name: string }) => {
-    const Icon = muiIcons[name] ?? ErrorOutline;
-    return <Icon />;
-  };
-
-  const StyledIconButton = styled(IconButton)(({ theme }) => ({
-    padding: theme.spacing(0.25),
-    margin: theme.spacing(0.25),
-    color: theme.palette.grey[800],
-  }));
 
   return (
     <Tooltip title={tooltip} placement={placement}>
