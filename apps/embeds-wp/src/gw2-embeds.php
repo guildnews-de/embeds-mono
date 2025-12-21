@@ -3,7 +3,7 @@
 /**
  * Plugin Name:       GW2 Embeds
  * Description:       Adds shortcodes to show various GW2 info in WordPress
- * Version:           2.1.0
+ * Version:           2.1.1
  * Author:            guildnews.de
  * Author URI:        https://guildnews.de
  * License:           BSD-3 or later
@@ -21,7 +21,7 @@ if (!defined('WPINC')) {
  */
 function gw2emb_activate()
 {
-    require_once plugin_dir_path(__FILE__).'includes/GW2Emb_Activator.php';
+    require_once plugin_dir_path(__FILE__) . 'includes/GW2Emb_Activator.php';
     GW2Emb_Activator::activate();
 }
 
@@ -33,7 +33,7 @@ register_activation_hook(__FILE__, 'gw2emb_activate');
 function gw2emb_run()
 {
     // main plugin class.
-    require_once plugin_dir_path(__FILE__).'includes/GW2Embeds.php';
+    require_once plugin_dir_path(__FILE__) . 'includes/GW2Embeds.php';
 
     $plugin = new GW2Embeds(__FILE__);
 }
