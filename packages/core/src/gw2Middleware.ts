@@ -59,7 +59,7 @@ const gw2Middleware: Middleware<Record<string, never>, RootState> =
           baseUrl,
         );
         fetchRegionUrl.searchParams.append('lang', lang);
-        const fetchRegionsResponse = await fetch(fetchMapUrl, {
+        const fetchRegionsResponse = await fetch(fetchRegionUrl, {
           method: 'GET',
         });
         if (!fetchRegionsResponse.ok) {
