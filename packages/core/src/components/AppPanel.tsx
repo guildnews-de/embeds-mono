@@ -21,7 +21,7 @@ import {
 import MenuItem from './MenuItem';
 import MenuGroup from './MenuGroup';
 
-const drawerWidth = 480;
+const drawerWidth = 640;
 const teamMods = document.getElementById('wpadminbar') !== null;
 
 const drawerBaseCss = (theme: Theme): CSSObject => ({

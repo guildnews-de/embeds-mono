@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Button } from '@mui/material';
 
 import {
@@ -17,8 +17,12 @@ import type { IngameMapProps } from '../shared/interfaces';
 
 export default function MarkerButton({ data, hash }: IngameMapProps) {
   const dispatch = useAppDispatch();
-  const { active, groupNames } = useAppSelector((state) => state.marker);
-  const { lang } = useAppSelector((state) => state.app);
+  const { active, groupNames, onClick } = useAppSelector((state) => state.marker);
+  const {
+    lang,
+    canvas: { open },
+  } = useAppSelector((state) => state.app);
+  // const { dragged } = useAppSelector((state) => state.map);
 
   const isActive = hash === active;
 
@@ -55,25 +59,23 @@ export default function MarkerButton({ data, hash }: IngameMapProps) {
   const offText = lang === 'de' ? 'Karte zeigen' : 'Show map';
   const onText = lang === 'de' ? 'Neu zentrieren' : 'Recenter';
 
-  const handleClick = () => {
-    dispatch(openCanvas());
-    dispatch(setMarker(hash));
-    dispatch(setDragged(false));
-    setTimeout(() => {
+  const handleClick = useCallback(() => {
+    !open && dispatch(openCanvas());
+    // dragged && dispatch(setDragged(false));
+    if (hash == active) {
       dispatch(setRecenter(true));
-    }, 750);
-  };
-
-  const handleActiveClick = () => {
-    dispatch(openCanvas());
-    dispatch(setDragged(false));
-    dispatch(setRecenter(true));
-  };
+    } else {
+      dispatch(setMarker(hash));
+      setTimeout(() => {
+        dispatch(setRecenter(true));
+      }, 750);
+    }
+  }, [dispatch, open, hash, active, onClick]);
 
   return (
     <Button
       variant={isActive ? 'outlined' : 'contained'}
-      onClick={isActive ? handleActiveClick : handleClick}
+      onClick={handleClick}
       sx={{ lineHeight: 1.0, verticalAlign: 'text-bottom' }}
     >
       {isActive ? onText : offText}

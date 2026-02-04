@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 import type { GW2PointGroup } from '../shared/gw2Api';
+import { PointInterval } from './mapSlice';
 
 interface MarkerState {
   active?: string;
   clicked?: string;
+  onClick: ((view: PointInterval) => void) | null;
   groups?: Record<string, GW2PointGroup>;
   groupNames: string[];
 }
@@ -12,6 +14,7 @@ interface MarkerState {
 const initSate: MarkerState = {
   active: undefined,
   clicked: undefined,
+  onClick: null,
   groups: undefined,
   groupNames: [],
 };
@@ -68,6 +71,14 @@ const _setClicked: CaseReducer<MarkerState, PayloadAction<string>> = (
   clicked: current,
 });
 
+const _setOnClick: CaseReducer<
+  MarkerState,
+  PayloadAction<MarkerState['onClick']>
+> = (state, { payload: current }) => ({
+  ...state,
+  onClick: current,
+});
+
 export const markerSlice = createSlice({
   name: 'marker',
   initialState: initSate,
@@ -76,13 +87,14 @@ export const markerSlice = createSlice({
     popMarker: _popMarker,
     setMarker: _setMarker,
     setClicked: _setClicked,
+    setOnClick: _setOnClick,
   },
 });
 
 type MarkerReducerType = typeof markerSlice.actions;
 type MarkerActionsType = typeof markerSlice.reducer;
 
-export const { pushMarker, popMarker, setMarker, setClicked } =
+export const { pushMarker, popMarker, setMarker, setClicked, setOnClick } =
   markerSlice.actions;
 
 export const { reducer: markerReducer } = markerSlice;

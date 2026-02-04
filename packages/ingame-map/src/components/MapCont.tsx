@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { CRS, LatLng } from 'leaflet';
+import { CRS } from 'leaflet';
 import { MapContainer, Pane, LayerGroup, LayersControl } from 'react-leaflet';
 
 import {
@@ -11,7 +11,8 @@ import {
 import { IngameTiles } from './MapCont/IngameTiles';
 import { GW2Sectors } from './MapCont/Sectors';
 import { GuideMarker, PoiMarker } from './MapCont/Marker';
-import { ClickedCoords, MapCenter, MarkerBounds } from './MapCont/Utility';
+import { ClickedCoords, MarkerBounds } from './MapCont/Utility';
+import { MapCenter } from './MapCont/MapCenter';
 import { styled } from '@mui/material';
 
 const StyledMapContainer = styled(MapContainer)(({ theme }) => ({
@@ -60,7 +61,7 @@ export default function MapCont() {
       crs={CRS.Simple}
       scrollWheelZoom={true}
       zoom={2}
-      center={new LatLng(0, 0)}
+      // center={new LatLng(0, 0)}
       minZoom={1}
       maxZoom={8}
       doubleClickZoom={false}
@@ -91,7 +92,7 @@ export default function MapCont() {
       </LayersControl>
       <ClickedCoords />
       {marker && <MarkerBounds marker={marker.points} />}
-      {<MapCenter />}
+      <MapCenter />
     </StyledMapContainer>
   );
 }
